@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -140,10 +140,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
-    <ClCompile Include="ApplicationManager.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="Cargo.cpp" />
     <ClCompile Include="InteractiveMode.cpp" />
-    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="InterfaceOutput.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OpenAction.cpp" />
     <ClCompile Include="SilentMode.cpp" />
@@ -154,11 +154,17 @@
     <ClInclude Include="Action.h" />
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="Cargo.h" />
+    <ClInclude Include="linkedlist.h" />
+    <ClInclude Include="node.h" />
     <ClInclude Include="InteractiveMode.h" />
-    <ClInclude Include="UI.h" />
+    <ClInclude Include="InterfaceOutput.h" />
     <ClInclude Include="OpenAction.h" />
+    <ClInclude Include="queue.h" />
     <ClInclude Include="SilentMode.h" />
+    <ClInclude Include="stack.h" />
     <ClInclude Include="StepbystepMode.h" />
+    <ClInclude Include="tree.h" />
+    <ClInclude Include="treenode.h" />
     <ClInclude Include="Truck.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
