@@ -5,4 +5,3 @@ class Time
 	int hour;
 public:
 };
-

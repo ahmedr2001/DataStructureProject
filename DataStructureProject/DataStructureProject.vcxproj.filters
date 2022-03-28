@@ -39,9 +39,6 @@
     <ClCompile Include="UI.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="InterfaceOutput.cpp">
-      <Filter>Source Files\OutputModes</Filter>
-    </ClCompile>
     <ClCompile Include="InteractiveMode.cpp">
       <Filter>Source Files\OutputModes</Filter>
     </ClCompile>

@@ -140,24 +140,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
+    <ClCompile Include="ApplicationManager.cpp" />
+    <ClCompile Include="InterfaceOutput.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Cargo.cpp" />
     <ClCompile Include="InteractiveMode.cpp" />
-    <ClCompile Include="InterfaceOutput.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OpenAction.cpp" />
     <ClCompile Include="SilentMode.cpp" />
     <ClCompile Include="StepbystepMode.cpp" />
     <ClCompile Include="Truck.cpp" />
-    <ClCompile Include="ِApplicationManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="Cargo.h" />
+    <ClInclude Include="InterfaceOutput.h" />
     <ClInclude Include="linkedlist.h" />
     <ClInclude Include="node.h" />
     <ClInclude Include="InteractiveMode.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="OpenAction.h" />
     <ClInclude Include="queue.h" />
