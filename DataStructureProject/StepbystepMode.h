@@ -1,7 +1,7 @@
 #pragma once
-#include "UI.h"
+#include "InterfaceOutput.h"
 class StepbystepMode :
-    public UI
+    public InterfaceOutput
 {
 };
 

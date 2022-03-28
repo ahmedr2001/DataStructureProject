@@ -1,34 +1,33 @@
 #pragma once
-#include<iostream>
-using namespace std;
+
 template<class T>
 class node
 {
 private:
-	T data; // data of node
-	node<T>* next; // pointer to next node
-	node<T>* previous; // pointer to previous node
+	T data;
+	node<T>* next;
+	node<T>* previous;
 public:
 	node() {
 		next = NULL;
 		previous = NULL;
 	}
-	void setdata(T d) { // set data of the node
+	void setdata(T d) {
 		data = d;
 	}
-	void setnext(node<T>* n) { // set next node to current node
+	void setnext(node<T>* n) {
 		next = n;
 	}
-	void setprevious(node<T>* p) { // set previous node to current node
+	void setprevious(node<T>* p) {
 		previous = p;
 	}
-	T getdata() { // get data of the node
+	T getdata() {
 		return data;
 	}
-	node<T>* getnext() { // get pointer to next node 
+	node<T>* getnext() {
 		return next;
 	}
-	node<T>* getprevious() { // get pointer to previous node 
+	node<T>* getprevious() {
 		return previous;
 	}
 };

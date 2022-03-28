@@ -1,7 +1,7 @@
 #pragma once
-#include "UI.h"
+#include "InterfaceOutput.h"
 class SilentMode :
-    public UI
+    public InterfaceOutput
 {
 };
 
