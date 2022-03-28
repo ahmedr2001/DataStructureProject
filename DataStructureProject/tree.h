@@ -11,7 +11,7 @@ enum treeprinttype
 template<class T>
 class tree {
 private:
-	treenode<T>* root;
+	treenode<T>* root; // root (head) of the tree
 public:
 	tree(T d) {
 		root = new treenode<T>;
@@ -19,20 +19,20 @@ public:
 		root->setleft(NULL);
 		root->setright(NULL);
 	}
-	treenode<T>* getroot() {
+	treenode<T>* getroot() { // get pointer to the root
 		return root;
 	}
-	tree<T>* addleft(T lv) {
+	tree<T>* addleft(T lv) { // add left branch to current tree
 		tree<T>* l = new tree<T>(lv);
 		root->setleft(l->getroot());
 		return l;
 	}
-	tree<T>* addright(T rv) {
+	tree<T>* addright(T rv) { // add right branch to current tree
 		tree<T>* r = new tree<T>(rv);
 		root->setright(r->getroot());
 		return r;
 	}
-	void print(treenode<T>* trav, treeprinttype tpt) {
+	void print(treenode<T>* trav, treeprinttype tpt) { // print tree depending on printing style (preorder,inorder,postorder)
 		if (trav == NULL)
 		{
 			return;

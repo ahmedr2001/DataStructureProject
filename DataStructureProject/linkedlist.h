@@ -4,21 +4,21 @@
 template<class T>
 class linkedlist {
 private:
-	node<T>* head;
-	node<T>* tail;
+	node<T>* head; //start of linked list
+	node<T>* tail; //end of linked list
 public:
 	linkedlist()
 	{
 		head = NULL;
 		tail = NULL;
 	}
-	node<T>* gethead() {
+	node<T>* gethead() { // get head of linked list
 		return head;
 	}
-	node<T>* gettail() {
+	node<T>* gettail() { // get tail of linked list
 		return tail;
 	}
-	void add(T d) {
+	void add(T d) { // add from the end of linked liast
 		node<T>* add = new node<T>;
 		add->setdata(d);
 		add->setnext(NULL);
@@ -34,7 +34,7 @@ public:
 			tail = tail->getnext();
 		}
 	}
-	void addfromtop(T d) {
+	void addfromtop(T d) { // add from the start of linked list
 		node<T>* add = new node<T>;
 		add->setdata(d);
 		add->setnext(head);
@@ -49,7 +49,7 @@ public:
 			head = add;
 		}
 	}
-	node<T>* deletenode(node<T>* todel) {
+	node<T>* deletenode(node<T>* todel) { // delete node by its pointer
 		if (todel->getnext() != NULL)
 		{
 			todel->getnext()->setprevious(todel->getprevious());
@@ -70,7 +70,7 @@ public:
 		delete todel;
 		return nexttodel;
 	}
-	node<T>* getpointerto(T d) {
+	node<T>* getpointerto(T d) { // find pointer to node with value d
 		node<int>* a = this->gethead();
 		while (a != NULL)
 		{
@@ -82,7 +82,7 @@ public:
 		}
 		return NULL;
 	}
-	void print() {
+	void print() { // print the linked list
 		node<T>* x = head;
 		while (x != NULL)
 		{
