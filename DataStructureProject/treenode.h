@@ -3,26 +3,26 @@
 template<class T>
 class treenode {
 private:
-	T data; // data of tree node
-	treenode<T>* left; // pointer to left tree node
-	treenode<T>* right; // pointer to right tree node
+	T data;
+	treenode<T>* left;
+	treenode<T>* right;
 public:
-	void setdata(T d) { // set data of the tree node
+	void setdata(T d) {
 		data = d;
 	}
-	void setleft(treenode<T>* l) { //set left branch
+	void setleft(treenode<T>* l) {
 		left = l;
 	}
-	void setright(treenode<T>* r) { //set right branch
+	void setright(treenode<T>* r) {
 		right = r;
 	}
-	T getdata() { // get data of the tree node
+	T getdata() {
 		return data;
 	}
-	treenode<T>* getleft() { // get pointer to left branch
+	treenode<T>* getleft() {
 		return left;
 	}
-	treenode<T>* getright() { // get pointer to right branch
+	treenode<T>* getright() {
 		return right;
 	}
 };

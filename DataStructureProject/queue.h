@@ -4,21 +4,21 @@
 template<class T>
 class queue {
 private:
-	linkedlist<T>* q; //linked list to store data in 
-	node<T>* front; // pointer to front node
-	node<T>* rear; // pointer to end node
+	linkedlist<T>* q;
+	node<T>* front;
+	node<T>* rear;
 public:
 	queue() {
 		q = new linkedlist<T>;
 		front = q->gethead();
 		rear = q->gettail();
 	}
-	void enqueue(T data) { // add element to end of queue
+	void enqueue(T data) {
 		q->add(data);
 		front = q->gethead();
 		rear = q->gettail();
 	}
-	bool dequeue() { // remove element from the start of queue
+	bool dequeue() {
 		if (front == NULL)
 		{
 			return false;
@@ -31,7 +31,7 @@ public:
 			return true;
 		}
 	}
-	bool isempty() { // check of queue is empty
+	bool isempty() {
 		if (front == NULL)
 		{
 			return true;
@@ -41,17 +41,17 @@ public:
 			return false;
 		}
 	}
-	node<T>* peek() { // get pointer to front node
+	node<T>* peek() {
 		return front;
 	}
-	void print() { //print queue
+	void print() {
 		node<T>* traverse = front;
 		while (traverse != NULL) {
 			cout << traverse->getdata() << endl;
 			traverse = traverse->getnext();
 		}
 	}
-	void destroyqueue() { // delete all nodes of queue
+	void destroyqueue() {
 		node<T>* traverse = front;
 		while (front) {
 			dequeue();
