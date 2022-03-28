@@ -1,7 +1,7 @@
 #pragma once
 #include "Cargo.h"
 #include "stack.h"
-#include"UI.h"
+
 class Truck
 {
 private:
@@ -11,7 +11,7 @@ private:
 	int num_of_journey; // truck needs to perform maintainance after finishing n delivery journeys
 	int speed; // speed in km/h
 	int DI; // delivery interval
-	Type tt;
+	trucktype tt;
 public:
 
 };

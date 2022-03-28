@@ -1,7 +1,7 @@
 #pragma once
-#include"UI.h"
+#include "InterfaceOutput.h"
 class InteractiveMode :
-    public UI
+    public InterfaceOutput
 {
 };
 
