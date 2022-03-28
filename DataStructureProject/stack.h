@@ -4,9 +4,9 @@
 template<class T>
 class stack {
 private:
-	node<T>* Top;
-	linkedlist<T>* st;
-	int size;
+	node<T>* Top; // pointer to the top node
+	linkedlist<T>* st; // linked list to store data in
+	int size; // size of stack
 public:
 	stack()
 	{
@@ -14,15 +14,15 @@ public:
 		Top = st->gethead();
 		size = 0;
 	}
-	T top() {
+	T top() { // return data of the top
 		return Top->getdata();
 	}
-	void push(T d) {
+	void push(T d) { // add element on top of the stack
 		st->addfromtop(d);
 		Top = st->gethead();
 		size++;
 	}
-	bool pop() {
+	bool pop() { // remove element from the top of the stack
 		if (this->isempty())
 		{
 			return false;
@@ -36,14 +36,14 @@ public:
 		}
 		return true;
 	}
-	bool isempty() {
+	bool isempty() { // chack if the stack is empty
 		if (size == 0)
 		{
 			return true;
 		}
 		return false;
 	}
-	void print() {
+	void print() { //print the stack
 		st->print();
 	}
 };
