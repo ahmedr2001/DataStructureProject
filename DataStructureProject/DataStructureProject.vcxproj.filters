@@ -13,10 +13,75 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\AppManager">
+      <UniqueIdentifier>{e53342c8-da4d-457a-9a5a-25a5ccc215bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OutputModes">
+      <UniqueIdentifier>{3a7bf1ef-7189-40ef-afc0-777a3c3b764a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actions">
+      <UniqueIdentifier>{51e214c0-b9c5-4a8e-af7a-7ee830ffd024}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Cargo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Truck.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ApplicationManager.cpp">
+      <Filter>Source Files\AppManager</Filter>
+    </ClCompile>
+    <ClCompile Include="InterfaceOutput.cpp">
+      <Filter>Source Files\OutputModes</Filter>
+    </ClCompile>
+    <ClCompile Include="InteractiveMode.cpp">
+      <Filter>Source Files\OutputModes</Filter>
+    </ClCompile>
+    <ClCompile Include="StepbystepMode.cpp">
+      <Filter>Source Files\OutputModes</Filter>
+    </ClCompile>
+    <ClCompile Include="SilentMode.cpp">
+      <Filter>Source Files\OutputModes</Filter>
+    </ClCompile>
+    <ClCompile Include="Action.cpp">
+      <Filter>Source Files\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenAction.cpp">
+      <Filter>Source Files\Actions</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Action.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenAction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ApplicationManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cargo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Truck.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InterfaceOutput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InteractiveMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StepbystepMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SilentMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
