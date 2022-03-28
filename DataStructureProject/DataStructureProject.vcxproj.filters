@@ -13,14 +13,17 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\AppManager">
-      <UniqueIdentifier>{e53342c8-da4d-457a-9a5a-25a5ccc215bb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\OutputModes">
       <UniqueIdentifier>{3a7bf1ef-7189-40ef-afc0-777a3c3b764a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Actions">
       <UniqueIdentifier>{51e214c0-b9c5-4a8e-af7a-7ee830ffd024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{e53342c8-da4d-457a-9a5a-25a5ccc215bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Data Structures">
+      <UniqueIdentifier>{7b6c6ae7-f050-4c73-9125-17e9752a9235}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,8 +36,8 @@
     <ClCompile Include="Truck.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ApplicationManager.cpp">
-      <Filter>Source Files\AppManager</Filter>
+    <ClCompile Include="UI.cpp">
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="InterfaceOutput.cpp">
       <Filter>Source Files\OutputModes</Filter>
@@ -82,6 +85,24 @@
     </ClInclude>
     <ClInclude Include="SilentMode.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="node.h">
+      <Filter>Header Files\Data Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="linkedlist.h">
+      <Filter>Header Files\Data Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="stack.h">
+      <Filter>Header Files\Data Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="queue.h">
+      <Filter>Header Files\Data Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="treenode.h">
+      <Filter>Header Files\Data Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="tree.h">
+      <Filter>Header Files\Data Structures</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
