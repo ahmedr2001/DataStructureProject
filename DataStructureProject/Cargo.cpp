@@ -1,14 +1,35 @@
 #include "Cargo.h"
-Cargo::Cargo(/*char* pt, int lt,*/ Type t, int c, int d) {
-
+Cargo::Cargo(Time pt, Time lt, Type t, int c, int d) {
+	set_Cost(c);
+	set_Type(t);
+	set_Distance(d);
 }
-//void Cargo::set_Load_Time(int t){}
-void Cargo::set_Cost(int c){}
-void Cargo::set_Distance(int d){}
-void Cargo::set_Type(Type t){}
-//int Cargo::get_Load_Time(){}
-int Cargo::get_Cost(){}
-int Cargo::get_Distance(){}
-Type Cargo::get_Type(){}
+void Cargo::set_Pre_Time(){}
+void Cargo::set_Load_Time(){}
+
+Time Cargo::get_Pre_Time(){
+	return Pre_Time;
+}
+Time Cargo::get_Load_Time(){
+	return Load_Time;
+}
+void Cargo::set_Cost(int c){
+	Cost = (c >= 0) ? c : 0;
+}
+void Cargo::set_Distance(int d){
+	Distance = (d >= 0) ? d : 0;
+}
+void Cargo::set_Type(Type t){
+	this->t = t;
+}
+int Cargo::get_Cost(){
+	return Cost;
+}
+int Cargo::get_Distance(){
+	return Distance;
+}
+Type Cargo::get_Type(){
+	return t;
+}
 void Cargo::LoadFromStreamFile(){}
 void Cargo::OutToStreamFile(){}

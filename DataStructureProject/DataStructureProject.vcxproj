@@ -149,6 +149,7 @@
     <ClCompile Include="SilentMode.cpp" />
     <ClCompile Include="StepbystepMode.cpp" />
     <ClCompile Include="Truck.cpp" />
+    <ClCompile Include="ِApplicationManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
@@ -157,7 +158,7 @@
     <ClInclude Include="linkedlist.h" />
     <ClInclude Include="node.h" />
     <ClInclude Include="InteractiveMode.h" />
-    <ClInclude Include="InterfaceOutput.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="OpenAction.h" />
     <ClInclude Include="queue.h" />
     <ClInclude Include="SilentMode.h" />

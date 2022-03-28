@@ -1,20 +1,24 @@
 #pragma once
 #include"UI.h"
+#include"Time.h"
 class Cargo
 {
 private:
-	// Pre_Time;
-	// Load_Time;
+	Time Pre_Time;
+	Time Load_Time;
 	Type t;
 	int Cost;
 	int Distance;
 public:
-	Cargo(/*char* pt, int lt,*/ Type t, int c, int d);
-	//void set_Load_Time(int t);
+	Cargo(Time pt, Time lt,Type t, int c, int d);
+	void set_Load_Time(Time t);
 	void set_Cost(int c);
 	void set_Distance(int d);
 	void set_Type(Type t);
-	//int get_Load_Time();
+	void set_Pre_Time();
+	void set_Load_Time();
+	Time get_Pre_Time();
+	Time get_Load_Time();
 	int get_Cost();
 	int get_Distance();
 	Type get_Type();
