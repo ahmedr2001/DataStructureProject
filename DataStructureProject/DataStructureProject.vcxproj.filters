@@ -33,6 +33,9 @@
     <ClCompile Include="Truck.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ApplicationManager.cpp">
+      <Filter>Source Files\AppManager</Filter>
+    </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>Source Files\OutputModes</Filter>
     </ClCompile>
