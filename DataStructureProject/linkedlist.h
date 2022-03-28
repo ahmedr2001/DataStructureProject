@@ -9,8 +9,8 @@ private:
 public:
 	linkedlist()
 	{
-		head = NULL;
-		tail = NULL;
+		head = nullptr;
+		tail = nullptr;
 	}
 	node<T>* gethead() { // get head of linked list
 		return head;
@@ -21,8 +21,8 @@ public:
 	void add(T d) { // add from the end of linked liast
 		node<T>* add = new node<T>;
 		add->setdata(d);
-		add->setnext(NULL);
-		if (head == NULL)
+		add->setnext(nullptr);
+		if (head == nullptr)
 		{
 			head = add;
 			tail = add;
@@ -38,19 +38,19 @@ public:
 		node<T>* add = new node<T>;
 		add->setdata(d);
 		add->setnext(head);
-		if (head == NULL)
+		if (head == nullptr)
 		{
 			head = add;
 			tail = add;
 		}
 		else
 		{
-			add->setprevious(NULL);
+			add->setprevious(nullptr);
 			head = add;
 		}
 	}
 	node<T>* deletenode(node<T>* todel) { // delete node by its pointer
-		if (todel->getnext() != NULL)
+		if (todel->getnext() != nullptr)
 		{
 			todel->getnext()->setprevious(todel->getprevious());
 		}
@@ -58,7 +58,7 @@ public:
 		{
 			tail = todel->getprevious();
 		}
-		if (todel->getprevious() != NULL)
+		if (todel->getprevious() != nullptr)
 		{
 			todel->getprevious()->setnext(todel->getnext());
 		}
@@ -72,7 +72,7 @@ public:
 	}
 	node<T>* getpointerto(T d) { // find pointer to node with value d
 		node<int>* a = this->gethead();
-		while (a != NULL)
+		while (a != nullptr)
 		{
 			if (a->getdata() == d)
 			{
@@ -80,11 +80,11 @@ public:
 			}
 			a = a->getnext();
 		}
-		return NULL;
+		return nullptr;
 	}
 	void print() { // print the linked list
 		node<T>* x = head;
-		while (x != NULL)
+		while (x != nullptr)
 		{
 			cout << x->getdata() << " ";
 			x = x->getnext();

@@ -19,7 +19,7 @@ public:
 		rear = q->gettail();
 	}
 	bool dequeue() { // remove element from the start of queue
-		if (front == NULL)
+		if (front == nullptr)
 		{
 			return false;
 		}
@@ -32,7 +32,7 @@ public:
 		}
 	}
 	bool isempty() { // check of queue is empty
-		if (front == NULL)
+		if (front == nullptr)
 		{
 			return true;
 		}
@@ -46,7 +46,7 @@ public:
 	}
 	void print() { //print queue
 		node<T>* traverse = front;
-		while (traverse != NULL) {
+		while (traverse != nullptr) {
 			cout << traverse->getdata() << endl;
 			traverse = traverse->getnext();
 		}
