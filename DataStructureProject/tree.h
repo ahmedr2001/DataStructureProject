@@ -16,8 +16,8 @@ public:
 	tree(T d) {
 		root = new treenode<T>;
 		root->setdata(d);
-		root->setleft(NULL);
-		root->setright(NULL);
+		root->setleft(nullptr);
+		root->setright(nullptr);
 	}
 	treenode<T>* getroot() { // get pointer to the root
 		return root;
@@ -33,7 +33,7 @@ public:
 		return r;
 	}
 	void print(treenode<T>* trav, treeprinttype tpt) { // print tree depending on printing style (preorder,inorder,postorder)
-		if (trav == NULL)
+		if (trav == nullptr)
 		{
 			return;
 		}

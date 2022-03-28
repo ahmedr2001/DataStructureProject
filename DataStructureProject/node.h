@@ -10,8 +10,8 @@ private:
 	node<T>* previous; // pointer to previous node
 public:
 	node() {
-		next = NULL;
-		previous = NULL;
+		next = nullptr;
+		previous = nullptr;
 	}
 	void setdata(T d) { // set data of the node
 		data = d;
