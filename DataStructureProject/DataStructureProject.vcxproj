@@ -143,7 +143,7 @@
     <ClCompile Include="ApplicationManager.cpp" />
     <ClCompile Include="Cargo.cpp" />
     <ClCompile Include="InteractiveMode.cpp" />
-    <ClCompile Include="InterfaceOutput.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OpenAction.cpp" />
     <ClCompile Include="SilentMode.cpp" />
@@ -155,7 +155,7 @@
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="Cargo.h" />
     <ClInclude Include="InteractiveMode.h" />
-    <ClInclude Include="InterfaceOutput.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="OpenAction.h" />
     <ClInclude Include="SilentMode.h" />
     <ClInclude Include="StepbystepMode.h" />

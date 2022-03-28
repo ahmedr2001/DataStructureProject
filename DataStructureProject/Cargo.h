@@ -14,7 +14,7 @@ public:
 	void set_Cost(int c);
 	void set_Distance(int d);
 	void set_Type(Type t);
-	int get_Load_Time();
+	//int get_Load_Time();
 	int get_Cost();
 	int get_Distance();
 	Type get_Type();

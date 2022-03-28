@@ -36,7 +36,7 @@
     <ClCompile Include="ApplicationManager.cpp">
       <Filter>Source Files\AppManager</Filter>
     </ClCompile>
-    <ClCompile Include="InterfaceOutput.cpp">
+    <ClCompile Include="UI.cpp">
       <Filter>Source Files\OutputModes</Filter>
     </ClCompile>
     <ClCompile Include="InteractiveMode.cpp">
@@ -71,7 +71,7 @@
     <ClInclude Include="Truck.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="InterfaceOutput.h">
+    <ClInclude Include="UI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InteractiveMode.h">
