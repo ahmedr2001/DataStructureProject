@@ -3,5 +3,7 @@
 class Promote_Event :
     public Event
 {
+public:
+    void Execute();
 };
 

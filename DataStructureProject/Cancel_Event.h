@@ -3,5 +3,7 @@
 class Cancel_Event :
     public Event
 {
+public:
+    void Execute();
 };
 

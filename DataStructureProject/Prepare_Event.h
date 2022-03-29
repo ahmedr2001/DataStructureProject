@@ -3,5 +3,7 @@
 class Prepare_Event :
     public Event
 {
+public:
+    void Execute();
 };
 

@@ -28,6 +28,15 @@
     <Filter Include="Source Files\Events">
       <UniqueIdentifier>{70212951-b9e8-412a-8e5e-dd1a00c6228a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\OutputModes">
+      <UniqueIdentifier>{0760c8de-b4b2-45b7-a9e5-9ccb9e5292a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Events">
+      <UniqueIdentifier>{0459e95e-2997-4754-a539-1d047c03fb03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actions">
+      <UniqueIdentifier>{b8f9bd9b-a4f4-4cd9-ab71-1e8f570a5c57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -83,12 +92,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Action.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadAction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ApplicationManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -96,15 +99,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Truck.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InteractiveMode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StepbystepMode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SilentMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="node.h">
@@ -128,9 +122,6 @@
     <ClInclude Include="UI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="InterfaceOutput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Time.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -138,16 +129,34 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Prepare_Event.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Action.h">
+      <Filter>Header Files\Actions</Filter>
     </ClInclude>
     <ClInclude Include="Cancel_Event.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="InteractiveMode.h">
+      <Filter>Header Files\OutputModes</Filter>
+    </ClInclude>
+    <ClInclude Include="InterfaceOutput.h">
+      <Filter>Header Files\OutputModes</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadAction.h">
+      <Filter>Header Files\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Prepare_Event.h">
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
     <ClInclude Include="Promote_Event.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="StepbystepMode.h">
+      <Filter>Header Files\OutputModes</Filter>
+    </ClInclude>
+    <ClInclude Include="SilentMode.h">
+      <Filter>Header Files\OutputModes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
