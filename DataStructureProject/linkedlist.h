@@ -34,7 +34,7 @@ public:
 			tail = tail->getnext();
 		}
 	}
-	void addWithPriority(T data)
+	void addWithPriority(T data) // place highest priorities at the front
 	{
 		Time currentTime;
 		node<T>* newNode = new node<T>;

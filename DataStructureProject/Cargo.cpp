@@ -14,7 +14,7 @@ void Cargo::set_Load_Time(){}
 Time Cargo::get_Pre_Time(){
 	return Pre_Time;
 }
-Time Cargo::get_Load_Time(){
+int Cargo::get_Load_Time(){
 	return Load_Time;
 }
 void Cargo::set_Cost(int c){
