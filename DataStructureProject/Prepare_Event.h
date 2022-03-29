@@ -9,7 +9,7 @@ class Prepare_Event :
 	int Cargo_cost;
 public:
 	Prepare_Event(Time T, int id, int D, int Load_Time, int c);
-    void Execute();
+    void Execute(Company* myComp);
 	void set_Cargo_Dist(int d);
 	void set_Load_Time(int h);
 	void set_Cargo_cost(int c);

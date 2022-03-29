@@ -8,6 +8,6 @@ public:
     Promote_Event(Time T, int id, int extra);
     void set_Extra_Money(int extra);
     int get_Extra_Money();
-    void Execute();
+    void Execute(Company* myComp);
 };
 

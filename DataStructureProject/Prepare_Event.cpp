@@ -5,7 +5,7 @@ Prepare_Event::Prepare_Event(Time T, int id, int d, int h, int c):Event(T,id) {
 	set_Load_Time(h);
 }
 
-void Prepare_Event::Execute()
+void Prepare_Event::Execute(Company* myComp)
 {
 }
 void Prepare_Event::set_Cargo_Dist(int d) {

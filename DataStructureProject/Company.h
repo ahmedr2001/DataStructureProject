@@ -53,7 +53,11 @@ protected:
 	queue<Truck*>* normalTruckList;
 	queue<Truck*>* specialTruckList;
 public:
-
+	//Company(); //Company constructor
 	void LoadTrucksAndEventsData(string filename);
+	void Store_Cargo(Cargo* C);// find suitable queue to store cargo
+	void Ship_Cargo(Truck* T);// find suitable truck to ship cargo
+	void Execute_Events(Time T);//Execute the events that should be executed at that hour
+	void Collect_statistics();// to create output file
 };
 

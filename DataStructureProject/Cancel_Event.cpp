@@ -3,6 +3,6 @@ Cancel_Event::Cancel_Event(Time T, int id) : Event(T,id){
 
 }
 
-void Cancel_Event::Execute()
+void Cancel_Event::Execute(Company* myComp)
 {
 }

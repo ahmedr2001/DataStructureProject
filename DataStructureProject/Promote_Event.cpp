@@ -2,7 +2,7 @@
 Promote_Event::Promote_Event(Time T, int id, int extra): Event(T,id){
 	set_Extra_Money(extra);
 }
-void Promote_Event::Execute()
+void Promote_Event::Execute(Company* myComp)
 {
 }
 void Promote_Event::set_Extra_Money(int extra) {

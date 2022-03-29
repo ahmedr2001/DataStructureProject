@@ -5,6 +5,6 @@ class Cancel_Event :
 {
 public:
     Cancel_Event(Time T, int id);
-    void Execute();
+    void Execute(Company* myComp);
 };
 

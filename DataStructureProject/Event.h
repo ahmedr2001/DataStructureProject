@@ -1,6 +1,7 @@
 #pragma once
 #include"Time.h"
 #include"UI.h"
+#include"Company.h"
 class Event
 {
 	Time Event_Time;
