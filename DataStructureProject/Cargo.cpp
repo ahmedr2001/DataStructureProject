@@ -8,13 +8,13 @@ Cargo::Cargo(Time pt, Time lt, Type t, int c, int d) {
 	set_Type(t);
 	set_Distance(d);
 }
-void Cargo::set_Pre_Time(){}
-void Cargo::set_Load_Time(){}
+void Cargo::set_Pre_Time(Time t){}
+void Cargo::set_Load_Time(Time t){}
 
 Time Cargo::get_Pre_Time(){
 	return Pre_Time;
 }
-int Cargo::get_Load_Time(){
+Time Cargo::get_Load_Time(){
 	return Load_Time;
 }
 void Cargo::set_Cost(int c){
