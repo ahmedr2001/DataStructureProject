@@ -1,4 +1,6 @@
 #pragma once
+#include <fstream>
+using namespace std;
 class Time
 {
 	int day;
@@ -9,4 +11,5 @@ public:
 	Time operator+(int intervalInHours);
 	int operator-(Time nextTime);
 	Time operator++();
+	friend istream& operator>>(istream& in, Time t);
 };

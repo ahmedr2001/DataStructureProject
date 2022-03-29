@@ -1,5 +1,8 @@
 #include "Time.h"
-
+istream& operator>>(istream& in, Time t)
+{
+	return in;
+}
 
 Time::Time()
 	:day(0), hour(0)

@@ -1,5 +1,5 @@
 #include "Company.h"
-/*void Company::LoadTrucksAndEventsData(string filename)
+void Company::LoadTrucksAndEventsData(string filename)
 {
 	ifstream inFile(filename + ".txt", ios::in);
 
@@ -26,13 +26,15 @@
 
 		inFile >> Event_Num;
 
-		Event* e;
+		Event* e=nullptr;
 		for (int i = 0; i < Event_Num; i++)
 		{
 			inFile >> Event_Type;
 			if (Event_Type == 'R')
 			{
-				inFile >> Cargo_Type;
+				int type;
+				inFile >> type;
+				Cargo_Type = (Type)type;
 				inFile >> Event_Time;
 				inFile >> Cargo_ID;
 				inFile >> Cargo_Dist;
@@ -56,4 +58,4 @@
 			eventList->enqueue(e);
 		}
 	}
-}*/
+}
