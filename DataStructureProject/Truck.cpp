@@ -13,7 +13,7 @@ void Truck::add_Cargo(Cargo* c)
 {
 	if (loaded<Capacity)
 	{
-		cargolist->push(c);
+		cargolist->add(c);
 		loaded++;
 	}
 }

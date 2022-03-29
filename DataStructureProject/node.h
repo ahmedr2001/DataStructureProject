@@ -7,7 +7,6 @@ class node
 {
 protected:
 	T data; // data of node
-	int priority; // priority of node
 	node<T>* next; // pointer to next node
 	node<T>* previous; // pointer to previous node
 public:

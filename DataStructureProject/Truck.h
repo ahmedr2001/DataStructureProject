@@ -1,11 +1,12 @@
 #pragma once
 #include "Cargo.h"
 #include "stack.h"
+#include "linkedlist.h"
 
 class Truck
 {
 private:
-	stack<Cargo*>* cargolist; //list of cargo pointers
+	linkedlist<Cargo*>* cargolist; //list of cargo pointers
 	int Capacity; // truck capacity
 	int loaded; // cargos count
 	int check_time; //maintenance time
