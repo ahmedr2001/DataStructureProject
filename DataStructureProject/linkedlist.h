@@ -3,7 +3,7 @@
 
 template<class T>
 class linkedlist {
-private:
+protected:
 	node<T>* head; //start of linked list
 	node<T>* tail; //end of linked list
 public:
@@ -32,6 +32,67 @@ public:
 			tail->setnext(add);
 			add->setprevious(tail);
 			tail = tail->getnext();
+		}
+	}
+	void addWithPriority(T data)
+	{
+		Time currentTime;
+		node<T>* newNode = new node<T>;
+		newNode->setdata(data);
+		int priority = newNode->getdata()->getPriority(currentTime);
+		bool done = 0;
+		node<T>* headCopy = head;
+		if (!headCopy) {
+			newNode->setnext(nullptr);
+			newNode->setprevious(nullptr);
+			head = newNode;
+			tail = newNode;
+			done = 1;
+		}
+		else if (!headCopy->getnext()) {
+			if (headCopy->getdata()->getPriority(currentTime) > priority) {
+				newNode->setnext(nullptr);
+				newNode->setprevious(head);
+				head->setnext(newNode);
+				tail = newNode;
+				done = 1;
+			}
+			else {
+				newNode->setnext(head);
+				newNode->setprevious(nullptr);
+				head->setprevious(newNode);
+				tail = head;
+				head = newNode;
+				done = 1;
+			}
+		}
+		else {
+			while (headCopy) {
+				if (headCopy->getdata()->getPriority(currentTime) <= priority) {
+					if (headCopy == head) {
+						newNode->setnext(head);
+						newNode->setprevious(nullptr);
+						head->setprevious(newNode);
+						head = newNode;
+						done = 1;
+					}
+					else {
+						newNode->setnext(headCopy);
+						newNode->setprevious(headCopy->getprevious());
+						headCopy->setprevious(newNode);
+						newNode->getprevious()->setnext(newNode);
+						done = 1;
+					}
+				}
+				headCopy = headCopy->getnext();
+			}
+			if (!done) {
+				newNode->setnext(nullptr);
+				newNode->setprevious(tail);
+				tail->setnext(newNode);
+				tail = newNode;
+				done = 1;
+			}
 		}
 	}
 	void addfromtop(T d) { // add from the start of linked list

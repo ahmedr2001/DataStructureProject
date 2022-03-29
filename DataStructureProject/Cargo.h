@@ -10,6 +10,7 @@ private:
 	Type t;
 	int Cost;
 	int Distance;
+	int priority;
 public:
 	Cargo(Time pt, Time lt,Type t, int c, int d);
 	void set_Load_Time(Time t);
@@ -25,5 +26,6 @@ public:
 	Type get_Type();
 	void LoadFromStreamFile();
 	void OutToStreamFile();
+	int getPriority(Time& currentTime);
 };
 

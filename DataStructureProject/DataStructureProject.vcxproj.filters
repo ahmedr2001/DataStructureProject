@@ -90,6 +90,9 @@
     <ClCompile Include="Promote_Event.cpp">
       <Filter>Source Files\Events</Filter>
     </ClCompile>
+    <ClCompile Include="priority_queue.h">
+      <Filter>Header Files\Data Structures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApplicationManager.h">

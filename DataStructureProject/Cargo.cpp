@@ -1,4 +1,8 @@
 #include "Cargo.h"
+#define costWeight 1
+#define distanceWeight 1
+#define prepTimeWeight 1
+ 
 Cargo::Cargo(Time pt, Time lt, Type t, int c, int d) {
 	set_Cost(c);
 	set_Type(t);
@@ -33,3 +37,8 @@ Type Cargo::get_Type(){
 }
 void Cargo::LoadFromStreamFile(){}
 void Cargo::OutToStreamFile(){}
+int Cargo::getPriority(Time& currentTime)
+{
+	priority = costWeight * Cost + distanceWeight * Distance + prepTimeWeight * (currentTime - Pre_Time);
+	return priority;
+}

@@ -1,11 +1,13 @@
 #pragma once
 #include<iostream>
+#include "Cargo.h"
 using namespace std;
 template<class T>
 class node
 {
-private:
+protected:
 	T data; // data of node
+	int priority; // priority of node
 	node<T>* next; // pointer to next node
 	node<T>* previous; // pointer to previous node
 public:

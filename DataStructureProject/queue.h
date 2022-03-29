@@ -3,7 +3,7 @@
 
 template<class T>
 class queue {
-private:
+protected:
 	linkedlist<T>* q; //linked list to store data in 
 	node<T>* front; // pointer to front node
 	node<T>* rear; // pointer to end node
@@ -13,7 +13,7 @@ public:
 		front = q->gethead();
 		rear = q->gettail();
 	}
-	void enqueue(T data) { // add element to end of queue
+	virtual void enqueue(T data) { // add element to end of queue
 		q->add(data);
 		front = q->gethead();
 		rear = q->gettail();

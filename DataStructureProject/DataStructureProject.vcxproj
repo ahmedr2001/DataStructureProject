@@ -147,6 +147,7 @@
     <ClCompile Include="InterfaceOutput.cpp" />
     <ClCompile Include="Prepare_Event.cpp" />
     <ClCompile Include="Promote_Event.cpp" />
+    <ClCompile Include="priority_queue.h" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Cargo.cpp" />
