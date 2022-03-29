@@ -25,6 +25,7 @@ public:
 	int get_Distance();
 	Type get_Type();
 	void LoadFromStreamFile();
+
 	void OutToStreamFile();
 	int getPriority(Time& currentTime);
 };

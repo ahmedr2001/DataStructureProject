@@ -37,6 +37,7 @@ Type Cargo::get_Type(){
 }
 void Cargo::LoadFromStreamFile(){}
 void Cargo::OutToStreamFile(){}
+
 int Cargo::getPriority(Time& currentTime)
 {
 	priority = costWeight * Cost + distanceWeight * Distance + prepTimeWeight * (currentTime - Pre_Time);
