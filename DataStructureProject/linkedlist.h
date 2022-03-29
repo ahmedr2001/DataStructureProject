@@ -50,7 +50,7 @@ public:
 			done = 1;
 		}
 		else if (!headCopy->getnext()) {
-			if (headCopy->getdata()->getPriority(currentTime) > priority) {
+			if (headCopy->getdata() > priority) {
 				newNode->setnext(nullptr);
 				newNode->setprevious(head);
 				head->setnext(newNode);

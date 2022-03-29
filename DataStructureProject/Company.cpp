@@ -1,5 +1,5 @@
 #include "Company.h"
-void Company::LoadTrucksAndEventsData(string filename)
+/*void Company::LoadTrucksAndEventsData(string filename)
 {
 	ifstream inFile(filename + ".txt", ios::in);
 
@@ -56,4 +56,4 @@ void Company::LoadTrucksAndEventsData(string filename)
 			eventList->enqueue(e);
 		}
 	}
-}
+}*/

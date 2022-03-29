@@ -7,7 +7,7 @@ class Cargo
 private:
 public:
 	Time Pre_Time;
-	Time Load_Time;
+	int Load_Time;
 	Type t;
 	int Cost;
 	int Distance;
@@ -20,7 +20,7 @@ public:
 	void set_Type(Type t);
 	void set_Pre_Time(Time t);
 	Time get_Pre_Time();
-	Time get_Load_Time();
+	int get_Load_Time();
 	int get_Cost();
 	int get_Distance();
 	Type get_Type();

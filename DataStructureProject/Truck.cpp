@@ -48,7 +48,7 @@ void Truck::set_DI()
 	node<Cargo*>* cargoHead = cargolist->gethead();
 	while (cargoHead) {
 		maxDistance = max(maxDistance, cargoHead->getdata()->get_Distance());
-		//unloadTimes += cargoHead->getdata()->get_Load_Time();
+		unloadTimes += cargoHead->getdata()->get_Load_Time();
 	}
 	DI = 2 * round(double(maxDistance) / speed) + unloadTimes;
 }
