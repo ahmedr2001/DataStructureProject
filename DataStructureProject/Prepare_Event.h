@@ -1,6 +1,7 @@
 #pragma once
 #include "Event.h"
 #include"Company.h"
+
 class Prepare_Event :
     public Event
 {

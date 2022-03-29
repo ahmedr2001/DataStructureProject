@@ -50,7 +50,7 @@ void Truck::set_DI()
 		maxDistance = max(maxDistance, cargoHead->getdata()->get_Distance());
 		unloadTimes += cargoHead->getdata()->get_Load_Time();
 	}
-	DI = 2 * round(double(maxDistance) / speed) + unloadTimes;
+	DI = 2 * int(round(double(maxDistance)) / speed) + unloadTimes;
 }
 
 int Truck::get_Capacity()

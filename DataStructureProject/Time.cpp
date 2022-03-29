@@ -1,6 +1,6 @@
 #include "Time.h"
 #include <string>
-istream& operator>>(istream& in, Time t)
+istream& operator>>(istream& in, Time& t)
 {
 	string days = ""; 
 	string hours = "";
@@ -16,8 +16,8 @@ istream& operator>>(istream& in, Time t)
 	for (; i < input.length(); i++) {
 		hours += input[i];
 	}
-	t.day = stoi(days);
-	t.hour = stoi(hours);
+	t.set_Day(stoi(days));
+	t.set_Hour(stoi(hours));
 	return in;
 }
 
@@ -29,6 +29,16 @@ Time::Time()
 Time::Time(int d, int h)
 	: day(d), hour(h)
 {
+}
+
+void Time::set_Day(int d)
+{
+	day = d;
+}
+
+void Time::set_Hour(int h)
+{
+	hour = h;
 }
 
 Time Time::operator+(int intervalInHours)

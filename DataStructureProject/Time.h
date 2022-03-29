@@ -8,8 +8,10 @@ class Time
 public:
 	Time();
 	Time(int d, int h);
+	void set_Day(int d);
+	void set_Hour(int h);
 	Time operator+(int intervalInHours);
 	int operator-(Time nextTime);
 	Time operator++();
-	friend istream& operator>>(istream& in, Time t);
 };
+istream& operator>>(istream& in, Time& t);
