@@ -30,7 +30,7 @@ void Company::LoadTrucksAndEventsData(string filename)
 		for (int i = 0; i < Event_Num; i++)
 		{
 			inFile >> Event_Type;
-			if (Event_Type=='R')
+			if (Event_Type == 'R')
 			{
 				inFile >> Cargo_Type;
 				inFile >> Event_Time;
@@ -55,4 +55,5 @@ void Company::LoadTrucksAndEventsData(string filename)
 			}
 			eventList->enqueue(e);
 		}
+	}
 }
