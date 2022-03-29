@@ -8,11 +8,11 @@ using namespace std;
 int main() {
 	Time d1(1, 12);
 	Time d2(0, 5);
-	Cargo c1(d1,d2,VIP,1050,5);
-	Cargo c2(d1, d2, VIP, 1088, 5);
-	priority_queue<Cargo>Q;
-	Q.enqueue(c1);
-	Q.enqueue(c2);
-	cout<< Q.peek()->getdata().Cost;
+	Cargo* c1=new Cargo(d1,d2,VIP,1050,5);
+	Cargo* c2 = new Cargo(d1, d2, VIP, 1088, 5);
+	priority_queue<Cargo*>* Q = new priority_queue<Cargo*>;
+	Q->enqueue(c1);
+	Q->enqueue(c2);
+	cout<< Q->peek()->getdata()->Cost;
 	return 0;
 }
