@@ -1,6 +1,8 @@
 #pragma once
 #include "Action.h"
-class OpenAction :
+#include <fstream>
+
+class LoadAction :
     public Action
 {
 };

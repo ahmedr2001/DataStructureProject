@@ -25,6 +25,9 @@
     <Filter Include="Header Files\Data Structures">
       <UniqueIdentifier>{7b6c6ae7-f050-4c73-9125-17e9752a9235}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Events">
+      <UniqueIdentifier>{70212951-b9e8-412a-8e5e-dd1a00c6228a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,7 +54,7 @@
     <ClCompile Include="Action.cpp">
       <Filter>Source Files\Actions</Filter>
     </ClCompile>
-    <ClCompile Include="OpenAction.cpp">
+    <ClCompile Include="LoadAction.cpp">
       <Filter>Source Files\Actions</Filter>
     </ClCompile>
     <ClCompile Include="ApplicationManager.cpp">
@@ -61,14 +64,29 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="InterfaceOutput.cpp">
+      <Filter>Source Files\OutputModes</Filter>
+    </ClCompile>
+    <ClCompile Include="Company.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Prepare_Event.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Cancel_Event.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Promote_Event.cpp">
+      <Filter>Source Files\Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OpenAction.h">
+    <ClInclude Include="LoadAction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ApplicationManager.h">
@@ -108,6 +126,27 @@
       <Filter>Header Files\Data Structures</Filter>
     </ClInclude>
     <ClInclude Include="UI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InterfaceOutput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Company.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Prepare_Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cancel_Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Promote_Event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
