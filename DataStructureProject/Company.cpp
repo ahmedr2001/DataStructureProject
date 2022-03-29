@@ -40,20 +40,20 @@ void Company::LoadTrucksAndEventsData(string filename)
 				inFile >> Cargo_Dist;
 				inFile >> Load_Time;
 				inFile >> Cargo_cost;
-				e = new Prepare_Event();
+				e = new Prepare_Event(Event_Time,Cargo_ID,Cargo_Dist,Load_Time,Cargo_cost);
 			}
 			else if (Event_Type == 'X')
 			{
 				inFile >> Event_Time;
 				inFile >> Cargo_ID;
-				e = new Prepare_Event();
+				e = new Cancel_Event(Event_Time, Cargo_ID);
 			}
 			else if (Event_Type == 'P')
 			{
 				inFile >> Event_Time;
 				inFile >> Cargo_ID;
 				inFile >> Extra_Money;
-				e = new Prepare_Event();
+				e = new Promote_Event(Event_Time,Cargo_ID,Extra_Money);
 			}
 			eventList->enqueue(e);
 		}
