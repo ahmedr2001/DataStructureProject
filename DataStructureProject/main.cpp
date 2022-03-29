@@ -6,7 +6,9 @@
 using namespace std;
 
 int main() {
-	Time d1(1, 12);
+	Time d1;
+	cin >> d1;
+	
 	Time d2(0, 5);
 	Cargo* c1=new Cargo(d1,d2,VIP,1050,5);
 	Cargo* c2 = new Cargo(d1, d2, VIP, 1088, 5);
