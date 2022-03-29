@@ -46,14 +46,14 @@ void Company::LoadTrucksAndEventsData(string filename)
 			{
 				inFile >> Event_Time;
 				inFile >> Cargo_ID;
-				e = new Prepare_Event();
+				e = new Cancel_Event();
 			}
 			else if (Event_Type == 'P')
 			{
 				inFile >> Event_Time;
 				inFile >> Cargo_ID;
 				inFile >> Extra_Money;
-				e = new Prepare_Event();
+				e = new Promote_Event();
 			}
 			eventList->enqueue(e);
 		}
