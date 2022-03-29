@@ -1,14 +1,14 @@
 #pragma once
 #include"Time.h"
 #include"UI.h"
-#include"Company.h"
+class Company;
 class Event
 {
 	Time Event_Time;
 	int Cargo_ID;
 public:
 	Event(Time T, int id);
-	virtual void Execute() = 0;
+	virtual void Execute(Company* myComp)=0;
 	void set_Time(Time t);
 	void set_Cargo_ID(int id);
 	Time get_Time() const;
