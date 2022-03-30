@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-	/*Time d1;              //Test_v1
+	Time d1;              //Test_v1
 	cin >> d1;
 	Time d2(0, 5);
 	Cargo* c1=new Cargo(d1,d2,VIP,1050,5);
@@ -14,6 +14,6 @@ int main() {
 	priority_queue<Cargo*>* Q = new priority_queue<Cargo*>;
 	Q->enqueue(c1);
 	Q->enqueue(c2);
-	cout<< Q->peek()->getdata()->Cost;*/
+	cout<< Q->peek()->getdata()->get_Cost();
 	return 0;
 }

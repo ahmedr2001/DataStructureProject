@@ -8,8 +8,29 @@ Cargo::Cargo(Time pt, Time lt, Type t, int c, int d) {
 	set_Type(t);
 	set_Distance(d);
 }
-void Cargo::set_Pre_Time(Time t){}
-void Cargo::set_Load_Time(Time t){}
+
+
+void Cargo::set_Pre_Time(Time t){
+	Pre_Time = t;
+}
+void Cargo::set_Load_Time(int t){
+	Load_Time = t;
+}
+
+void Cargo::set_Move_Time(Time t)
+{
+	Move_Time = t;
+}
+
+Time Cargo::get_Move_Time()
+{
+	return Move_Time;
+}
+
+void Cargo::set_Waiting_Time()
+{
+	Waiting_Time = Move_Time - Pre_Time;
+}
 
 Time Cargo::get_Pre_Time(){
 	return Pre_Time;
@@ -40,6 +61,7 @@ void Cargo::OutToStreamFile(){}
 
 int Cargo::getPriority(Time& currentTime)
 {
-	priority = costWeight * Cost + distanceWeight * Distance + prepTimeWeight * (currentTime - Pre_Time);
+	Time waitedTime = currentTime - Pre_Time;
+	priority = costWeight * Cost + distanceWeight * Distance + prepTimeWeight * waitedTime.TimeToHours();
 	return priority;
 }

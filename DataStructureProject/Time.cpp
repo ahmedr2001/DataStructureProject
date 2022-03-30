@@ -26,6 +26,8 @@ Time::Time()
 {
 }
 
+
+
 Time::Time(int d, int h)
 	: day(d), hour(h)
 {
@@ -41,17 +43,42 @@ void Time::set_Hour(int h)
 	hour = h;
 }
 
+int Time::get_Day()
+{
+	return day;
+}
+
+int Time::get_Hour()
+{
+	return hour;
+}
+
 Time Time::operator+(int intervalInHours)
 {
 	return Time();
 }
 
-int Time::operator-(Time nextTime)
-{
-	return 0;
-}
-
-Time Time::operator++()
+Time& Time::operator-(Time nextTime)
 {
 	return Time();
+}
+
+void Time::operator++()
+{
+	hour = (hour + 1) % 24;
+	if (hour == 0) day++;
+}
+
+// Time& Time::operator=(Time& t)
+// {
+// 	day = t.get_Day();
+// 	hour = t.get_Hour();
+// 	return *this;
+// }
+
+int Time::TimeToHours()
+{
+	int hoursElapsed;
+	hoursElapsed = 24 * day + hour;
+	return hoursElapsed;
 }

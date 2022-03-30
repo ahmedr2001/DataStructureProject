@@ -59,3 +59,7 @@ void Company::LoadTrucksAndEventsData(string filename)
 		}
 	}
 }
+void Company::PrintStatistics(string filename)
+{
+	
+}

@@ -10,8 +10,12 @@ public:
 	Time(int d, int h);
 	void set_Day(int d);
 	void set_Hour(int h);
+	int get_Day();
+	int get_Hour();
 	Time operator+(int intervalInHours);
-	int operator-(Time nextTime);
-	Time operator++();
+	Time& operator-(Time nextTime);
+	void operator++();
+	//Time& operator=(Time& t);
+	int TimeToHours();
 };
 istream& operator>>(istream& in, Time& t);
