@@ -58,7 +58,7 @@ Time Time::operator+(int intervalInHours)
 	return Time();
 }
 
-Time& Time::operator-(Time nextTime)
+Time Time::operator-(Time nextTime)
 {
 	return Time();
 }
