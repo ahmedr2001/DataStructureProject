@@ -9,6 +9,7 @@ protected:
 	int Load_Time;
 	Time Move_Time;
 	Time Waiting_Time;
+	Time Delivery_Time;
 	Type t;
 	int Cost;
 	int Distance;
@@ -23,7 +24,9 @@ public:
 	void set_Pre_Time(Time t);
 	void set_Move_Time(Time t);
 	void set_Waiting_Time();
+	void set_Delivery_Time(int speed);
 
+	Time get_Delivery_Time();
 	int get_Load_Time();
 	int get_Cost();
 	int get_Distance();

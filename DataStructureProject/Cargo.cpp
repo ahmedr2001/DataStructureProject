@@ -10,6 +10,7 @@ Cargo::Cargo(Time pt, Time lt, Type t, int c, int d) {
 }
 
 
+
 void Cargo::set_Pre_Time(Time t){
 	Pre_Time = t;
 }
@@ -20,6 +21,15 @@ void Cargo::set_Load_Time(int t){
 void Cargo::set_Move_Time(Time t)
 {
 	Move_Time = t;
+}
+
+void Cargo::set_Delivery_Time(int speed)
+{
+	Delivery_Time = Move_Time + (int)round((double)Distance / speed) + Load_Time;
+}
+Time Cargo::get_Delivery_Time()
+{
+	return Delivery_Time;
 }
 
 Time Cargo::get_Move_Time()

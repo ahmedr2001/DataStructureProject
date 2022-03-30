@@ -13,6 +13,8 @@ private:
 	int num_of_journey; // truck needs to perform maintainance after finishing n delivery journeys
 	int speed; // speed in km/h
 	int DI; // delivery interval
+	int active_time;
+	int utilization;
 	Type trucktype; // truck type (vip-normal-special)
 public:
 	Truck(Type t,int cap,int ct,int s); // set type-capacity-check time-speed of truck
