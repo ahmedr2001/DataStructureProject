@@ -27,7 +27,7 @@ void Company::LoadTrucksAndEventsData(string filename)
 		inFile >> Event_Num;
 
 		Event* e=nullptr;
-		for (int i = 0; i < Event_Num; i++);
+		for (int i = 0; i < Event_Num; i++)
 		{
 			inFile >> Event_Type;
 			if (Event_Type == 'R')
