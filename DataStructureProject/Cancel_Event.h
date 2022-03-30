@@ -1,6 +1,6 @@
 #pragma once
 #include "Event.h"
-#include"Company.h"
+//#include"Company.h"
 class Cancel_Event :
     public Event
 {
