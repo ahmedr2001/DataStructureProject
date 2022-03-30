@@ -1,4 +1,22 @@
 #include "Company.h"
+void Company::add_truck(Type t)
+{
+	Truck* tk = new Truck(t, Normal_Truck_Cap, Truck_Check_Time, Normal_Truck_Speed);
+	switch(t)
+	{
+	case Normal:
+		normalTruckList->enqueue(tk);
+		break;
+	case special:
+		specialTruckList->enqueue(tk);
+		break;
+	case VIP:
+		vipTruckList->enqueue(tk);
+		break;
+	default:
+		break;
+	}
+}
 void Company::LoadTrucksAndEventsData(string filename)
 {
 	ifstream inFile(filename + ".txt", ios::in);
@@ -20,6 +38,20 @@ void Company::LoadTrucksAndEventsData(string filename)
 		inFile >> Normal_journey_Num;
 		inFile >> Special_journey_Num;
 		inFile >> Vip_journey_Num;
+		inFile >> Truck_Check_Time;
+
+		for (int i = 0; i < Normal_Truck_Num; i++)
+		{
+			add_truck(Normal);
+		}
+		for (int i = 0; i < Special_Truck_Num; i++)
+		{
+			add_truck(special);
+		}
+		for (int i = 0; i < Vip_Truck_Num; i++)
+		{
+			add_truck(VIP);
+		}
 
 		inFile >> AutoP;
 		inFile >> MaxW;

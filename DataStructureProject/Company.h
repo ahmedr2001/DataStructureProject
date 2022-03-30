@@ -26,6 +26,8 @@ protected:
 	int Special_journey_Num;
 	int Vip_journey_Num;
 
+	int Truck_Check_Time;
+
 	int AutoP;
 	int MaxW;
 
@@ -54,6 +56,7 @@ protected:
 	queue<Truck*>* specialTruckList;
 public:
 	//Company(); //Company constructor
+	void add_truck(Type t);
 	void LoadTrucksAndEventsData(string filename);
 	void PrintStatistics(string filename);
 	void Store_Cargo(Cargo* C);// find suitable queue to store cargo
