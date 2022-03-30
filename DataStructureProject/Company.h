@@ -42,7 +42,7 @@ protected:
 	queue<Event*>* eventList;
 	queue<Cargo*>* normalWaitingList;
 	queue<Cargo*>* specialWaitingList;
-	queue<Cargo*>* vipWaitingList;
+	priority_queue<Cargo*>* vipWaitingList;
 	queue<Cargo*>* normalMovingList;
 	queue<Cargo*>* specialMovingList;
 	queue<Cargo*>* vipMovingList;
