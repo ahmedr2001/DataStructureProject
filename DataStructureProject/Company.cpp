@@ -1,17 +1,43 @@
 #include "Company.h"
+Company::Company()
+{
+	normalTruckList = new queue<Truck*>;
+	eventList=new queue<Event*>;
+	normalWaitingList=new queue<Cargo*>;
+	specialWaitingList=new queue<Cargo*>;
+	vipWaitingList = new priority_queue<Cargo*>;
+	normalMovingList = new queue<Cargo*>;
+	specialMovingList = new queue<Cargo*>;
+	vipMovingList = new queue<Cargo*>;
+	normalDeliveredList = new queue<Cargo*>;
+	specialDeliveredList = new queue<Cargo*>;
+	vipDeliveredList = new queue<Cargo*>;
+	vipTruckList = new queue<Truck*>;
+	normalTruckList = new queue<Truck*>;
+	specialTruckList = new queue<Truck*>;
+}
+void Company::printathing()
+{
+	cout << Normal_Truck_Cap << endl;
+}
 void Company::add_truck(Type t)
 {
-	Truck* tk = new Truck(t, Normal_Truck_Cap, Truck_Check_Time, Normal_Truck_Speed);
+	Truck* tk1;
+	Truck* tk2;
+	Truck* tk3;
 	switch(t)
 	{
 	case Normal:
-		normalTruckList->enqueue(tk);
+		tk1 = new Truck(t, Normal_Truck_Cap, Truck_Check_Time, Normal_Truck_Speed);
+		normalTruckList->enqueue(tk1);
 		break;
 	case special:
-		specialTruckList->enqueue(tk);
+		tk2 = new Truck(t, Special_Truck_Cap, Truck_Check_Time, Special_Truck_Speed);
+		specialTruckList->enqueue(tk2);
 		break;
 	case VIP:
-		vipTruckList->enqueue(tk);
+		tk3 = new Truck(t, Vip_Truck_Cap, Truck_Check_Time, Vip_Truck_Speed);
+		vipTruckList->enqueue(tk3);
 		break;
 	default:
 		break;
@@ -64,14 +90,26 @@ void Company::LoadTrucksAndEventsData(string filename)
 			inFile >> Event_Type;
 			if (Event_Type == 'R')
 			{
-				int type;
+				char type;
 				inFile >> type;
-				Cargo_Type = (Type)type;
+				if (type=='N')
+				{
+					Cargo_Type = Normal;
+				}
+				else if (type == 'S')
+				{
+					Cargo_Type = special;
+				}
+				else if (type == 'V')
+				{
+					Cargo_Type = VIP;
+				}
 				inFile >> Event_Time;
 				inFile >> Cargo_ID;
 				inFile >> Cargo_Dist;
 				inFile >> Load_Time;
 				inFile >> Cargo_cost;
+			
 				e = new Prepare_Event(Event_Time,Cargo_ID,Cargo_Dist,Load_Time,Cargo_cost);
 			}
 			else if (Event_Type == 'X')

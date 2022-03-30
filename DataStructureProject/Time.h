@@ -1,6 +1,8 @@
 #pragma once
+#include <iostream>
 #include <fstream>
 using namespace std;
+
 class Time
 {
 	int day;
@@ -18,4 +20,4 @@ public:
 	//Time& operator=(Time& t);
 	int TimeToHours();
 };
-istream& operator>>(istream& in, Time& t);
+ifstream& operator>>(ifstream& stream, Time& t);

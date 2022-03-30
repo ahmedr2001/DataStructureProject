@@ -55,7 +55,8 @@ protected:
 	queue<Truck*>* normalTruckList;
 	queue<Truck*>* specialTruckList;
 public:
-	//Company(); //Company constructor
+	Company(); //Company constructor
+	void printathing();
 	void add_truck(Type t);
 	void LoadTrucksAndEventsData(string filename);
 	void PrintStatistics(string filename);

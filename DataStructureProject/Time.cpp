@@ -1,11 +1,12 @@
 #include "Time.h"
 #include <string>
-istream& operator>>(istream& in, Time& t)
+
+ifstream& operator>>(ifstream& stream, Time& t)
 {
 	string days = ""; 
 	string hours = "";
 	string input;
-	in >> input;
+	stream >> input;
 	int i;
 	for (i = 0; i < input.length(); i++) {
 		if (input[i] == ':')
@@ -18,7 +19,7 @@ istream& operator>>(istream& in, Time& t)
 	}
 	t.set_Day(stoi(days));
 	t.set_Hour(stoi(hours));
-	return in;
+	return stream;
 }
 
 Time::Time()

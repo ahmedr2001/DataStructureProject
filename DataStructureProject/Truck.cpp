@@ -2,6 +2,7 @@
 
 Truck::Truck(Type t, int cap, int ct, int s)
 {
+	cargolist = new linkedlist<Cargo*>;
 	loaded = 0;
 	set_Type(t);
 	set_Capacity(cap);
