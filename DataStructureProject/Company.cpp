@@ -156,10 +156,10 @@ void Company::Add_New_Cargo(Time pt, int lt,int id, Type t, int cost, int dis) {
 void Company::Remove_Normal_Wating_Cargo(int id)
 {
 	queue<Cargo*>* templist = new queue<Cargo*>;
-	node<Cargo*>* temp;
+	node<Cargo*>* temp = new node<Cargo*>;
 	while (!normalWaitingList->isempty())
 	{
-		temp = normalWaitingList->peek();
+		temp->setdata(normalWaitingList->peek()->getdata());
 		normalWaitingList->dequeue();
 		if (temp->getdata()->get_ID() == id)
 		{
@@ -171,10 +171,11 @@ void Company::Remove_Normal_Wating_Cargo(int id)
 	}
 	while (!templist->isempty())
 	{
-		temp = templist->peek();
+		temp->setdata(templist->peek()->getdata());
 		templist->dequeue();
 		normalWaitingList->enqueue(temp->getdata());
 	}
+	delete temp;
 	delete templist;
 }
 void Company::Execute_Events(Time T) {
