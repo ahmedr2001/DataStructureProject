@@ -1,26 +1,38 @@
 #include "Company.h"
 Company::Company()
 {
-	normalTruckList = new queue<Truck*>;
 	eventList=new queue<Event*>;
-	normalWaitingList=new queue<Cargo*>;
-	specialWaitingList=new queue<Cargo*>;
-	vipWaitingList = new priority_queue<Cargo*>;
-	normalMovingList = new queue<Cargo*>;
-	specialMovingList = new queue<Cargo*>;
-	vipMovingList = new queue<Cargo*>;
-	normalDeliveredList = new queue<Cargo*>;
-	specialDeliveredList = new queue<Cargo*>;
-	vipDeliveredList = new queue<Cargo*>;
-	vipTruckList = new queue<Truck*>;
-	normalTruckList = new queue<Truck*>;
-	specialTruckList = new queue<Truck*>;
+
+	Cargo_normalWaitingList=new queue<Cargo*>;
+	Cargo_specialWaitingList=new queue<Cargo*>;
+	Cargo_vipWaitingList = new priority_queue<Cargo*>;
+
+	Cargo_normalMovingList = new queue<Cargo*>;
+	Cargo_specialMovingList = new queue<Cargo*>;
+	Cargo_vipMovingList = new queue<Cargo*>;
+
+	Cargo_normalDeliveredList = new queue<Cargo*>;
+	Cargo_specialDeliveredList = new queue<Cargo*>;
+	Cargo_vipDeliveredList = new queue<Cargo*>;
+
+	Truck_vipWaitingList = new queue<Truck*>;
+	Truck_normalWaitingList = new queue<Truck*>;
+	Truck_specialWaitingList = new queue<Truck*>;
+
+	queue<Truck*>* Truck_vipMovingList = new queue<Truck*>;
+	queue<Truck*>* Truck_normalMovingList = new queue<Truck*>;
+	queue<Truck*>* Truck_specialMovingList = new queue<Truck*>;
 }
 void Company::printathing()
 {
-	cout << Normal_Truck_Cap << endl;
-	cout << normalWaitingList->peek()->getdata()->get_Cost()<<endl;
-	cout << vipWaitingList->peek()->getdata()->get_Cost() << endl;
+	/*cout << Normal_Truck_Cap << endl;
+	cout << Cargo_normalWaitingList->peek()->getdata()->get_Cost()<<endl;
+	cout << Cargo_vipWaitingList->peek()->getdata()->get_Cost() << endl;*/
+	while (!Cargo_normalWaitingList->isempty())
+	{
+		cout << Cargo_normalWaitingList->peek()->getdata()->get_ID() << endl;
+		Cargo_normalWaitingList->dequeue();
+	}
 }
 void Company::add_truck(Type t)
 {
@@ -31,15 +43,15 @@ void Company::add_truck(Type t)
 	{
 	case Normal:
 		tk1 = new Truck(t, Normal_Truck_Cap, Truck_Check_Time, Normal_Truck_Speed);
-		normalTruckList->enqueue(tk1);
+		Truck_normalWaitingList->enqueue(tk1);
 		break;
 	case special:
 		tk2 = new Truck(t, Special_Truck_Cap, Truck_Check_Time, Special_Truck_Speed);
-		specialTruckList->enqueue(tk2);
+		Truck_specialWaitingList->enqueue(tk2);
 		break;
 	case VIP:
 		tk3 = new Truck(t, Vip_Truck_Cap, Truck_Check_Time, Vip_Truck_Speed);
-		vipTruckList->enqueue(tk3);
+		Truck_vipWaitingList->enqueue(tk3);
 		break;
 	default:
 		break;
@@ -139,15 +151,15 @@ void Company::Add_New_Cargo(Time pt, int lt,int id, Type t, int cost, int dis) {
 	{
 	case Normal:
 		newCargoN = new Cargo(pt, lt, id, t, cost, dis);
-		normalWaitingList->enqueue(newCargoN);
+		Cargo_normalWaitingList->enqueue(newCargoN);
 		break;
 	case special:
 		newCargoS = new Cargo(pt, lt, id, t, cost, dis);
-		specialWaitingList->enqueue(newCargoS);
+		Cargo_specialWaitingList->enqueue(newCargoS);
 		break;
 	case VIP:
 		newCargoV = new Cargo(pt, lt, id, t, cost, dis);
-		vipWaitingList->enqueue(newCargoV);
+		Cargo_vipWaitingList->enqueue(newCargoV);
 		break;
 	default:
 		break;
@@ -157,10 +169,10 @@ void Company::Remove_Normal_Wating_Cargo(int id)
 {
 	queue<Cargo*>* templist = new queue<Cargo*>;
 	node<Cargo*>* temp = new node<Cargo*>;
-	while (!normalWaitingList->isempty())
+	while (!Cargo_normalWaitingList->isempty())
 	{
-		temp->setdata(normalWaitingList->peek()->getdata());
-		normalWaitingList->dequeue();
+		temp->setdata(Cargo_normalWaitingList->peek()->getdata());
+		Cargo_normalWaitingList->dequeue();
 		if (temp->getdata()->get_ID() == id)
 		{
 		}
@@ -173,21 +185,29 @@ void Company::Remove_Normal_Wating_Cargo(int id)
 	{
 		temp->setdata(templist->peek()->getdata());
 		templist->dequeue();
-		normalWaitingList->enqueue(temp->getdata());
+		Cargo_normalWaitingList->enqueue(temp->getdata());
 	}
 	delete temp;
 	delete templist;
 }
+
 void Company::Execute_Events(Time T) {
-	Prepare_Event* p;
+	Event* p;
 	while (!eventList->isempty())
 	{
-	/*if (p = dynamic_cast<Prepare_Event*>(eventList->peek()->getdata()))
-		p->Execute(this);*/
-	eventList->peek()->getdata()->Execute(this);
+		if (p = dynamic_cast<Prepare_Event*>(eventList->peek()->getdata())) {
+			p->Execute(this);
+		}
+		else if (p = dynamic_cast<Cancel_Event*>(eventList->peek()->getdata())) {
+			p->Execute(this);
+		}
+		else if (p = dynamic_cast<Promote_Event*>(eventList->peek()->getdata())) {
+			p->Execute(this);
+		}
 	eventList->dequeue();
 	}
 }
+
 void Company::PrintStatistics(string filename)
 {
 	
