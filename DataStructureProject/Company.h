@@ -42,18 +42,26 @@ protected:
 	int Extra_Money;
 
 	queue<Event*>* eventList;
-	queue<Cargo*>* normalWaitingList;
-	queue<Cargo*>* specialWaitingList;
-	priority_queue<Cargo*>* vipWaitingList;
-	queue<Cargo*>* normalMovingList;
-	queue<Cargo*>* specialMovingList;
-	queue<Cargo*>* vipMovingList;
-	queue<Cargo*>* normalDeliveredList;
-	queue<Cargo*>* specialDeliveredList;
-	queue<Cargo*>* vipDeliveredList;
-	queue<Truck*>* vipTruckList;
-	queue<Truck*>* normalTruckList;
-	queue<Truck*>* specialTruckList;
+
+	queue<Cargo*>* Cargo_normalWaitingList;
+	queue<Cargo*>* Cargo_specialWaitingList;
+	priority_queue<Cargo*>* Cargo_vipWaitingList;
+
+	queue<Cargo*>* Cargo_normalMovingList;
+	queue<Cargo*>* Cargo_specialMovingList;
+	queue<Cargo*>* Cargo_vipMovingList;
+
+	queue<Cargo*>* Cargo_normalDeliveredList;
+	queue<Cargo*>* Cargo_specialDeliveredList;
+	queue<Cargo*>* Cargo_vipDeliveredList;
+
+	queue<Truck*>* Truck_vipWaitingList;
+	queue<Truck*>* Truck_normalWaitingList;
+	queue<Truck*>* Truck_specialWaitingList;
+
+	queue<Truck*>* Truck_vipMovingList;
+	queue<Truck*>* Truck_normalMovingList;
+	queue<Truck*>* Truck_specialMovingList;
 public:
 	Company(); //Company constructor
 	void printathing();

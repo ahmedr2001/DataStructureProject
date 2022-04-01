@@ -36,6 +36,7 @@ int Prepare_Event::get_Cargo_cost() const {
 
 	return Cargo_cost;
 }
+
 Time Prepare_Event::get_pre_Time() {
 	return Event_Time;
 }

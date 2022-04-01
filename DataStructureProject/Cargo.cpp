@@ -9,6 +9,7 @@ Cargo::Cargo(Time pt, int lt, int ID, Type t, int c, int d) {
 	set_Cost(c);
 	set_Type(t);
 	set_Distance(d);
+	set_ID(ID);
 }
 
 void Cargo::set_ID(int id) {
