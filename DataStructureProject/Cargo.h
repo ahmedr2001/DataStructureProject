@@ -11,12 +11,12 @@ protected:
 	Time Waiting_Time;
 	Time Delivery_Time;
 	Type t;
+	int ID;
 	int Cost;
 	int Distance;
 	int priority;
 public:
-	Cargo(Time pt, Time lt,Type t, int c, int d);
-
+	Cargo(Time pt, int lt,int ID,Type t, int c, int d);
 	void set_Load_Time(int t);
 	void set_Cost(int c);
 	void set_Distance(int d);
@@ -25,12 +25,14 @@ public:
 	void set_Move_Time(Time t);
 	void set_Waiting_Time();
 	void set_Delivery_Time(int speed);
+	void set_ID(int id);
 
 	Time get_Delivery_Time();
 	int get_Load_Time();
 	int get_Cost();
 	int get_Distance();
 	int getPriority(Time& currentTime);
+	int get_ID();
 	Time get_Pre_Time();
 	Type get_Type();
 	Time get_Move_Time();

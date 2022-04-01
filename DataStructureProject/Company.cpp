@@ -19,6 +19,8 @@ Company::Company()
 void Company::printathing()
 {
 	cout << Normal_Truck_Cap << endl;
+	cout << normalWaitingList->peek()->getdata()->get_Cost()<<endl;
+	cout << vipWaitingList->peek()->getdata()->get_Cost() << endl;
 }
 void Company::add_truck(Type t)
 {
@@ -110,7 +112,7 @@ void Company::LoadTrucksAndEventsData(string filename)
 				inFile >> Load_Time;
 				inFile >> Cargo_cost;
 			
-				e = new Prepare_Event(Event_Time,Cargo_ID,Cargo_Dist,Load_Time,Cargo_cost);
+				e = new Prepare_Event(Event_Time, Cargo_Type,Cargo_ID,Cargo_Dist,Load_Time,Cargo_cost);
 			}
 			else if (Event_Type == 'X')
 			{
@@ -127,6 +129,38 @@ void Company::LoadTrucksAndEventsData(string filename)
 			}
 			eventList->enqueue(e);
 		}
+	}
+}
+void Company::Add_New_Cargo(Time pt, int lt,int id, Type t, int cost, int dis) {
+	Cargo* newCargoN ;
+	Cargo* newCargoS ;
+	Cargo* newCargoV ;
+	switch (t)
+	{
+	case Normal:
+		newCargoN = new Cargo(pt, lt, id, t, cost, dis);
+		normalWaitingList->enqueue(newCargoN);
+		break;
+	case special:
+		newCargoS = new Cargo(pt, lt, id, t, cost, dis);
+		specialWaitingList->enqueue(newCargoS);
+		break;
+	case VIP:
+		newCargoV = new Cargo(pt, lt, id, t, cost, dis);
+		vipWaitingList->enqueue(newCargoV);
+		break;
+	default:
+		break;
+	}
+}
+void Company::Execute_Events(Time T) {
+	Prepare_Event* p;
+	while (!eventList->isempty())
+	{
+	/*if (p = dynamic_cast<Prepare_Event*>(eventList->peek()->getdata()))
+		p->Execute(this);*/
+	eventList->peek()->getdata()->Execute(this);
+	eventList->dequeue();
 	}
 }
 void Company::PrintStatistics(string filename)

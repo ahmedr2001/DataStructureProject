@@ -4,6 +4,7 @@
 class Company;
 class Event
 {
+protected:
 	Time Event_Time;
 	int Cargo_ID;
 public:

@@ -3,13 +3,17 @@
 #define distanceWeight 1
 #define prepTimeWeight 1
  
-Cargo::Cargo(Time pt, Time lt, Type t, int c, int d) {
+Cargo::Cargo(Time pt, int lt, int ID, Type t, int c, int d) {
+	set_Pre_Time(pt);
+	set_Load_Time(lt);
 	set_Cost(c);
 	set_Type(t);
 	set_Distance(d);
 }
 
-
+void Cargo::set_ID(int id) {
+	ID = id;
+}
 
 void Cargo::set_Pre_Time(Time t){
 	Pre_Time = t;
@@ -63,8 +67,14 @@ int Cargo::get_Cost(){
 int Cargo::get_Distance(){
 	return Distance;
 }
+int Cargo::get_ID() {
+	return ID;
+}
 Type Cargo::get_Type(){
 	return t;
+}
+Time Cargo::get_Waiting_Time() {
+	return Waiting_Time;
 }
 void Cargo::LoadFromStreamFile(){}
 void Cargo::OutToStreamFile(){}
