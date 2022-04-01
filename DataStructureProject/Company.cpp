@@ -1,20 +1,27 @@
 #include "Company.h"
 Company::Company()
 {
-	Truck_normalWaitingList = new queue<Truck*>;
 	eventList=new queue<Event*>;
+
 	Cargo_normalWaitingList=new queue<Cargo*>;
 	Cargo_specialWaitingList=new queue<Cargo*>;
 	Cargo_vipWaitingList = new priority_queue<Cargo*>;
+
 	Cargo_normalMovingList = new queue<Cargo*>;
 	Cargo_specialMovingList = new queue<Cargo*>;
 	Cargo_vipMovingList = new queue<Cargo*>;
+
 	Cargo_normalDeliveredList = new queue<Cargo*>;
 	Cargo_specialDeliveredList = new queue<Cargo*>;
 	Cargo_vipDeliveredList = new queue<Cargo*>;
+
 	Truck_vipWaitingList = new queue<Truck*>;
 	Truck_normalWaitingList = new queue<Truck*>;
 	Truck_specialWaitingList = new queue<Truck*>;
+
+	queue<Truck*>* Truck_vipMovingList = new queue<Truck*>;
+	queue<Truck*>* Truck_normalMovingList = new queue<Truck*>;
+	queue<Truck*>* Truck_specialMovingList = new queue<Truck*>;
 }
 void Company::printathing()
 {
