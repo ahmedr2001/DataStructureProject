@@ -47,9 +47,9 @@ protected:
 	queue<Cargo*>* Cargo_specialWaitingList;
 	priority_queue<Cargo*>* Cargo_vipWaitingList;
 
-	queue<Cargo*>* Cargo_normalMovingList;
+	/*queue<Cargo*>* Cargo_normalMovingList;
 	queue<Cargo*>* Cargo_specialMovingList;
-	queue<Cargo*>* Cargo_vipMovingList;
+	queue<Cargo*>* Cargo_vipMovingList;*/
 
 	queue<Cargo*>* Cargo_normalDeliveredList;
 	queue<Cargo*>* Cargo_specialDeliveredList;
@@ -75,4 +75,3 @@ public:
 	void Collect_statistics();// to create output file
 	void addToVIPWaiting(Cargo* myCargo);
 };
-

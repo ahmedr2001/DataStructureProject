@@ -3,7 +3,6 @@
 #include<iostream>
 #include<Windows.h>
 #include"Company.h"
-#include"Prepare_Event.h"
 using namespace std;
 
 int main() {
@@ -15,7 +14,7 @@ int main() {
 	while (t.get_Day()!=14||t.get_Hour()!=12)
 	{
 		c1->Execute_Events(t);
-		Sleep(5);
+		Sleep(100);
 		t++;
 		c1->printathing();
 	}

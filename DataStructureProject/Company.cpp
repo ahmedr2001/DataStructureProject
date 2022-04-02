@@ -7,9 +7,9 @@ Company::Company()
 	Cargo_specialWaitingList=new queue<Cargo*>;
 	Cargo_vipWaitingList = new priority_queue<Cargo*>;
 
-	Cargo_normalMovingList = new queue<Cargo*>;
-	Cargo_specialMovingList = new queue<Cargo*>;
-	Cargo_vipMovingList = new queue<Cargo*>;
+	//Cargo_normalMovingList = new queue<Cargo*>;
+	//Cargo_specialMovingList = new queue<Cargo*>;
+	//Cargo_vipMovingList = new queue<Cargo*>;
 
 	Cargo_normalDeliveredList = new queue<Cargo*>;
 	Cargo_specialDeliveredList = new queue<Cargo*>;
