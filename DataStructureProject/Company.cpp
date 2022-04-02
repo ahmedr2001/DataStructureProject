@@ -34,7 +34,7 @@ void Company::printathing()
 		Cargo_normalWaitingList->dequeue();
 	}*/
 	node<Cargo*>* trav;
-	trav = Cargo_normalWaitingList->peek();
+	trav = Cargo_vipWaitingList->peek();
 	while (trav)
 	{
 		cout << trav->getdata()->get_ID() << endl;
@@ -172,16 +172,18 @@ void Company::Add_New_Cargo(Time pt, int lt,int id, Type t, int cost, int dis) {
 		break;
 	}
 }
-void Company::Remove_Normal_Wating_Cargo(int id)
+Cargo* Company::Remove_Normal_Wating_Cargo(int id)
 {
 	queue<Cargo*>* templist = new queue<Cargo*>;
 	node<Cargo*>* temp = new node<Cargo*>;
+	Cargo* temp_returned=nullptr;
 	while (!Cargo_normalWaitingList->isempty())
 	{
 		temp->setdata(Cargo_normalWaitingList->peek()->getdata());
 		Cargo_normalWaitingList->dequeue();
 		if (temp->getdata()->get_ID() == id)
 		{
+			temp_returned = temp->getdata();
 		}
 		else
 		{
@@ -194,8 +196,9 @@ void Company::Remove_Normal_Wating_Cargo(int id)
 		templist->dequeue();
 		Cargo_normalWaitingList->enqueue(temp->getdata());
 	}
-	delete temp;
 	delete templist;
+	delete temp;
+	return temp_returned;
 }
 
 void Company::Execute_Events(Time T) {
@@ -221,4 +224,9 @@ void Company::Execute_Events(Time T) {
 void Company::PrintStatistics(string filename)
 {
 	
+}
+
+void Company::addToVIPWaiting(Cargo* myCargo)
+{
+	Cargo_vipWaitingList->enqueue(myCargo);
 }

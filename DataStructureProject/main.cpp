@@ -3,7 +3,6 @@
 #include<iostream>
 #include<Windows.h>
 #include"Company.h"
-#include"Prepare_Event.h"
 using namespace std;
 
 int main() {
