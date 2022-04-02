@@ -195,16 +195,12 @@ void Company::Execute_Events(Time T) {
 	Event* p;
 	while (!eventList->isempty())
 	{
-		if (p = dynamic_cast<Prepare_Event*>(eventList->peek()->getdata())) {
+		p = eventList->peek()->getdata();
+		if (p->get_Time()==T)
+		{
 			p->Execute(this);
+			eventList->dequeue();
 		}
-		else if (p = dynamic_cast<Cancel_Event*>(eventList->peek()->getdata())) {
-			p->Execute(this);
-		}
-		else if (p = dynamic_cast<Promote_Event*>(eventList->peek()->getdata())) {
-			p->Execute(this);
-		}
-	eventList->dequeue();
 	}
 }
 
