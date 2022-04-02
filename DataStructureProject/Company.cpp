@@ -28,10 +28,17 @@ void Company::printathing()
 	/*cout << Normal_Truck_Cap << endl;
 	cout << Cargo_normalWaitingList->peek()->getdata()->get_Cost()<<endl;
 	cout << Cargo_vipWaitingList->peek()->getdata()->get_Cost() << endl;*/
-	while (!Cargo_normalWaitingList->isempty())
+	/*while (!Cargo_normalWaitingList->isempty())
 	{
 		cout << Cargo_normalWaitingList->peek()->getdata()->get_ID() << endl;
 		Cargo_normalWaitingList->dequeue();
+	}*/
+	node<Cargo*>* trav;
+	trav = Cargo_normalWaitingList->peek();
+	while (trav)
+	{
+		cout << trav->getdata()->get_ID() << endl;
+		trav = trav->getnext();
 	}
 }
 void Company::add_truck(Type t)
@@ -193,13 +200,20 @@ void Company::Remove_Normal_Wating_Cargo(int id)
 
 void Company::Execute_Events(Time T) {
 	Event* p;
-	while (!eventList->isempty())
+	if (!eventList->isempty())
 	{
 		p = eventList->peek()->getdata();
 		if (p->get_Time()==T)
 		{
 			p->Execute(this);
 			eventList->dequeue();
+		}
+		if (eventList->peek())
+		{
+			if (eventList->peek()->getdata()->get_Time() == T)
+			{
+				Execute_Events(T);
+			}
 		}
 	}
 }
