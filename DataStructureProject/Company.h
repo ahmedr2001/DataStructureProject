@@ -69,8 +69,9 @@ public:
 	void LoadTrucksAndEventsData(string filename);
 	void PrintStatistics(string filename);
 	void Add_New_Cargo(Time pt, int lt, int id, Type t, int cost, int dis);// find suitable queue to store cargo
-	void Remove_Normal_Wating_Cargo(int id);
+	Cargo* Remove_Normal_Wating_Cargo(int id);
 	void Ship_Cargo(Truck* T);// find suitable truck to ship cargo
 	void Execute_Events(Time T);//Execute the events that should be executed at that hour
 	void Collect_statistics();// to create output file
+	void addToVIPWaiting(Cargo* myCargo);
 };
