@@ -94,3 +94,8 @@ int Time::TimeToHours()
 	hoursElapsed = 24 * day + hour;
 	return hoursElapsed;
 }
+
+bool Time::operator==(Time otherTime)
+{
+	return (day == otherTime.get_Day() && hour == otherTime.get_Hour());
+}

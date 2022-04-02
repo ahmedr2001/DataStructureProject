@@ -19,5 +19,6 @@ public:
 	void operator++();
 	//Time& operator=(Time& t);
 	int TimeToHours();
+	bool operator==(Time otherTime);
 };
 ifstream& operator>>(ifstream& stream, Time& t);
