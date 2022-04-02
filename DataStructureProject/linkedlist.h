@@ -75,6 +75,7 @@ public:
 						head->setprevious(newNode);
 						head = newNode;
 						done = 1;
+						break;
 					}
 					else {
 						newNode->setnext(headCopy);
@@ -82,6 +83,7 @@ public:
 						headCopy->setprevious(newNode);
 						newNode->getprevious()->setnext(newNode);
 						done = 1;
+						break;
 					}
 				}
 				headCopy = headCopy->getnext();
