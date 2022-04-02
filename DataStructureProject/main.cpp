@@ -14,6 +14,7 @@ int main() {
 	{
 		c1->Execute_Events(t);
 		Sleep(1000);
+		t++;
 		c1->printathing();
 	}
 	return 0;

@@ -16,7 +16,7 @@ public:
 	int get_Hour();
 	Time operator+(int intervalInHours);
 	Time& operator-(Time nextTime);
-	void operator++();
+	void operator++(int);
 	//Time& operator=(Time& t);
 	int TimeToHours();
 	bool operator==(Time otherTime);
