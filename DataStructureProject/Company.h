@@ -75,3 +75,4 @@ public:
 	void Collect_statistics();// to create output file
 };
 
+void addvip ()
