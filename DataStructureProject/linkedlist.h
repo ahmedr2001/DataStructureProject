@@ -39,7 +39,7 @@ public:
 		Time currentTime;
 		node<T>* newNode = new node<T>;
 		newNode->setdata(data);
-		int priority = data->getPriority(currentTime);
+		int priority = data->getPriority();
 		bool done = 0;
 		node<T>* headCopy = head;
 		if (!headCopy) {
@@ -50,7 +50,7 @@ public:
 			done = 1;
 		}
 		else if (!headCopy->getnext()) {
-			if (headCopy->getdata()->getPriority(currentTime) > priority) {
+			if (headCopy->getdata()->getPriority() > priority) {
 				newNode->setnext(nullptr);
 				newNode->setprevious(head);
 				head->setnext(newNode);
@@ -68,7 +68,7 @@ public:
 		}
 		else {
 			while (headCopy) {
-				if (headCopy->getdata()->getPriority(currentTime) <= priority) {
+				if (headCopy->getdata()->getPriority() <= priority) {
 					if (headCopy == head) {
 						newNode->setnext(head);
 						newNode->setprevious(nullptr);
