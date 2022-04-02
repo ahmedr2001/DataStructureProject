@@ -75,9 +75,9 @@ Time& Time::operator-(Time nextTime)
 	return *this;
 }
 
-void Time::operator++()
+void Time::operator++(int)
 {
-	hour = (hour + 1) % 24;
+	set_Hour((hour + 1) % 24);
 	if (hour == 0) day++;
 }
 
