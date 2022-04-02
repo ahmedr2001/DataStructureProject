@@ -176,12 +176,14 @@ Cargo* Company::Remove_Normal_Wating_Cargo(int id)
 {
 	queue<Cargo*>* templist = new queue<Cargo*>;
 	node<Cargo*>* temp = new node<Cargo*>;
+	Cargo* temp_returned=nullptr;
 	while (!Cargo_normalWaitingList->isempty())
 	{
 		temp->setdata(Cargo_normalWaitingList->peek()->getdata());
 		Cargo_normalWaitingList->dequeue();
 		if (temp->getdata()->get_ID() == id)
 		{
+			temp_returned = temp->getdata();
 		}
 		else
 		{
@@ -195,7 +197,8 @@ Cargo* Company::Remove_Normal_Wating_Cargo(int id)
 		Cargo_normalWaitingList->enqueue(temp->getdata());
 	}
 	delete templist;
-	return temp->getdata();
+	delete temp;
+	return temp_returned;
 }
 
 void Company::Execute_Events(Time T) {
