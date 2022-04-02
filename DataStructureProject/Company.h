@@ -74,5 +74,3 @@ public:
 	void Execute_Events(Time T);//Execute the events that should be executed at that hour
 	void Collect_statistics();// to create output file
 };
-
-void addvip ()
