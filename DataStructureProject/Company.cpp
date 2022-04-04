@@ -220,6 +220,69 @@ void Company::Execute_Events(Time T) {
 	}
 }
 
+void Company::Moving_WaitingCargo(Type t){
+	node<Cargo*>* temp = new node<Cargo*>;
+	switch (t)
+	{
+	case Normal:
+		if (!Cargo_normalWaitingList->isempty()) {
+			temp->setdata(Cargo_normalWaitingList->peek()->getdata());
+			Cargo_normalMovingList->enqueue(temp->getdata());
+			Cargo_normalWaitingList->dequeue();
+		}
+		break;
+	case special:
+		if (!Cargo_specialWaitingList->isempty()) {
+			temp->setdata(Cargo_specialWaitingList->peek()->getdata());
+			Cargo_specialMovingList->enqueue(temp->getdata());
+			Cargo_specialWaitingList->dequeue();
+		}
+		break;
+	case VIP:
+		if (!Cargo_vipWaitingList->isempty()) {
+			temp->setdata(Cargo_vipWaitingList->peek()->getdata());
+			Cargo_vipMovingList->enqueue(temp->getdata());
+			Cargo_vipWaitingList->dequeue();
+		}
+		break;
+	default:
+		break;
+	}
+
+	delete temp;
+}
+void Company::Deliver_MovingCargo(Type t){
+	node<Cargo*>* temp = new node<Cargo*>;
+	switch (t)
+	{
+	case Normal:
+		if (!Cargo_normalMovingList->isempty()) {
+			temp->setdata(Cargo_normalMovingList->peek()->getdata());
+			Cargo_normalDeliveredList->enqueue(temp->getdata());
+			Cargo_normalMovingList->dequeue();
+		}
+		break;
+	case special:
+		if (!Cargo_specialMovingList->isempty()) {
+			temp->setdata(Cargo_specialMovingList->peek()->getdata());
+			Cargo_specialDeliveredList->enqueue(temp->getdata());
+			Cargo_specialMovingList->dequeue();
+		}
+		break;
+	case VIP:
+		if (!Cargo_vipMovingList->isempty()) {
+			temp->setdata(Cargo_vipMovingList->peek()->getdata());
+			Cargo_normalDeliveredList->enqueue(temp->getdata());
+			Cargo_vipMovingList->dequeue();
+		}
+		break;
+	default:
+		break;
+	}
+
+	delete temp;
+}
+
 void Company::PrintStatistics(string filename)
 {
 	

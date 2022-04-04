@@ -9,6 +9,7 @@ int main() {
 	Time t;
 	Company* c1 = new Company();
 	c1->LoadTrucksAndEventsData("test");
+
 	while (t.get_Day()!=14||t.get_Hour()!=12)
 	{
 		c1->Execute_Events(t);
@@ -16,7 +17,8 @@ int main() {
 		t++;
 		c1->printathing();
 	}
-
+	c1->Moving_WaitingCargo(Normal);
+	c1->Deliver_MovingCargo(Normal);
 	/*Time t(2,22);
 	Time t2(9, 3);
 	Time t3(11,6);
