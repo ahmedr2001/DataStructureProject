@@ -7,13 +7,13 @@ Company::Company()
 	Cargo_specialWaitingList=new queue<Cargo*>;
 	Cargo_vipWaitingList = new priority_queue<Cargo*>;
 
-	Cargo_normalMovingList = new queue<Cargo*>;
-	Cargo_specialMovingList = new queue<Cargo*>;
-	Cargo_vipMovingList = new queue<Cargo*>;
-
 	Cargo_normalDeliveredList = new queue<Cargo*>;
 	Cargo_specialDeliveredList = new queue<Cargo*>;
 	Cargo_vipDeliveredList = new queue<Cargo*>;
+
+	Cargo_normalMovingList = new queue<Cargo*>;
+	Cargo_specialMovingList = new queue<Cargo*>;
+	Cargo_vipMovingList = new queue<Cargo*>;
 
 	Truck_vipWaitingList = new queue<Truck*>;
 	Truck_normalWaitingList = new queue<Truck*>;
@@ -34,7 +34,7 @@ void Company::printathing()
 		Cargo_normalWaitingList->dequeue();
 	}*/
 	node<Cargo*>* trav;
-	trav = Cargo_vipWaitingList->peek();
+	trav = Cargo_normalWaitingList->peek();
 	while (trav)
 	{
 		cout << trav->getdata()->get_ID() << endl;
@@ -176,14 +176,14 @@ Cargo* Company::Remove_Normal_Wating_Cargo(int id)
 {
 	queue<Cargo*>* templist = new queue<Cargo*>;
 	node<Cargo*>* temp = new node<Cargo*>;
-	Cargo* temp_returned=nullptr;
+	node<Cargo*> tempToBeDeleted;
 	while (!Cargo_normalWaitingList->isempty())
 	{
 		temp->setdata(Cargo_normalWaitingList->peek()->getdata());
 		Cargo_normalWaitingList->dequeue();
 		if (temp->getdata()->get_ID() == id)
 		{
-			temp_returned = temp->getdata();
+			tempToBeDeleted = *temp;
 		}
 		else
 		{
@@ -197,8 +197,7 @@ Cargo* Company::Remove_Normal_Wating_Cargo(int id)
 		Cargo_normalWaitingList->enqueue(temp->getdata());
 	}
 	delete templist;
-	delete temp;
-	return temp_returned;
+	return tempToBeDeleted.getdata();
 }
 
 void Company::Execute_Events(Time T) {

@@ -80,9 +80,8 @@ Time Cargo::get_Waiting_Time() {
 void Cargo::LoadFromStreamFile(){}
 void Cargo::OutToStreamFile(){}
 
-int Cargo::getPriority(Time& currentTime)
+int Cargo::getPriority()
 {
-	Time waitedTime = currentTime - Pre_Time;
-	priority = costWeight * Cost + distanceWeight * Distance + prepTimeWeight * waitedTime.TimeToHours();
+	priority = costWeight * Cost + distanceWeight * Distance + prepTimeWeight * Pre_Time.TimeToHours();
 	return priority;
 }

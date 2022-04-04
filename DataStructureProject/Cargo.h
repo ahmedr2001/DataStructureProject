@@ -31,7 +31,7 @@ public:
 	int get_Load_Time();
 	int get_Cost();
 	int get_Distance();
-	int getPriority(Time& currentTime);
+	int getPriority();
 	int get_ID();
 	Time get_Pre_Time();
 	Type get_Type();
