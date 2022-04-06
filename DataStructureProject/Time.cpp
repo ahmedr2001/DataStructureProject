@@ -22,6 +22,12 @@ ifstream& operator>>(ifstream& stream, Time& t)
 	return stream;
 }
 
+ofstream& operator<<(ofstream& stream, Time& t)
+{
+	stream << t.get_Day() << ":" << t.get_Hour();
+	return stream;
+}
+
 Time::Time()
 	:day(0), hour(0)
 {

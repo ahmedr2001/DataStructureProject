@@ -22,3 +22,4 @@ public:
 	bool operator==(Time otherTime);
 };
 ifstream& operator>>(ifstream& stream, Time& t);
+ofstream& operator<<(ofstream& stream, Time& t);
