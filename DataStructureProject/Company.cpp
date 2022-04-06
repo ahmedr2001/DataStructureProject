@@ -287,11 +287,40 @@ void Company::PrintToFile(string filename)
 	ofstream outFile(filename + ".txt", ios::app);
 	if (outFile.is_open())
 	{
-		outFile <<setw(5) << "CDT" << setw(5) << "CID" << setw(5) << "PT" << setw(5) << "WT" << setw(5) << "TID"<<endl;
+		int cargon = 0;
+		int ncargon = 0;
+		int scargon = 0;
+		int vcargon = 0;
+		outFile << "CDT" << setw(5) << "CID" << setw(5) << "PT" << setw(5) << "WT" << setw(5) << endl;
 		while (Cargo_DeliveredList)
 		{
-
+			cargon++;
+			switch (Cargo_DeliveredList->peek()->getdata()->get_Type())
+			{
+			case Normal:
+				ncargon++;
+				break;
+			case special:
+				scargon++;
+				break;
+			case VIP:
+				vcargon++;
+				break;
+			}
+			Time cdt = Cargo_DeliveredList->peek()->getdata()->get_Delivery_Time();
+			outFile << cdt << setw(5);
+			int id = Cargo_DeliveredList->peek()->getdata()->get_ID();
+			outFile << id << setw(5);
+			Time pt = Cargo_DeliveredList->peek()->getdata()->get_Pre_Time();
+			outFile << pt << setw(5);
+			Time wt = Cargo_DeliveredList->peek()->getdata()->get_Waiting_Time();
+			outFile << wt << setw(5);
+			Cargo_DeliveredList->dequeue();
 		}
+		outFile << endl;
+		outFile << "-----------------------------------------------" << endl;
+		outFile << "-----------------------------------------------" << endl;
+		outFile << "Cargos: " << cargon << " [n: " << ncargon << ", S: " << scargon << ", V: " << vcargon << "]" << endl;
 	}
 }
 
