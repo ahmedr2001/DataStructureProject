@@ -18,13 +18,15 @@ int main() {
 	}*/
 	/*c1->Moving_WaitingCargo(Normal);
 	c1->Deliver_MovingCargo(Normal);*/
-	/*bool done = 0;
-	while (!done) {		
+	bool done = 0;
+	while (!done) {				
 		done = c1->Execute_Events(t);
-		
-		c1->Moving_WaitingCargo(VIP);
-		c1->Moving_WaitingCargo(special);
-		c1->Moving_WaitingCargo(Normal);
+
+		if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
+			c1->Moving_WaitingCargo(VIP);
+			c1->Moving_WaitingCargo(special);
+			c1->Moving_WaitingCargo(Normal);
+		}
 		
 		if (t.get_Hour() % 5 == 4) {
 			c1->Deliver_MovingCargo(VIP);
@@ -33,9 +35,11 @@ int main() {
 		}
 		
 		done &= c1->noCargosLeft();
+
+		c1->PrintToConsole(t);
 		
 		t++;
-	}*/
+	}
 	/*Time t(2,22);
 	Time t2(9, 3);
 	Time t3(11,6);
@@ -46,7 +50,7 @@ int main() {
 	test->enqueue(c1);
 	test->enqueue(c2);
 	test->enqueue(c3);*/
-	c1->PrintToFile("outtest");
+	//c1->PrintToFile("outtest");
 	
 
 	return 0;
