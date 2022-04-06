@@ -344,13 +344,15 @@ bool Company::Execute_Events(Time T) {
 	return true;
 }
 
-void Company::Moving_WaitingCargo(Type t){
+void Company::Moving_WaitingCargo(Type t, Time MT){
 	node<Cargo*>* temp = new node<Cargo*>;
 	switch (t)
 	{
 	case Normal:
 		if (!Cargo_normalWaitingList->isempty()) {
 			temp->setdata(Cargo_normalWaitingList->peek()->getdata());
+			temp->getdata()->set_Move_Time(MT);
+			temp->getdata()->set_Waiting_Time();
 			Cargo_normalMovingList->enqueue(temp->getdata());
 			Cargo_normalWaitingList->dequeue();
 		}
@@ -358,6 +360,8 @@ void Company::Moving_WaitingCargo(Type t){
 	case special:
 		if (!Cargo_specialWaitingList->isempty()) {
 			temp->setdata(Cargo_specialWaitingList->peek()->getdata());
+			temp->getdata()->set_Move_Time(MT);
+			temp->getdata()->set_Waiting_Time();
 			Cargo_specialMovingList->enqueue(temp->getdata());
 			Cargo_specialWaitingList->dequeue();
 		}
@@ -365,6 +369,8 @@ void Company::Moving_WaitingCargo(Type t){
 	case VIP:
 		if (!Cargo_vipWaitingList->isempty()) {
 			temp->setdata(Cargo_vipWaitingList->peek()->getdata());
+			temp->getdata()->set_Move_Time(MT);
+			temp->getdata()->set_Waiting_Time();
 			Cargo_vipMovingList->enqueue(temp->getdata());
 			Cargo_vipWaitingList->dequeue();
 		}
@@ -375,13 +381,14 @@ void Company::Moving_WaitingCargo(Type t){
 
 	delete temp;
 }
-void Company::Deliver_MovingCargo(Type t){
+void Company::Deliver_MovingCargo(Type t, Time DT){
 	node<Cargo*>* temp = new node<Cargo*>;
 	switch (t)
 	{
 	case Normal:
 		if (!Cargo_normalMovingList->isempty()) {
 			temp->setdata(Cargo_normalMovingList->peek()->getdata());
+			temp->getdata()->setDTPhaseOne(DT);
 			Cargo_DeliveredList->enqueue(temp->getdata());
 			Cargo_normalMovingList->dequeue();
 		}
@@ -389,6 +396,7 @@ void Company::Deliver_MovingCargo(Type t){
 	case special:
 		if (!Cargo_specialMovingList->isempty()) {
 			temp->setdata(Cargo_specialMovingList->peek()->getdata());
+			temp->getdata()->setDTPhaseOne(DT);
 			Cargo_DeliveredList->enqueue(temp->getdata());
 			Cargo_specialMovingList->dequeue();
 		}
@@ -396,6 +404,7 @@ void Company::Deliver_MovingCargo(Type t){
 	case VIP:
 		if (!Cargo_vipMovingList->isempty()) {
 			temp->setdata(Cargo_vipMovingList->peek()->getdata());
+			temp->getdata()->setDTPhaseOne(DT);
 			Cargo_DeliveredList->enqueue(temp->getdata());
 			Cargo_vipMovingList->dequeue();
 		}
@@ -409,7 +418,7 @@ void Company::Deliver_MovingCargo(Type t){
 
 void Company::PrintToFile(string filename)
 {
-	ofstream outFile(filename + ".txt", ios::app);
+	ofstream outFile(filename + ".txt", ios::out);
 	if (outFile.is_open())
 	{
 		int cargon = 0;
@@ -432,7 +441,7 @@ void Company::PrintToFile(string filename)
 				vcargon++;
 				break;
 			}
-			Time cdt = Cargo_DeliveredList->peek()->getdata()->get_Delivery_Time();
+			Time cdt = Cargo_DeliveredList->peek()->getdata()->getDTPhaseOne();
 			outFile << cdt ;
 			int id = Cargo_DeliveredList->peek()->getdata()->get_ID();
 			outFile << setw(5) << id ;

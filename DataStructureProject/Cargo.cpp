@@ -85,3 +85,13 @@ int Cargo::getPriority()
 	priority = costWeight * Cost + distanceWeight * Distance + prepTimeWeight * Pre_Time.TimeToHours();
 	return priority;
 }
+
+void Cargo::setDTPhaseOne(Time DT)
+{
+	deliveryTime_PhaseOne = DT;
+}
+
+Time Cargo::getDTPhaseOne()
+{
+	return deliveryTime_PhaseOne;
+}

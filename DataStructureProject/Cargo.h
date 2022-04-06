@@ -10,6 +10,7 @@ protected:
 	Time Move_Time;
 	Time Waiting_Time;
 	Time Delivery_Time;
+	Time deliveryTime_PhaseOne;
 	Type t;
 	int ID;
 	int Cost;
@@ -26,6 +27,7 @@ public:
 	void set_Waiting_Time();
 	void set_Delivery_Time(int speed);
 	void set_ID(int id);
+	void setDTPhaseOne(Time DT);
 
 	Time get_Delivery_Time();
 	int get_Load_Time();
@@ -37,6 +39,7 @@ public:
 	Type get_Type();
 	Time get_Move_Time();
 	Time get_Waiting_Time();
+	Time getDTPhaseOne();
 
 	void LoadFromStreamFile();
 	void OutToStreamFile();

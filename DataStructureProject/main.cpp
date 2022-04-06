@@ -23,15 +23,15 @@ int main() {
 		done = c1->Execute_Events(t);
 
 		if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
-			c1->Moving_WaitingCargo(VIP);
-			c1->Moving_WaitingCargo(special);
-			c1->Moving_WaitingCargo(Normal);
+			c1->Moving_WaitingCargo(VIP, t);
+			c1->Moving_WaitingCargo(special, t);
+			c1->Moving_WaitingCargo(Normal, t);
 		}
 		
 		if (t.get_Hour() % 5 == 4) {
-			c1->Deliver_MovingCargo(VIP);
-			c1->Deliver_MovingCargo(special);
-			c1->Deliver_MovingCargo(Normal);
+			c1->Deliver_MovingCargo(VIP, t);
+			c1->Deliver_MovingCargo(special, t);
+			c1->Deliver_MovingCargo(Normal, t);
 		}
 		
 		done &= c1->noCargosLeft();
@@ -50,7 +50,7 @@ int main() {
 	test->enqueue(c1);
 	test->enqueue(c2);
 	test->enqueue(c3);*/
-	//c1->PrintToFile("outtest");
+	c1->PrintToFile("outtest");
 	
 
 	return 0;

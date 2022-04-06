@@ -76,8 +76,8 @@ public:
 	void add_truck(Type t);
 	void LoadTrucksAndEventsData(string filename);
 	void Add_New_Cargo(Time pt, int lt, int id, Type t, int cost, int dis);// find suitable queue to store cargo
-	void Moving_WaitingCargo(Type t);
-	void Deliver_MovingCargo(Type t);
+	void Moving_WaitingCargo(Type t, Time MT);
+	void Deliver_MovingCargo(Type t, Time DT);
 	void Ship_Cargo(Time Company_Time);// find suitable truck to ship cargo
 	void addToVIPWaiting(Cargo* myCargo);
 	bool noCargosLeft();
