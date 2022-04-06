@@ -24,18 +24,107 @@ Company::Company()
 void Company::PrintToConsole(Time t)
 {
 	string message = "";
+	
 	message += ("Current Time (Day:Hour):" + to_string(t.get_Day()) + ":" + to_string(t.get_Hour()) + "\n");
 	message += (to_string(Cargo_normalWaitingList->getSize()) + " Waiting Cargos: ");
 	message += "[";
-	node<Cargo*>** cargoArr = Cargo_normalWaitingList->GetAllNodes();
-	//int sizeCargoArr = sizeof(cargoArr) / sizeof(cargoArr[0]);
-	for (int i = 0; i < 5; i++) {
-		message += (to_string(cargoArr[i]->getdata()->get_ID()));
-		if (i != 5 - 1) {
+	
+	int sizeNormalWaitingCargoArr = 0;
+	node<Cargo*>** normalWaitingCargoArr = Cargo_normalWaitingList->GetAllNodes(sizeNormalWaitingCargoArr);
+	for (int i = 0; i < sizeNormalWaitingCargoArr; i++) {
+		message += (to_string(normalWaitingCargoArr[i]->getdata()->get_ID()));
+		if (i != sizeNormalWaitingCargoArr - 1) {
 			message += ",";
 		}
 	}
-	message += "]";
+	message += "] ";
+	
+	message += "(";
+	int sizeSpecialWaitingCargoArr = 0;
+	node<Cargo*>** specialWaitingCargoArr = Cargo_specialWaitingList->GetAllNodes(sizeSpecialWaitingCargoArr);
+	for (int i = 0; i < sizeSpecialWaitingCargoArr; i++) {
+		message += (to_string(specialWaitingCargoArr[i]->getdata()->get_ID()));
+		if (i != sizeSpecialWaitingCargoArr - 1) {
+			message += ",";
+		}
+	}
+	message += ") ";
+
+	message += "{";
+	int sizeVIPWaitingCargoArr = 0;
+	node<Cargo*>** VIPWaitingCargoArr = Cargo_vipWaitingList->GetAllNodes(sizeVIPWaitingCargoArr);
+	for (int i = 0; i < sizeVIPWaitingCargoArr; i++) {
+		message += (to_string(VIPWaitingCargoArr[i]->getdata()->get_ID()));
+		if (i != sizeVIPWaitingCargoArr - 1) {
+			message += ",";
+		}
+	}
+	message += "} ";
+	
+	int sizeNormalMovingCargoArr = 0;
+	node<Cargo*>** normalMovingCargoArr = Cargo_normalWaitingList->GetAllNodes(sizeNormalMovingCargoArr);
+	for (int i = 0; i < sizeNormalMovingCargoArr; i++) {
+		message += (to_string(normalMovingCargoArr[i]->getdata()->get_ID()));
+		if (i != sizeNormalMovingCargoArr - 1) {
+			message += ",";
+		}
+	}
+	message += "] ";
+	
+	message += "(";
+	int sizeSpecialMovingCargoArr = 0;
+	node<Cargo*>** specialMovingCargoArr = Cargo_specialWaitingList->GetAllNodes(sizeSpecialMovingCargoArr);
+	for (int i = 0; i < sizeSpecialMovingCargoArr; i++) {
+		message += (to_string(specialMovingCargoArr[i]->getdata()->get_ID()));
+		if (i != sizeSpecialMovingCargoArr - 1) {
+			message += ",";
+		}
+	}
+	message += ") ";
+
+	message += "{";
+	int sizeVIPMovingCargoArr = 0;
+	node<Cargo*>** VIPMovingCargoArr = Cargo_vipWaitingList->GetAllNodes(sizeVIPMovingCargoArr);
+	for (int i = 0; i < sizeVIPMovingCargoArr; i++) {
+		message += (to_string(VIPMovingCargoArr[i]->getdata()->get_ID()));
+		if (i != sizeVIPMovingCargoArr - 1) {
+			message += ",";
+		}
+	}
+	message += "} ";
+	
+	int sizeNormalDeliveredCargoArr = 0;
+	node<Cargo*>** normalDeliveredCargoArr = Cargo_normalWaitingList->GetAllNodes(sizeNormalDeliveredCargoArr);
+	for (int i = 0; i < sizeNormalDeliveredCargoArr; i++) {
+		message += (to_string(normalDeliveredCargoArr[i]->getdata()->get_ID()));
+		if (i != sizeNormalDeliveredCargoArr - 1) {
+			message += ",";
+		}
+	}
+	message += "] ";
+	
+	message += "(";
+	int sizeSpecialCargoArr = 0;
+	node<Cargo*>** specialCargoArr = Cargo_specialWaitingList->GetAllNodes(sizeSpecialCargoArr);
+	for (int i = 0; i < sizeSpecialCargoArr; i++) {
+		message += (to_string(specialCargoArr[i]->getdata()->get_ID()));
+		if (i != sizeSpecialCargoArr - 1) {
+			message += ",";
+		}
+	}
+	message += ") ";
+
+	message += "{";
+	int sizeVIPCargoArr = 0;
+	node<Cargo*>** VIPCargoArr = Cargo_vipWaitingList->GetAllNodes(sizeVIPCargoArr);
+	for (int i = 0; i < sizeVIPCargoArr; i++) {
+		message += (to_string(VIPCargoArr[i]->getdata()->get_ID()));
+		if (i != sizeVIPCargoArr - 1) {
+			message += ",";
+		}
+	}
+	message += "} ";
+
 	uiObject->PrintMessage(message);
 }
 void Company::add_truck(Type t)
