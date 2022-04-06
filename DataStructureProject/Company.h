@@ -8,6 +8,7 @@
 #include "UI.h"
 #include <fstream>
 #include <string>
+#include <iomanip>
 
 class Company
 {
@@ -53,9 +54,7 @@ protected:
 	queue<Cargo*>* Cargo_specialMovingList;
 	queue<Cargo*>* Cargo_vipMovingList;
 
-	queue<Cargo*>* Cargo_normalDeliveredList;
-	queue<Cargo*>* Cargo_specialDeliveredList;
-	queue<Cargo*>* Cargo_vipDeliveredList;
+	queue<Cargo*>* Cargo_DeliveredList;
 
 	queue<Truck*>* Truck_vipWaitingList;
 	queue<Truck*>* Truck_normalWaitingList;

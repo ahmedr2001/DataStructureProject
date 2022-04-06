@@ -259,21 +259,21 @@ void Company::Deliver_MovingCargo(Type t){
 	case Normal:
 		if (!Cargo_normalMovingList->isempty()) {
 			temp->setdata(Cargo_normalMovingList->peek()->getdata());
-			Cargo_normalDeliveredList->enqueue(temp->getdata());
+			Cargo_DeliveredList->enqueue(temp->getdata());
 			Cargo_normalMovingList->dequeue();
 		}
 		break;
 	case special:
 		if (!Cargo_specialMovingList->isempty()) {
 			temp->setdata(Cargo_specialMovingList->peek()->getdata());
-			Cargo_specialDeliveredList->enqueue(temp->getdata());
+			Cargo_DeliveredList->enqueue(temp->getdata());
 			Cargo_specialMovingList->dequeue();
 		}
 		break;
 	case VIP:
 		if (!Cargo_vipMovingList->isempty()) {
 			temp->setdata(Cargo_vipMovingList->peek()->getdata());
-			Cargo_normalDeliveredList->enqueue(temp->getdata());
+			Cargo_DeliveredList->enqueue(temp->getdata());
 			Cargo_vipMovingList->dequeue();
 		}
 		break;
@@ -286,7 +286,15 @@ void Company::Deliver_MovingCargo(Type t){
 
 void Company::PrintToFile(string filename)
 {
-	
+	ofstream outFile(filename + ".txt", ios::app);
+	if (outFile.is_open())
+	{
+		outFile <<setw(5) << "CDT" << setw(5) << "CID" << setw(5) << "PT" << setw(5) << "WT" << setw(5) << "TID"<<endl;
+		while (Cargo_DeliveredList)
+		{
+
+		}
+	}
 }
 
 void Company::addToVIPWaiting(Cargo* myCargo)
