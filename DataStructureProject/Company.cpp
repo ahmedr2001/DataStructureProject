@@ -27,12 +27,12 @@ void Company::PrintToConsole(Time t)
 {
 	string message = "";
 	message += ("Current Time (Day:Hour):" + to_string(t.get_Day()) + ":" + to_string(t.get_Hour()) + "\n");
-	message += (to_string(Cargo_normalDeliveredList->getSize()) + " Waiting Cargos: ");
+	message += (to_string(Cargo_normalWaitingList->getSize()) + " Waiting Cargos: ");
 	message += "[";
-	Cargo* cargoArr = Cargo_normalWaitingList->GetAllNodes();
+	node<Cargo*>** cargoArr = Cargo_normalWaitingList->GetAllNodes();
 	int sizeCargoArr = sizeof(cargoArr) / sizeof(cargoArr[0]);
 	for (int i = 0; i < sizeCargoArr; i++) {
-		message += (to_string(cargoArr[i].get_ID()));
+		message += (to_string(cargoArr[i]->getdata()->get_ID()));
 		if (i != sizeCargoArr - 1) {
 			message += ",";
 		}
