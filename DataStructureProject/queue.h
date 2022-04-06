@@ -62,16 +62,18 @@ public:
 		return q->getSize();
 	}
 
-	T GetAllNodes()
+	node<T>** GetAllNodes()
 	{
-		T arr = new T[size];
+		int size = this->getSize();
+		node<T>** arr = new node<T>*[size];
 		int i = 0;
 		while (!isempty()) {
-			arr[i] = this->dequeue();
+			arr[i] = this->peek();
+			this->dequeue();
 			i++;
 		}
-		for (int i = 0; i < size; i++) {
-			this->enqueue(arr[i]);
+		for (int j = 0; j < size; j++) {
+			this->enqueue(arr[j]->getdata());
 		}
 		return arr;
 	}
