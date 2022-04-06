@@ -18,7 +18,7 @@ int main() {
 	}*/
 	/*c1->Moving_WaitingCargo(Normal);
 	c1->Deliver_MovingCargo(Normal);*/
-	/*bool done = 0;
+	bool done = 0;
 	while (!done) {		
 		done = c1->Execute_Events(t);
 		
@@ -35,7 +35,7 @@ int main() {
 		done &= c1->noCargosLeft();
 		
 		t++;
-	}*/
+	}
 	/*Time t(2,22);
 	Time t2(9, 3);
 	Time t3(11,6);
