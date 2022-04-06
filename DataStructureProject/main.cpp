@@ -10,15 +10,32 @@ int main() {
 	Company* c1 = new Company();
 	c1->LoadTrucksAndEventsData("test");
 
-	while (t.get_Day()!=14||t.get_Hour()!=12)
+	/*while (t.get_Day()!=14||t.get_Hour()!=12)
 	{
 		c1->Execute_Events(t);
 		Sleep(10);
 		t++;
-		c1->printathing();
+	}*/
+	/*c1->Moving_WaitingCargo(Normal);
+	c1->Deliver_MovingCargo(Normal);*/
+	bool done = 0;
+	while (!done) {		
+		done = c1->Execute_Events(t);
+		
+		c1->Moving_WaitingCargo(VIP);
+		c1->Moving_WaitingCargo(special);
+		c1->Moving_WaitingCargo(Normal);
+		
+		if (t.get_Hour() % 5 == 4) {
+			c1->Deliver_MovingCargo(VIP);
+			c1->Deliver_MovingCargo(special);
+			c1->Deliver_MovingCargo(Normal);
+		}
+		
+		done &= c1->noCargosLeft();
+		
+		t++;
 	}
-	c1->Moving_WaitingCargo(Normal);
-	c1->Deliver_MovingCargo(Normal);
 	/*Time t(2,22);
 	Time t2(9, 3);
 	Time t3(11,6);
@@ -29,6 +46,8 @@ int main() {
 	test->enqueue(c1);
 	test->enqueue(c2);
 	test->enqueue(c3);*/
+
+	
 
 	return 0;
 }

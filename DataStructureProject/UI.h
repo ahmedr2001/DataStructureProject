@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+using namespace std;
 enum Type
 {
 	VIP,
@@ -7,5 +9,10 @@ enum Type
 };
 class UI
 {
+public:
+
+	UI() {}
+
+	void PrintMessage(string message);
 };
 

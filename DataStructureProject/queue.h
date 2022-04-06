@@ -57,4 +57,22 @@ public:
 			dequeue();
 		}
 	}
+	int getSize()
+	{
+		return q->getSize();
+	}
+
+	T GetAllNodes()
+	{
+		T arr = new T[size];
+		int i = 0;
+		while (!isempty()) {
+			arr[i] = this->dequeue();
+			i++;
+		}
+		for (int i = 0; i < size; i++) {
+			this->enqueue(arr[i]);
+		}
+		return arr;
+	}
 };

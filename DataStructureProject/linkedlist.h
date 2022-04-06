@@ -6,17 +6,22 @@ class linkedlist {
 protected:
 	node<T>* head; //start of linked list
 	node<T>* tail; //end of linked list
+	int size;
 public:
 	linkedlist()
 	{
 		head = nullptr;
 		tail = nullptr;
+		size = 0;
 	}
 	node<T>* gethead() { // get head of linked list
 		return head;
 	}
 	node<T>* gettail() { // get tail of linked list
 		return tail;
+	}
+	int getSize() const {
+		return size;
 	}
 	void add(T d) { // add from the end of linked liast
 		node<T>* add = new node<T>;
@@ -33,6 +38,7 @@ public:
 			add->setprevious(tail);
 			tail = tail->getnext();
 		}
+		size++;
 	}
 	void addWithPriority(T data) // place highest priorities at the front
 	{
@@ -96,6 +102,7 @@ public:
 				done = 1;
 			}
 		}
+		size++;
 	}
 	void addfromtop(T d) { // add from the start of linked list
 		node<T>* add = new node<T>;
@@ -111,6 +118,7 @@ public:
 			add->setprevious(nullptr);
 			head = add;
 		}
+		size++;
 	}
 	node<T>* deletenode(node<T>* todel) { // delete node by its pointer
 		if (todel->getnext() != nullptr)
@@ -131,6 +139,7 @@ public:
 		}
 		node<T>* nexttodel = todel->getnext();
 		delete todel;
+		size--;
 		return nexttodel;
 	}
 	node<T>* getpointerto(T d) { // find pointer to node with value d

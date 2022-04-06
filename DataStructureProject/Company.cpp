@@ -23,23 +23,22 @@ Company::Company()
 	queue<Truck*>* Truck_normalMovingList = new queue<Truck*>;
 	queue<Truck*>* Truck_specialMovingList = new queue<Truck*>;
 }
-void Company::printathing()
+void Company::PrintToConsole(Time t)
 {
-	/*cout << Normal_Truck_Cap << endl;
-	cout << Cargo_normalWaitingList->peek()->getdata()->get_Cost()<<endl;
-	cout << Cargo_vipWaitingList->peek()->getdata()->get_Cost() << endl;*/
-	/*while (!Cargo_normalWaitingList->isempty())
-	{
-		cout << Cargo_normalWaitingList->peek()->getdata()->get_ID() << endl;
-		Cargo_normalWaitingList->dequeue();
-	}*/
-	node<Cargo*>* trav;
-	trav = Cargo_normalWaitingList->peek();
-	while (trav)
-	{
-		cout << trav->getdata()->get_ID() << endl;
-		trav = trav->getnext();
+	string message = "";
+	message += ("Current Time (Day:Hour):" + to_string(t.get_Day()) + ":" + to_string(t.get_Hour()) + "\n");
+	message += (to_string(Cargo_normalDeliveredList->getSize()) + " Waiting Cargos: ");
+	message += "[";
+	Cargo* cargoArr = Cargo_normalWaitingList->GetAllNodes();
+	int sizeCargoArr = sizeof(cargoArr) / sizeof(cargoArr[0]);
+	for (int i = 0; i < sizeCargoArr; i++) {
+		message += (to_string(cargoArr[i].get_ID()));
+		if (i != sizeCargoArr - 1) {
+			message += ",";
+		}
 	}
+	message += "]";
+	uiObject->PrintMessage(message);
 }
 void Company::add_truck(Type t)
 {
@@ -200,7 +199,7 @@ Cargo* Company::Remove_Normal_Wating_Cargo(int id)
 	return tempToBeDeleted.getdata();
 }
 
-void Company::Execute_Events(Time T) {
+bool Company::Execute_Events(Time T) {
 	Event* p;
 	if (!eventList->isempty())
 	{
@@ -217,7 +216,9 @@ void Company::Execute_Events(Time T) {
 				Execute_Events(T);
 			}
 		}
+		return false;
 	}
+	return true;
 }
 
 void Company::Moving_WaitingCargo(Type t){
@@ -283,7 +284,7 @@ void Company::Deliver_MovingCargo(Type t){
 	delete temp;
 }
 
-void Company::PrintStatistics(string filename)
+void Company::PrintToFile(string filename)
 {
 	
 }
@@ -291,4 +292,29 @@ void Company::PrintStatistics(string filename)
 void Company::addToVIPWaiting(Cargo* myCargo)
 {
 	Cargo_vipWaitingList->enqueue(myCargo);
+}
+
+bool Company::noNormalCargosLeft()
+{
+	return (Cargo_normalWaitingList->isempty()
+		&& Cargo_normalMovingList->isempty());	
+}
+
+bool Company::noSpecialCargosLeft()
+{
+	return (Cargo_specialWaitingList->isempty()
+		&& Cargo_specialMovingList->isempty());
+}
+
+bool Company::noVIPCargosLeft()
+{
+	return (Cargo_vipWaitingList->isempty()
+		&& Cargo_vipMovingList->isempty());
+}
+
+bool Company::noCargosLeft()
+{
+	return (noNormalCargosLeft()
+		&& noSpecialCargosLeft()
+		&& noVIPCargosLeft());
 }

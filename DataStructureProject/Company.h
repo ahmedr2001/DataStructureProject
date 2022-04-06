@@ -5,7 +5,9 @@
 #include "Prepare_Event.h"
 #include "Promote_Event.h"
 #include "priority_queue.h"
+#include "UI.h"
 #include <fstream>
+#include <string>
 
 class Company
 {
@@ -62,21 +64,30 @@ protected:
 	queue<Truck*>* Truck_vipMovingList;
 	queue<Truck*>* Truck_normalMovingList;
 	queue<Truck*>* Truck_specialMovingList;
+
+	bool noNormalCargosLeft();
+	bool noSpecialCargosLeft();
+	bool noVIPCargosLeft();
+
+	UI* uiObject;
+	
 public:
 	Company(); //Company constructor
-	void printathing();
+	
 	void add_truck(Type t);
 	void LoadTrucksAndEventsData(string filename);
-	void PrintStatistics(string filename);
 	void Add_New_Cargo(Time pt, int lt, int id, Type t, int cost, int dis);// find suitable queue to store cargo
-	Cargo* Remove_Normal_Wating_Cargo(int id);
-
 	void Moving_WaitingCargo(Type t);
 	void Deliver_MovingCargo(Type t);
-
 	void Ship_Cargo(Time Company_Time);// find suitable truck to ship cargo
-
-	void Execute_Events(Time T);//Execute the events that should be executed at that hour
-	void Collect_statistics();// to create output file
 	void addToVIPWaiting(Cargo* myCargo);
+	bool noCargosLeft();
+	Cargo* Remove_Normal_Wating_Cargo(int id);
+	
+	void Collect_statistics();// to create output file
+	
+	bool Execute_Events(Time T);//Execute the events that should be executed at that hour
+	
+	void PrintToConsole(Time t);
+	void PrintToFile(string filename);
 };
