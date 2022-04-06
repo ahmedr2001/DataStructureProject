@@ -28,10 +28,10 @@ void Company::PrintToConsole(Time t)
 	message += (to_string(Cargo_normalWaitingList->getSize()) + " Waiting Cargos: ");
 	message += "[";
 	node<Cargo*>** cargoArr = Cargo_normalWaitingList->GetAllNodes();
-	int sizeCargoArr = sizeof(cargoArr) / sizeof(cargoArr[0]);
-	for (int i = 0; i < sizeCargoArr; i++) {
+	//int sizeCargoArr = sizeof(cargoArr) / sizeof(cargoArr[0]);
+	for (int i = 0; i < 5; i++) {
 		message += (to_string(cargoArr[i]->getdata()->get_ID()));
-		if (i != sizeCargoArr - 1) {
+		if (i != 5 - 1) {
 			message += ",";
 		}
 	}
