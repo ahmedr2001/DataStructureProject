@@ -346,6 +346,7 @@ bool Company::Execute_Events(Time T) {
 
 void Company::Moving_WaitingCargo(Type t, Time MT){
 	node<Cargo*>* temp = new node<Cargo*>;
+	Time avgWait;
 	switch (t)
 	{
 	case Normal:
@@ -353,6 +354,13 @@ void Company::Moving_WaitingCargo(Type t, Time MT){
 			temp->setdata(Cargo_normalWaitingList->peek()->getdata());
 			temp->getdata()->set_Move_Time(MT);
 			temp->getdata()->set_Waiting_Time();
+			if (temp->getdata()->get_Waiting_Time().TimeToHours() > AutoP) {
+				temp->getdata()->setAutoP(true);
+				temp->getdata()->set_Type(VIP);
+				Cargo_normalWaitingList->dequeue();
+				Cargo_vipWaitingList->enqueue(temp->getdata());
+				return Moving_WaitingCargo(VIP, MT);
+			}
 			Cargo_normalMovingList->enqueue(temp->getdata());
 			Cargo_normalWaitingList->dequeue();
 		}
@@ -421,10 +429,12 @@ void Company::PrintToFile(string filename)
 	ofstream outFile(filename + ".txt", ios::out);
 	if (outFile.is_open())
 	{
+		Time avgWait;
 		int cargon = 0;
 		int ncargon = 0;
 		int scargon = 0;
 		int vcargon = 0;
+		int autoPCount = 0;
 		outFile << "CDT" << setw(5) << "CID" << setw(5) << "PT" << setw(5) << "WT" << endl;
 		while (!Cargo_DeliveredList->isempty())
 		{
@@ -451,12 +461,21 @@ void Company::PrintToFile(string filename)
 			Time wt = Cargo_DeliveredList->peek()->getdata()->get_Waiting_Time();
 			outFile << "     ";
 			outFile << wt;
+			avgWait += wt;
+			bool autoP = Cargo_DeliveredList->peek()->getdata()->getAutoP();
+			if (autoP)autoPCount++;
 			Cargo_DeliveredList->dequeue();
 			outFile << endl;
 		}
+		avgWait /= cargon;
 		outFile << "-----------------------------------------------" << endl;
 		outFile << "-----------------------------------------------" << endl;
 		outFile << "Cargos: " << cargon << " [n: " << ncargon << ", S: " << scargon << ", V: " << vcargon << "]" << endl;
+		outFile << "Cargo Avg Wait = ";
+		outFile << avgWait << endl;
+		int autoPPercentage = (int)round(((double)autoPCount / (ncargon + autoPCount)) * 100);
+		outFile << "Auto-promoted Cargos: ";
+		outFile << autoPPercentage << "%" << endl;
 	}
 }
 

@@ -16,6 +16,7 @@ protected:
 	int Cost;
 	int Distance;
 	int priority;
+	bool autoP = false;
 public:
 	Cargo(Time pt, int lt,int ID,Type t, int c, int d);
 	void set_Load_Time(int t);
@@ -28,13 +29,15 @@ public:
 	void set_Delivery_Time(int speed);
 	void set_ID(int id);
 	void setDTPhaseOne(Time DT);
+	void setAutoP(bool ap);
 
-	Time get_Delivery_Time();
 	int get_Load_Time();
 	int get_Cost();
 	int get_Distance();
 	int getPriority();
 	int get_ID();
+	bool getAutoP();
+	Time get_Delivery_Time();
 	Time get_Pre_Time();
 	Type get_Type();
 	Time get_Move_Time();

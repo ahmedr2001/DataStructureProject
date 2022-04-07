@@ -22,7 +22,7 @@ int main() {
 	while (!done) {				
 		done = c1->Execute_Events(t);
 
-		if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
+		if (t.get_Hour() >= 15 && t.get_Hour() <= 24) {
 			c1->Moving_WaitingCargo(VIP, t);
 			c1->Moving_WaitingCargo(special, t);
 			c1->Moving_WaitingCargo(Normal, t);

@@ -105,3 +105,19 @@ bool Time::operator==(Time otherTime)
 {
 	return (day == otherTime.get_Day() && hour == otherTime.get_Hour());
 }
+
+void Time::operator+=(Time otherTime)
+{
+	hour = (hour + otherTime.get_Hour()) % 24;
+	day = day + otherTime.get_Day();
+	if (hour == 0)day++;
+}
+
+void Time::operator/=(int n)
+{
+	int thisTimeInHours = TimeToHours();
+
+	int resInHours = (int)round((double)thisTimeInHours / n);
+	day = resInHours / 24;
+	hour = resInHours % 24;
+}

@@ -20,6 +20,8 @@ public:
 	//Time& operator=(Time& t);
 	int TimeToHours();
 	bool operator==(Time otherTime);
+	void operator+=(Time otherTime);
+	void operator/=(int n);
 };
 ifstream& operator>>(ifstream& stream, Time& t);
 ofstream& operator<<(ofstream& stream, Time& t);

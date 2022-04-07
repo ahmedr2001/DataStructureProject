@@ -32,6 +32,12 @@ void Cargo::set_Delivery_Time(int speed)
 {
 	Delivery_Time = Move_Time + (int)round((double)Distance / speed) + Load_Time;
 }
+
+void Cargo::setAutoP(bool ap)
+{
+	autoP = ap;
+}
+
 Time Cargo::get_Delivery_Time()
 {
 	return Delivery_Time;
@@ -71,6 +77,12 @@ int Cargo::get_Distance(){
 int Cargo::get_ID() {
 	return ID;
 }
+
+bool Cargo::getAutoP()
+{
+	return autoP;
+}
+
 Type Cargo::get_Type(){
 	return t;
 }
