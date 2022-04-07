@@ -89,4 +89,5 @@ public:
 	
 	void PrintToConsole(Time t);
 	void PrintToFile(string filename);
+	UI* GetUIObject();
 };

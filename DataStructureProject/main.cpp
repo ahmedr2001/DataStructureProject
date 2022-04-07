@@ -9,25 +9,18 @@ int main() {
 	Time t;
 	Company* c1 = new Company();
 	c1->LoadTrucksAndEventsData("test");
+	UI* uiObject = c1->GetUIObject();
 
-	/*while (t.get_Day()!=14||t.get_Hour()!=12)
-	{
-		c1->Execute_Events(t);
-		Sleep(10);
-		t++;
-	}*/
-	/*c1->Moving_WaitingCargo(Normal);
-	c1->Deliver_MovingCargo(Normal);*/
 	int simMode;
-	cout << "Which simulation mode would you like?\n";
-	cout << "1-Interactive Mode 2-Step-By-Step Mode 3-Silent Mode\n";
-	cin >> simMode;
+	uiObject->PrintMessage("Which simulation mode would you like?\n");
+	uiObject->PrintMessage("1-Interactive Mode 2-Step-By-Step Mode 3-Silent Mode\n");
+	uiObject->GetInput(simMode);
 	if (simMode == 2) {
 		bool done = 0;
 		while (!done) {
 			done = c1->Execute_Events(t);
 
-			if (t.get_Hour() >= 15 && t.get_Hour() <= 24) {
+			if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
 				c1->Moving_WaitingCargo(VIP, t);
 				c1->Moving_WaitingCargo(special, t);
 				c1->Moving_WaitingCargo(Normal, t);
@@ -51,12 +44,12 @@ int main() {
 		char enterKeyPressed;
 		bool done = 0;
 		while (!done) {
-			cout << "Press Enter to Continue...\n";
-			cin.getline(&enterKeyPressed, 1);
+			uiObject->PrintMessage("Press Enter to Continue...\n");
+			uiObject->getLine(&enterKeyPressed, 1);
 
 			done = c1->Execute_Events(t);
 
-			if (t.get_Hour() >= 15 && t.get_Hour() <= 24) {
+			if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
 				c1->Moving_WaitingCargo(VIP, t);
 				c1->Moving_WaitingCargo(special, t);
 				c1->Moving_WaitingCargo(Normal, t);
@@ -77,11 +70,11 @@ int main() {
 	}
 	else {
 		bool done = 0;
-		cout << "Silent Mode\nSimulation Starts...\n";
+		uiObject->PrintMessage("Silent Mode\nSimulation Starts...\n");
 		while (!done) {
 			done = c1->Execute_Events(t);
 
-			if (t.get_Hour() >= 15 && t.get_Hour() <= 24) {
+			if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
 				c1->Moving_WaitingCargo(VIP, t);
 				c1->Moving_WaitingCargo(special, t);
 				c1->Moving_WaitingCargo(Normal, t);
@@ -99,18 +92,8 @@ int main() {
 		}
 		cout << "Simulation ends, Output file created\n";
 	}
-	/*Time t(2,22);
-	Time t2(9, 3);
-	Time t3(11,6);
-	priority_queue<Cargo*>* test = new priority_queue<Cargo*>;
-	Cargo* c1 = new Cargo(t, 3, 4, VIP, 400, 90);
-	Cargo* c2 = new Cargo(t2, 1, 2, VIP, 613, 25);
-	Cargo* c3 = new Cargo(t3, 3, 6, VIP, 1006, 19);
-	test->enqueue(c1);
-	test->enqueue(c2);
-	test->enqueue(c3);*/
-	c1->PrintToFile("outtest");
 	
+	c1->PrintToFile("outtest");	
 
 	return 0;
 }

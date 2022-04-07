@@ -508,3 +508,8 @@ bool Company::noCargosLeft()
 		&& noSpecialCargosLeft()
 		&& noVIPCargosLeft());
 }
+
+UI* Company::GetUIObject()
+{
+	return uiObject;
+}
