@@ -18,27 +18,86 @@ int main() {
 	}*/
 	/*c1->Moving_WaitingCargo(Normal);
 	c1->Deliver_MovingCargo(Normal);*/
-	bool done = 0;
-	while (!done) {				
-		done = c1->Execute_Events(t);
+	int simMode;
+	cout << "Which simulation mode would you like?\n";
+	cout << "1-Interactive Mode 2-Step-By-Step Mode 3-Silent Mode\n";
+	cin >> simMode;
+	if (simMode == 2) {
+		bool done = 0;
+		while (!done) {
+			done = c1->Execute_Events(t);
 
-		if (t.get_Hour() >= 15 && t.get_Hour() <= 24) {
-			c1->Moving_WaitingCargo(VIP, t);
-			c1->Moving_WaitingCargo(special, t);
-			c1->Moving_WaitingCargo(Normal, t);
-		}
-		
-		if (t.get_Hour() % 5 == 4) {
-			c1->Deliver_MovingCargo(VIP, t);
-			c1->Deliver_MovingCargo(special, t);
-			c1->Deliver_MovingCargo(Normal, t);
-		}
-		
-		done &= c1->noCargosLeft();
+			if (t.get_Hour() >= 15 && t.get_Hour() <= 24) {
+				c1->Moving_WaitingCargo(VIP, t);
+				c1->Moving_WaitingCargo(special, t);
+				c1->Moving_WaitingCargo(Normal, t);
+			}
 
-		c1->PrintToConsole(t);
-		
-		t++;
+			if (t.get_Hour() % 5 == 4) {
+				c1->Deliver_MovingCargo(VIP, t);
+				c1->Deliver_MovingCargo(special, t);
+				c1->Deliver_MovingCargo(Normal, t);
+			}
+
+			done &= c1->noCargosLeft();
+
+			c1->PrintToConsole(t);
+
+			t++;
+			Sleep(1000);
+		}
+	}
+	if (simMode == 1) {
+		char enterKeyPressed;
+		bool done = 0;
+		while (!done) {
+			cout << "Press Enter to Continue...\n";
+			cin.getline(&enterKeyPressed, 1);
+
+			done = c1->Execute_Events(t);
+
+			if (t.get_Hour() >= 15 && t.get_Hour() <= 24) {
+				c1->Moving_WaitingCargo(VIP, t);
+				c1->Moving_WaitingCargo(special, t);
+				c1->Moving_WaitingCargo(Normal, t);
+			}
+
+			if (t.get_Hour() % 5 == 4) {
+				c1->Deliver_MovingCargo(VIP, t);
+				c1->Deliver_MovingCargo(special, t);
+				c1->Deliver_MovingCargo(Normal, t);
+			}
+
+			done &= c1->noCargosLeft();
+
+			c1->PrintToConsole(t);
+
+			t++;
+		}
+	}
+	else {
+		bool done = 0;
+		cout << "Silent Mode\nSimulation Starts...\n";
+		while (!done) {
+			done = c1->Execute_Events(t);
+
+			if (t.get_Hour() >= 15 && t.get_Hour() <= 24) {
+				c1->Moving_WaitingCargo(VIP, t);
+				c1->Moving_WaitingCargo(special, t);
+				c1->Moving_WaitingCargo(Normal, t);
+			}
+
+			if (t.get_Hour() % 5 == 4) {
+				c1->Deliver_MovingCargo(VIP, t);
+				c1->Deliver_MovingCargo(special, t);
+				c1->Deliver_MovingCargo(Normal, t);
+			}
+
+			done &= c1->noCargosLeft();
+
+			t++;
+		}
+		cout << "Simulation ends, Output file created\n";
 	}
 	/*Time t(2,22);
 	Time t2(9, 3);
