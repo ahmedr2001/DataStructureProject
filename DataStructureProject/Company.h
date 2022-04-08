@@ -83,6 +83,7 @@ public:
 	void Ship_Cargo(Time Company_Time);// find suitable truck to ship cargo
 	void addToVIPWaiting(Cargo* myCargo);
 	bool noCargosLeft();
+	bool no_Wating_CargosLeft();
 	Cargo* Remove_Normal_Wating_Cargo(int id);
 	
 	void Collect_statistics();// to create output file

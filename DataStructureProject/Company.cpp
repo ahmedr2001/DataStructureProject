@@ -529,3 +529,8 @@ UI* Company::GetUIObject()
 Time& Company::get_load_time() {
 	return load_time;
 }
+bool Company::no_Wating_CargosLeft() {
+	return(Cargo_normalWaitingList->isempty() &&
+		Cargo_specialWaitingList->isempty() &&
+		Cargo_vipWaitingList->isempty());
+}
