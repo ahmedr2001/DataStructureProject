@@ -40,9 +40,11 @@ protected:
 	Time Event_Time;
 	int Cargo_ID;
 	int Cargo_Dist;
-	int Load_Time;
+
 	int Cargo_cost;
 	int Extra_Money;
+
+	Time load_time;//Load Time resets when a new cargo comes
 
 	queue<Event*>* eventList;
 
@@ -89,5 +91,6 @@ public:
 	
 	void PrintToConsole(Time t);
 	void PrintToFile(string filename);
+	Time& get_load_time();
 	UI* GetUIObject();
 };

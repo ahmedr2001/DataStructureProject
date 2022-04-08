@@ -188,6 +188,7 @@ void Company::add_truck(Type t)
 }
 void Company::LoadTrucksAndEventsData(string filename)
 {
+	int load;
 	ifstream inFile(filename + ".txt", ios::in);
 
 	if (inFile.is_open())
@@ -250,10 +251,10 @@ void Company::LoadTrucksAndEventsData(string filename)
 				inFile >> Event_Time;
 				inFile >> Cargo_ID;
 				inFile >> Cargo_Dist;
-				inFile >> Load_Time;
+				inFile >> load;
 				inFile >> Cargo_cost;
 			
-				e = new Prepare_Event(Event_Time, Cargo_Type,Cargo_ID,Cargo_Dist,Load_Time,Cargo_cost);
+				e = new Prepare_Event(Event_Time, Cargo_Type,Cargo_ID,Cargo_Dist,load,Cargo_cost);
 			}
 			else if (Event_Type == 'X')
 			{
@@ -351,36 +352,48 @@ void Company::Moving_WaitingCargo(Type t, Time MT){
 	{
 	case Normal:
 		if (!Cargo_normalWaitingList->isempty()) {
-			temp->setdata(Cargo_normalWaitingList->peek()->getdata());
-			temp->getdata()->set_Move_Time(MT);
-			temp->getdata()->set_Waiting_Time();
-			if (temp->getdata()->get_Waiting_Time().TimeToHours() > AutoP) {
-				temp->getdata()->setAutoP(true);
-				temp->getdata()->set_Type(VIP);
+			if (load_time.get_Hour()>= Cargo_normalWaitingList->peek()->getdata()->get_Load_Time()) {
+				temp->setdata(Cargo_normalWaitingList->peek()->getdata());
+				temp->getdata()->set_Move_Time(MT);
+				temp->getdata()->set_Waiting_Time();
+				if (temp->getdata()->get_Waiting_Time().TimeToHours() > AutoP) {
+					temp->getdata()->setAutoP(true);
+					temp->getdata()->set_Type(VIP);
+					Cargo_normalWaitingList->dequeue();
+					Cargo_vipWaitingList->enqueue(temp->getdata());
+					return Moving_WaitingCargo(VIP, MT);
+				}
+				Cargo_normalMovingList->enqueue(temp->getdata());
 				Cargo_normalWaitingList->dequeue();
-				Cargo_vipWaitingList->enqueue(temp->getdata());
-				return Moving_WaitingCargo(VIP, MT);
+				load_time.set_Hour(0);
+				load_time.set_Day(0);
 			}
-			Cargo_normalMovingList->enqueue(temp->getdata());
-			Cargo_normalWaitingList->dequeue();
 		}
 		break;
 	case special:
 		if (!Cargo_specialWaitingList->isempty()) {
-			temp->setdata(Cargo_specialWaitingList->peek()->getdata());
-			temp->getdata()->set_Move_Time(MT);
-			temp->getdata()->set_Waiting_Time();
-			Cargo_specialMovingList->enqueue(temp->getdata());
-			Cargo_specialWaitingList->dequeue();
+			if (load_time.get_Hour() >= Cargo_specialWaitingList->peek()->getdata()->get_Load_Time()) {
+				temp->setdata(Cargo_specialWaitingList->peek()->getdata());
+				temp->getdata()->set_Move_Time(MT);
+				temp->getdata()->set_Waiting_Time();
+				Cargo_specialMovingList->enqueue(temp->getdata());
+				Cargo_specialWaitingList->dequeue();
+				load_time.set_Hour(0);
+				load_time.set_Day(0);
+			}
 		}
 		break;
 	case VIP:
 		if (!Cargo_vipWaitingList->isempty()) {
-			temp->setdata(Cargo_vipWaitingList->peek()->getdata());
-			temp->getdata()->set_Move_Time(MT);
-			temp->getdata()->set_Waiting_Time();
-			Cargo_vipMovingList->enqueue(temp->getdata());
-			Cargo_vipWaitingList->dequeue();
+			if (load_time.get_Hour() >= Cargo_vipWaitingList->peek()->getdata()->get_Load_Time()) {
+				temp->setdata(Cargo_vipWaitingList->peek()->getdata());
+				temp->getdata()->set_Move_Time(MT);
+				temp->getdata()->set_Waiting_Time();
+				Cargo_vipMovingList->enqueue(temp->getdata());
+				Cargo_vipWaitingList->dequeue();
+				load_time.set_Hour(0);
+				load_time.set_Day(0);
+			}
 		}
 		break;
 	default:
@@ -512,4 +525,7 @@ bool Company::noCargosLeft()
 UI* Company::GetUIObject()
 {
 	return uiObject;
+}
+Time& Company::get_load_time() {
+	return load_time;
 }
