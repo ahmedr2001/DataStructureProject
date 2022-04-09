@@ -30,6 +30,7 @@ int main() {
 				c1->Deliver_MovingCargo(VIP, t);
 				c1->Deliver_MovingCargo(special, t);
 				c1->Deliver_MovingCargo(Normal, t);
+				c1->get_load_time()++;
 			}
 
 			done &= c1->noCargosLeft();
@@ -37,10 +38,10 @@ int main() {
 			c1->PrintToConsole(t);
 
 			t++;
-			Sleep(1000);
+			Sleep(0);
 		}
 	}
-	if (simMode == 1) {
+	else if (simMode == 1) {
 		char enterKeyPressed;
 		bool done = 0;
 		while (!done) {
@@ -79,6 +80,7 @@ int main() {
 				c1->Moving_WaitingCargo(VIP, t);
 				c1->Moving_WaitingCargo(special, t);
 				c1->Moving_WaitingCargo(Normal, t);
+				c1->get_load_time()++;
 			}
 
 			if (t.get_Hour() % 5 == 4) {
