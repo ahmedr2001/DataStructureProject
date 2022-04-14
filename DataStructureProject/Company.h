@@ -44,7 +44,13 @@ protected:
 	int Cargo_cost;
 	int Extra_Money;
 
-	Time load_time;//Load Time resets when a new cargo comes
+	Time Normal_timer;//Load Time resets when a new cargo comes & when old cargo moves
+	Time Special_timer;//for loading
+	Time Vip_timer;//for loading
+
+	Time D_N_timer;//Load Time resets when a new cargo comes & old cargo delivered
+	Time D_S_timer;//for loading
+	Time D_V_timer;//for loading
 
 	queue<Event*>* eventList;
 
@@ -92,6 +98,9 @@ public:
 	
 	void PrintToConsole(Time t);
 	void PrintToFile(string filename);
-	Time& get_load_time();
+
+	void Increase_Timers();
+	void Deliver_Timers();
+
 	UI* GetUIObject();
 };

@@ -8,11 +8,8 @@ Prepare_Event::Prepare_Event(Time T, Type t, int id, int d, int h, int c):Event(
 
 void Prepare_Event::Execute(Company* myComp)
 {
-	if (myComp->no_Wating_CargosLeft()) {
-		myComp->get_load_time().set_Hour(0);
-		myComp->get_load_time().set_Day(0);
-	}
 	myComp->Add_New_Cargo(Event_Time,Load_Time, Cargo_ID, t,Cargo_cost,Cargo_Dist);
+
 }
 void Prepare_Event::set_pre_Time(Time t) {
 	Event_Time = t;
