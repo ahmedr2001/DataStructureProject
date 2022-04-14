@@ -24,6 +24,7 @@ int main() {
 				c1->Moving_WaitingCargo(VIP, t);
 				c1->Moving_WaitingCargo(special, t);
 				c1->Moving_WaitingCargo(Normal, t);
+				c1->get_load_time()++;
 			}
 
 			if (t.get_Hour() % 5 == 4) {
@@ -79,6 +80,7 @@ int main() {
 				c1->Moving_WaitingCargo(VIP, t);
 				c1->Moving_WaitingCargo(special, t);
 				c1->Moving_WaitingCargo(Normal, t);
+				c1->get_load_time()++;
 			}
 
 			if (t.get_Hour() % 5 == 4) {
