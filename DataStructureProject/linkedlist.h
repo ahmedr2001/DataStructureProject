@@ -163,4 +163,24 @@ public:
 		}
 		cout << endl;
 	}
+	bool isempty()
+	{
+		return (head == nullptr);
+	}
+	node<T>* GetAllNodes(int& size)
+	{
+		int lSize = this->getSize();
+		node<T>* arr = new node<T>[lSize];
+		int i = 0;
+		while (!isempty()) {
+			arr[i] = *(this->head);
+			this->deletenode(this->head);
+			i++;
+		}
+		size = i;
+		for (int j = 0; j < size; j++) {
+			this->add(arr[j].getdata());
+		}
+		return arr;
+	}
 };

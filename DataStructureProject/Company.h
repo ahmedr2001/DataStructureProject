@@ -54,7 +54,7 @@ protected:
 
 	queue<Event*>* eventList;
 
-	queue<Cargo*>* Cargo_normalWaitingList;
+	linkedlist<Cargo*>* Cargo_normalWaitingList;
 	queue<Cargo*>* Cargo_specialWaitingList;
 	priority_queue<Cargo*>* Cargo_vipWaitingList;
 

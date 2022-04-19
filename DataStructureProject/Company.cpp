@@ -3,7 +3,7 @@ Company::Company()
 {
 	eventList=new queue<Event*>;
 
-	Cargo_normalWaitingList=new queue<Cargo*>;
+	Cargo_normalWaitingList=new linkedlist<Cargo*>;
 	Cargo_specialWaitingList=new queue<Cargo*>;
 	Cargo_vipWaitingList = new priority_queue<Cargo*>;
 
@@ -281,7 +281,7 @@ void Company::Add_New_Cargo(Time pt, int lt,int id, Type t, int cost, int dis) {
 	{
 	case Normal:
 		newCargoN = new Cargo(pt, lt, id, t, cost, dis);
-		Cargo_normalWaitingList->enqueue(newCargoN);
+		Cargo_normalWaitingList->add(newCargoN);
 		break;
 	case special:
 		newCargoS = new Cargo(pt, lt, id, t, cost, dis);
@@ -302,8 +302,8 @@ Cargo* Company::Remove_Normal_Wating_Cargo(int id)
 	node<Cargo*> tempToBeDeleted;
 	while (!Cargo_normalWaitingList->isempty())
 	{
-		temp->setdata(Cargo_normalWaitingList->peek()->getdata());
-		Cargo_normalWaitingList->dequeue();
+		temp->setdata(Cargo_normalWaitingList->gethead()->getdata());
+		Cargo_normalWaitingList->deletenode(Cargo_normalWaitingList->gethead());
 		if (temp->getdata()->get_ID() == id)
 		{
 			tempToBeDeleted = *temp;
@@ -317,7 +317,7 @@ Cargo* Company::Remove_Normal_Wating_Cargo(int id)
 	{
 		temp->setdata(templist->peek()->getdata());
 		templist->dequeue();
-		Cargo_normalWaitingList->enqueue(temp->getdata());
+		Cargo_normalWaitingList->add(temp->getdata());
 	}
 	delete templist;
 	return tempToBeDeleted.getdata();
@@ -381,47 +381,47 @@ void Company::Moving_WaitingCargo(Type t, Time MT){
 	{
 	case Normal:
 		if (!Cargo_normalWaitingList->isempty()) {
-			if (Normal_timer.get_Hour()>= Cargo_normalWaitingList->peek()->getdata()->get_Load_Time()) {
-				temp->setdata(Cargo_normalWaitingList->peek()->getdata());
+			if (/*Normal_timer.get_Hour() >= */1) {
+				temp->setdata(Cargo_normalWaitingList->gethead()->getdata());
 				temp->getdata()->set_Move_Time(MT);
 				temp->getdata()->set_Waiting_Time();
 				if (temp->getdata()->get_Waiting_Time().TimeToHours() > AutoP) {
 					temp->getdata()->setAutoP(true);
 					temp->getdata()->set_Type(VIP);
-					Cargo_normalWaitingList->dequeue();
+					Cargo_normalWaitingList->deletenode(Cargo_normalWaitingList->gethead());
 					Cargo_vipWaitingList->enqueue(temp->getdata());
 					return Moving_WaitingCargo(VIP, MT);
 				}
 				Cargo_normalMovingList->enqueue(temp->getdata());
-				Cargo_normalWaitingList->dequeue();
-				Normal_timer.set_Hour(0);
-				Normal_timer.set_Day(0);
+				Cargo_normalWaitingList->deletenode(Cargo_normalWaitingList->gethead());
+				/*Normal_timer.set_Hour(0);
+				Normal_timer.set_Day(0);*/
 			}
 		}
 		break;
 	case special:
 		if (!Cargo_specialWaitingList->isempty()) {
-			if (Special_timer.get_Hour() >= Cargo_specialWaitingList->peek()->getdata()->get_Load_Time()) {
+			if (/*Special_timer.get_Hour() >=*/ 1) {
 				temp->setdata(Cargo_specialWaitingList->peek()->getdata());
 				temp->getdata()->set_Move_Time(MT);
 				temp->getdata()->set_Waiting_Time();
 				Cargo_specialMovingList->enqueue(temp->getdata());
 				Cargo_specialWaitingList->dequeue();
-				Special_timer.set_Hour(0);
-				Special_timer.set_Day(0);
+				/*Special_timer.set_Hour(0);
+				Special_timer.set_Day(0);*/
 			}
 		}
 		break;
 	case VIP:
 		if (!Cargo_vipWaitingList->isempty()) {
-			if (Vip_timer.get_Hour() >= Cargo_vipWaitingList->peek()->getdata()->get_Load_Time()) {
+			if (/*Vip_timer.get_Hour() >=*/ 1) {
 				temp->setdata(Cargo_vipWaitingList->peek()->getdata());
 				temp->getdata()->set_Move_Time(MT);
 				temp->getdata()->set_Waiting_Time();
 				Cargo_vipMovingList->enqueue(temp->getdata());
 				Cargo_vipWaitingList->dequeue();
-				Vip_timer.set_Hour(0);
-				Vip_timer.set_Day(0);
+				/*Vip_timer.set_Hour(0);
+				Vip_timer.set_Day(0);*/
 			}
 		}
 		break;
@@ -449,33 +449,33 @@ void Company::Deliver_MovingCargo(Type t, Time DT){
 	switch (t)
 	{
 	case Normal:
-		if (!Cargo_normalMovingList->isempty() && D_N_timer.get_Hour() == 5) {
+		if (!Cargo_normalMovingList->isempty() /* && D_S_timer.get_Hour() == 5 */) {
 			temp->setdata(Cargo_normalMovingList->peek()->getdata());
 			temp->getdata()->setDTPhaseOne(DT);
 			Cargo_DeliveredList->enqueue(temp->getdata());
 			Cargo_normalMovingList->dequeue();
-			D_N_timer.set_Hour(0);
-			D_N_timer.set_Day(0);
+			/*D_N_timer.set_Hour(0);
+			D_N_timer.set_Day(0);*/
 		}
 		break;
 	case special:
-		if (!Cargo_specialMovingList->isempty() && D_S_timer.get_Hour() == 5) {
+		if (!Cargo_specialMovingList->isempty() /* && D_S_timer.get_Hour() == 5 */ ) {
 			temp->setdata(Cargo_specialMovingList->peek()->getdata());
 			temp->getdata()->setDTPhaseOne(DT);
 			Cargo_DeliveredList->enqueue(temp->getdata());
 			Cargo_specialMovingList->dequeue();
-			D_S_timer.set_Hour(0);
-			D_S_timer.set_Day(0);
+			/*D_S_timer.set_Hour(0);
+			D_S_timer.set_Day(0);*/
 		}
 		break;
 	case VIP:
-		if (!Cargo_vipMovingList->isempty() && D_V_timer.get_Hour() == 5) {
+		if (!Cargo_vipMovingList->isempty() /* && D_S_timer.get_Hour() == 5 */) {
 			temp->setdata(Cargo_vipMovingList->peek()->getdata());
 			temp->getdata()->setDTPhaseOne(DT);
 			Cargo_DeliveredList->enqueue(temp->getdata());
 			Cargo_vipMovingList->dequeue();
-			D_V_timer.set_Hour(0);
-			D_V_timer.set_Day(0);
+			/*D_V_timer.set_Hour(0);
+			D_V_timer.set_Day(0);*/
 		}
 		break;
 	default:

@@ -108,9 +108,9 @@ bool Time::operator==(Time otherTime)
 
 void Time::operator+=(Time otherTime)
 {
+	if (hour + otherTime.get_Hour() > 23)day++;
 	hour = (hour + otherTime.get_Hour()) % 24;
 	day = day + otherTime.get_Day();
-	if (hour == 0)day++;
 }
 
 void Time::operator/=(int n)
