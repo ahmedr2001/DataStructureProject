@@ -96,15 +96,6 @@ Time Cargo::get_Waiting_Time() {
 void Cargo::LoadFromStreamFile(){}
 void Cargo::OutToStreamFile(){}
 
-bool Cargo::operator==(Cargo* c2)
-{
-	if (get_ID()==c2->get_ID())
-	{
-		return true;
-	}
-	return false;
-}
-
 int Cargo::getPriority()
 {
 	priority = costWeight * Cost + distanceWeight * Distance + prepTimeWeight * Pre_Time.TimeToHours();
@@ -119,4 +110,13 @@ void Cargo::setDTPhaseOne(Time DT)
 Time Cargo::getDTPhaseOne()
 {
 	return deliveryTime_PhaseOne;
+}
+
+bool Cargo::operator==(Cargo* c2)
+{
+	if (get_ID() == c2->get_ID())
+	{
+		return true;
+	}
+	return false;
 }

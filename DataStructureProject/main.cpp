@@ -38,7 +38,7 @@ int main() {
 			c1->PrintToConsole(t);
 
 			t++;
-			Sleep(1000);
+			Sleep(10);
 		}
 	}
 	else if (simMode == 1) {

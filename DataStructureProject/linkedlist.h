@@ -146,7 +146,7 @@ public:
 		node<T>* a = this->gethead();
 		while (a != nullptr)
 		{
-			if (a->getdata() == d)
+			if (*(a->getdata()) == d)
 			{
 				return a;
 			}
