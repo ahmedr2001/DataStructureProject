@@ -305,7 +305,6 @@ Cargo* Company::Remove_Normal_Wating_Cargo(int id)
 bool Company::Execute_Events(Time T) {
 	Event* p;
 	Prepare_Event* Q;
-	Cargo* c;
 	if (!eventList->isempty())
 	{
 		p = eventList->peek()->getdata();

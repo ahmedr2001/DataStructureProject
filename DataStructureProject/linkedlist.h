@@ -143,7 +143,7 @@ public:
 		return nexttodel;
 	}
 	node<T>* getpointerto(T* d) { // find pointer to node with value d
-		node<int>* a = this->gethead();
+		node<T>* a = this->gethead();
 		while (a != nullptr)
 		{
 			if (a->getdata() == d)
