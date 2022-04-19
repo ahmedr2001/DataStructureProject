@@ -3,6 +3,10 @@
 #define distanceWeight 1
 #define prepTimeWeight -1
  
+Cargo::Cargo()
+{
+}
+
 Cargo::Cargo(Time pt, int lt, int ID, Type t, int c, int d) {
 	set_Pre_Time(pt);
 	set_Load_Time(lt);
@@ -91,6 +95,15 @@ Time Cargo::get_Waiting_Time() {
 }
 void Cargo::LoadFromStreamFile(){}
 void Cargo::OutToStreamFile(){}
+
+bool Cargo::operator==(Cargo* c2)
+{
+	if (get_ID()==c2->get_ID())
+	{
+		return true;
+	}
+	return false;
+}
 
 int Cargo::getPriority()
 {

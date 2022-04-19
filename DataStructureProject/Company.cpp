@@ -297,30 +297,9 @@ void Company::Add_New_Cargo(Time pt, int lt,int id, Type t, int cost, int dis) {
 }
 Cargo* Company::Remove_Normal_Wating_Cargo(int id)
 {
-	queue<Cargo>* templist = new queue<Cargo>;
-	node<Cargo>* temp = new node<Cargo>;
-	node<Cargo> tempToBeDeleted;
-	while (!Cargo_normalWaitingList->isempty())
-	{
-		temp->setdata(Cargo_normalWaitingList->gethead()->getdata());
-		Cargo_normalWaitingList->deletenode(Cargo_normalWaitingList->gethead());
-		if (temp->getdata()->get_ID() == id)
-		{
-			tempToBeDeleted = *temp;
-		}
-		else
-		{
-			templist->enqueue(temp->getdata());
-		}
-	}
-	while (!templist->isempty())
-	{
-		temp->setdata(templist->peek()->getdata());
-		templist->dequeue();
-		Cargo_normalWaitingList->add(temp->getdata());
-	}
-	delete templist;
-	return tempToBeDeleted.getdata();
+	Cargo* temp = new Cargo;
+	node<Cargo>* tempToBeDeleted = Cargo_normalWaitingList->getpointerto(temp);
+	return tempToBeDeleted->getdata();
 }
 
 bool Company::Execute_Events(Time T) {

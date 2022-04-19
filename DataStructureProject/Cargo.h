@@ -18,6 +18,7 @@ protected:
 	int priority;
 	bool autoP = false;
 public:
+	Cargo();
 	Cargo(Time pt, int lt,int ID,Type t, int c, int d);
 	void set_Load_Time(int t);
 	void set_Cost(int c);
@@ -46,6 +47,6 @@ public:
 
 	void LoadFromStreamFile();
 	void OutToStreamFile();
-
+	bool operator==(Cargo* c2);
 };
 
