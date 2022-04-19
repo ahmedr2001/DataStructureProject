@@ -4,7 +4,7 @@ template <class T>
 class priority_queue : public queue<T>
 {
 public:
-	void enqueue(T data)
+	void enqueue(T* data)
 	{
 		linkedlist<T>* Q = this->q;
 		Q->addWithPriority(data);

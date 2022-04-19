@@ -6,7 +6,7 @@
 class Truck
 {
 private:
-	linkedlist<Cargo*>* cargolist; //list of cargo pointers
+	linkedlist<Cargo>* cargolist; //list of cargo pointers
 	int Capacity; // truck capacity
 	int loaded; // cargos count
 	int check_time; //maintenance time

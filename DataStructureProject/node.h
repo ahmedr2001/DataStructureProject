@@ -6,7 +6,7 @@ template<class T>
 class node
 {
 protected:
-	T data; // data of node
+	T* data; // data of node
 	node<T>* next; // pointer to next node
 	node<T>* previous; // pointer to previous node
 public:
@@ -14,7 +14,7 @@ public:
 		next = nullptr;
 		previous = nullptr;
 	}
-	void setdata(T d) { // set data of the node
+	void setdata(T* d) { // set data of the node
 		data = d;
 	}
 	void setnext(node<T>* n) { // set next node to current node
@@ -23,7 +23,7 @@ public:
 	void setprevious(node<T>* p) { // set previous node to current node
 		previous = p;
 	}
-	T getdata() { // get data of the node
+	T* getdata() { // get data of the node
 		return data;
 	}
 	node<T>* getnext() { // get pointer to next node 

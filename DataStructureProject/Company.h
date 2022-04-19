@@ -10,6 +10,7 @@
 #include <string>
 #include <iomanip>
 
+
 class Company
 {
 protected:
@@ -52,25 +53,25 @@ protected:
 	Time D_S_timer;//for loading
 	Time D_V_timer;//for loading
 
-	queue<Event*>* eventList;
+	queue<Event>* eventList;
 
-	linkedlist<Cargo*>* Cargo_normalWaitingList;
-	queue<Cargo*>* Cargo_specialWaitingList;
-	priority_queue<Cargo*>* Cargo_vipWaitingList;
+	linkedlist<Cargo>* Cargo_normalWaitingList;
+	queue<Cargo>* Cargo_specialWaitingList;
+	priority_queue<Cargo>* Cargo_vipWaitingList;
 
-	queue<Cargo*>* Cargo_normalMovingList;
-	queue<Cargo*>* Cargo_specialMovingList;
-	queue<Cargo*>* Cargo_vipMovingList;
+	queue<Cargo>* Cargo_normalMovingList;
+	queue<Cargo>* Cargo_specialMovingList;
+	queue<Cargo>* Cargo_vipMovingList;
 
-	queue<Cargo*>* Cargo_DeliveredList;
+	queue<Cargo>* Cargo_DeliveredList;
 
-	queue<Truck*>* Truck_vipWaitingList;
-	queue<Truck*>* Truck_normalWaitingList;
-	queue<Truck*>* Truck_specialWaitingList;
+	queue<Truck>* Truck_vipWaitingList;
+	queue<Truck>* Truck_normalWaitingList;
+	queue<Truck>* Truck_specialWaitingList;
 
-	queue<Truck*>* Truck_vipMovingList;
-	queue<Truck*>* Truck_normalMovingList;
-	queue<Truck*>* Truck_specialMovingList;
+	queue<Truck>* Truck_vipMovingList;
+	queue<Truck>* Truck_normalMovingList;
+	queue<Truck>* Truck_specialMovingList;
 
 	bool noNormalCargosLeft();
 	bool noSpecialCargosLeft();

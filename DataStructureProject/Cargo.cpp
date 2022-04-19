@@ -1,7 +1,7 @@
 #include "Cargo.h"
 #define costWeight 1
 #define distanceWeight 1
-#define prepTimeWeight 1
+#define prepTimeWeight -1
  
 Cargo::Cargo(Time pt, int lt, int ID, Type t, int c, int d) {
 	set_Pre_Time(pt);

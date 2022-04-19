@@ -23,7 +23,7 @@ public:
 	int getSize() const {
 		return size;
 	}
-	void add(T d) { // add from the end of linked liast
+	void add(T* d) { // add from the end of linked liast
 		node<T>* add = new node<T>;
 		add->setdata(d);
 		add->setnext(nullptr);
@@ -40,7 +40,7 @@ public:
 		}
 		size++;
 	}
-	void addWithPriority(T data) // place highest priorities at the front
+	void addWithPriority(T* data) // place highest priorities at the front
 	{
 		Time currentTime;
 		node<T>* newNode = new node<T>;
@@ -104,7 +104,7 @@ public:
 		}
 		size++;
 	}
-	void addfromtop(T d) { // add from the start of linked list
+	void addfromtop(T* d) { // add from the start of linked list
 		node<T>* add = new node<T>;
 		add->setdata(d);
 		add->setnext(head);
@@ -142,7 +142,7 @@ public:
 		size--;
 		return nexttodel;
 	}
-	node<T>* getpointerto(T d) { // find pointer to node with value d
+	node<T>* getpointerto(T* d) { // find pointer to node with value d
 		node<int>* a = this->gethead();
 		while (a != nullptr)
 		{

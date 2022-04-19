@@ -1,25 +1,25 @@
 #include "Company.h"
 Company::Company()
 {
-	eventList=new queue<Event*>;
+	eventList=new queue<Event>;
 
-	Cargo_normalWaitingList=new linkedlist<Cargo*>;
-	Cargo_specialWaitingList=new queue<Cargo*>;
-	Cargo_vipWaitingList = new priority_queue<Cargo*>;
+	Cargo_normalWaitingList=new linkedlist<Cargo>;
+	Cargo_specialWaitingList=new queue<Cargo>;
+	Cargo_vipWaitingList = new priority_queue<Cargo>;
 
-	Cargo_DeliveredList = new queue<Cargo*>;
+	Cargo_DeliveredList = new queue<Cargo>;
 
-	Cargo_normalMovingList = new queue<Cargo*>;
-	Cargo_specialMovingList = new queue<Cargo*>;
-	Cargo_vipMovingList = new queue<Cargo*>;
+	Cargo_normalMovingList = new queue<Cargo>;
+	Cargo_specialMovingList = new queue<Cargo>;
+	Cargo_vipMovingList = new queue<Cargo>;
 
-	Truck_vipWaitingList = new queue<Truck*>;
-	Truck_normalWaitingList = new queue<Truck*>;
-	Truck_specialWaitingList = new queue<Truck*>;
+	Truck_vipWaitingList = new queue<Truck>;
+	Truck_normalWaitingList = new queue<Truck>;
+	Truck_specialWaitingList = new queue<Truck>;
 
-	queue<Truck*>* Truck_vipMovingList = new queue<Truck*>;
-	queue<Truck*>* Truck_normalMovingList = new queue<Truck*>;
-	queue<Truck*>* Truck_specialMovingList = new queue<Truck*>;
+	queue<Truck>* Truck_vipMovingList = new queue<Truck>;
+	queue<Truck>* Truck_normalMovingList = new queue<Truck>;
+	queue<Truck>* Truck_specialMovingList = new queue<Truck>;
 }
 void Company::PrintToConsole(Time t)
 {
@@ -35,7 +35,7 @@ void Company::PrintToConsole(Time t)
 	message += "[";
 	
 	int sizeNormalWaitingCargoArr = 0;
-	node<Cargo*>* normalWaitingCargoArr = Cargo_normalWaitingList->GetAllNodes(sizeNormalWaitingCargoArr);
+	node<Cargo>* normalWaitingCargoArr = Cargo_normalWaitingList->GetAllNodes(sizeNormalWaitingCargoArr);
 	for (int i = 0; i < sizeNormalWaitingCargoArr; i++) {
 		message += (to_string(normalWaitingCargoArr[i].getdata()->get_ID()));
 		if (i != sizeNormalWaitingCargoArr - 1) {
@@ -46,7 +46,7 @@ void Company::PrintToConsole(Time t)
 	
 	message += "(";
 	int sizeSpecialWaitingCargoArr = 0;
-	node<Cargo*>* specialWaitingCargoArr = Cargo_specialWaitingList->GetAllNodes(sizeSpecialWaitingCargoArr);
+	node<Cargo>* specialWaitingCargoArr = Cargo_specialWaitingList->GetAllNodes(sizeSpecialWaitingCargoArr);
 	for (int i = 0; i < sizeSpecialWaitingCargoArr; i++) {
 		message += (to_string(specialWaitingCargoArr[i].getdata()->get_ID()));
 		if (i != sizeSpecialWaitingCargoArr - 1) {
@@ -57,7 +57,7 @@ void Company::PrintToConsole(Time t)
 
 	message += "{";
 	int sizeVIPWaitingCargoArr = 0;
-	node<Cargo*>* VIPWaitingCargoArr = Cargo_vipWaitingList->GetAllNodes(sizeVIPWaitingCargoArr);
+	node<Cargo>* VIPWaitingCargoArr = Cargo_vipWaitingList->GetAllNodes(sizeVIPWaitingCargoArr);
 	for (int i = 0; i < sizeVIPWaitingCargoArr; i++) {
 		message += (to_string(VIPWaitingCargoArr[i].getdata()->get_ID()));
 		if (i != sizeVIPWaitingCargoArr - 1) {
@@ -77,7 +77,7 @@ void Company::PrintToConsole(Time t)
 	
 	message += "[";
 	int sizeNormalMovingCargoArr = 0;
-	node<Cargo*>* normalMovingCargoArr = Cargo_normalMovingList->GetAllNodes(sizeNormalMovingCargoArr);
+	node<Cargo>* normalMovingCargoArr = Cargo_normalMovingList->GetAllNodes(sizeNormalMovingCargoArr);
 	for (int i = 0; i < sizeNormalMovingCargoArr; i++) {
 		message += (to_string(normalMovingCargoArr[i].getdata()->get_ID()));
 		if (i != sizeNormalMovingCargoArr - 1) {
@@ -88,7 +88,7 @@ void Company::PrintToConsole(Time t)
 	
 	message += "(";
 	int sizeSpecialMovingCargoArr = 0;
-	node<Cargo*>* specialMovingCargoArr = Cargo_specialMovingList->GetAllNodes(sizeSpecialMovingCargoArr);
+	node<Cargo>* specialMovingCargoArr = Cargo_specialMovingList->GetAllNodes(sizeSpecialMovingCargoArr);
 	for (int i = 0; i < sizeSpecialMovingCargoArr; i++) {
 		message += (to_string(specialMovingCargoArr[i].getdata()->get_ID()));
 		if (i != sizeSpecialMovingCargoArr - 1) {
@@ -99,7 +99,7 @@ void Company::PrintToConsole(Time t)
 
 	message += "{";
 	int sizeVIPMovingCargoArr = 0;
-	node<Cargo*>* VIPMovingCargoArr = Cargo_vipMovingList->GetAllNodes(sizeVIPMovingCargoArr);
+	node<Cargo>* VIPMovingCargoArr = Cargo_vipMovingList->GetAllNodes(sizeVIPMovingCargoArr);
 	for (int i = 0; i < sizeVIPMovingCargoArr; i++) {
 		message += (to_string(VIPMovingCargoArr[i].getdata()->get_ID()));
 		if (i != sizeVIPMovingCargoArr - 1) {
@@ -117,11 +117,11 @@ void Company::PrintToConsole(Time t)
 
 	message += "[";
 	int sizeDeliveredCargoArr = 0;
-	node<Cargo*>* deliveredCargoArr = Cargo_DeliveredList->GetAllNodes(sizeDeliveredCargoArr);
+	node<Cargo>* deliveredCargoArr = Cargo_DeliveredList->GetAllNodes(sizeDeliveredCargoArr);
 	int normalIndex = 0, specialIndex = 0, vipIndex = 0;
-	node<Cargo*>* deliveredNormalArr = new node<Cargo*>[sizeDeliveredCargoArr];
-	node<Cargo*>* deliveredSpecialArr = new node<Cargo*>[sizeDeliveredCargoArr];
-	node<Cargo*>* deliveredVIPArr = new node<Cargo*>[sizeDeliveredCargoArr];
+	node<Cargo>* deliveredNormalArr = new node<Cargo>[sizeDeliveredCargoArr];
+	node<Cargo>* deliveredSpecialArr = new node<Cargo>[sizeDeliveredCargoArr];
+	node<Cargo>* deliveredVIPArr = new node<Cargo>[sizeDeliveredCargoArr];
 	for (int i = 0; i < sizeDeliveredCargoArr; i++) {
 		if (deliveredCargoArr[i].getdata()->get_Type() == Normal) {
 			deliveredNormalArr[normalIndex++] = deliveredCargoArr[i];
@@ -165,9 +165,9 @@ void Company::PrintToConsole(Time t)
 }
 void Company::add_truck(Type t)
 {
-	Truck* tk1;
-	Truck* tk2;
-	Truck* tk3;
+	Truck *tk1;
+	Truck *tk2;
+	Truck *tk3;
 	switch(t)
 	{
 	case Normal:
@@ -297,9 +297,9 @@ void Company::Add_New_Cargo(Time pt, int lt,int id, Type t, int cost, int dis) {
 }
 Cargo* Company::Remove_Normal_Wating_Cargo(int id)
 {
-	queue<Cargo*>* templist = new queue<Cargo*>;
-	node<Cargo*>* temp = new node<Cargo*>;
-	node<Cargo*> tempToBeDeleted;
+	queue<Cargo>* templist = new queue<Cargo>;
+	node<Cargo>* temp = new node<Cargo>;
+	node<Cargo> tempToBeDeleted;
 	while (!Cargo_normalWaitingList->isempty())
 	{
 		temp->setdata(Cargo_normalWaitingList->gethead()->getdata());
@@ -375,7 +375,7 @@ void Company::Increase_Timers() {
 }
 
 void Company::Moving_WaitingCargo(Type t, Time MT){
-	node<Cargo*>* temp = new node<Cargo*>;
+	node<Cargo>* temp = new node<Cargo>;
 	Time avgWait;
 	switch (t)
 	{
@@ -445,7 +445,7 @@ void Company::Deliver_Timers() {
 }
 
 void Company::Deliver_MovingCargo(Type t, Time DT){
-	node<Cargo*>* temp = new node<Cargo*>;
+	node<Cargo>* temp = new node<Cargo>;
 	switch (t)
 	{
 	case Normal:
