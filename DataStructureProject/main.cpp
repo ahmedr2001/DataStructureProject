@@ -8,7 +8,7 @@ using namespace std;
 int main() {
 	Time t;
 	Company* c1 = new Company();
-	c1->LoadTrucksAndEventsData("test");
+	c1->LoadTrucksAndEventsData("test2");
 	UI* uiObject = c1->GetUIObject();
 
 	int simMode;
