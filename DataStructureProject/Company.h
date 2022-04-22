@@ -73,6 +73,8 @@ protected:
 	queue<Truck>* Truck_normalMovingList;
 	queue<Truck>* Truck_specialMovingList;
 
+	queue<Truck*> Truck_maintenanceList;
+
 	bool noNormalCargosLeft();
 	bool noSpecialCargosLeft();
 	bool noVIPCargosLeft();
