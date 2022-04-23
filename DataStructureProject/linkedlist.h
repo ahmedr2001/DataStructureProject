@@ -137,10 +137,8 @@ public:
 		{
 			head = todel->getnext();
 		}
-		node<T>* nexttodel = todel->getnext();
-		delete todel;
 		size--;
-		return nexttodel;
+		return todel;
 	}
 	node<T>* getpointerto(T* d) { // find pointer to node with value d
 		node<T>* a = this->gethead();
