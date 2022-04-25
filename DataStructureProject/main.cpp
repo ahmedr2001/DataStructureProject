@@ -8,7 +8,7 @@ using namespace std;
 int main() {
 	Time t;
 	Company* c1 = new Company();
-	c1->LoadTrucksAndEventsData("test2");
+	c1->LoadTrucksAndEventsData("test");
 	UI* uiObject = c1->GetUIObject();
 
 	int simMode;
@@ -20,18 +20,19 @@ int main() {
 		while (!done) {
 			done = c1->Execute_Events(t);
 
-			if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
+			if (t.get_Hour() % 5 == 4/*t.get_Hour() >= 5 && t.get_Hour() <= 23*/) {
 				c1->Moving_WaitingCargo(VIP, t);
 				c1->Moving_WaitingCargo(special, t);
 				c1->Moving_WaitingCargo(Normal, t);
-				c1->Increase_Timers();
+				//c1->Increase_Timers();
 			}
-			if (t.get_Hour() % 5 == 4) {
-				c1->Deliver_MovingCargo(VIP, t);
-				c1->Deliver_MovingCargo(special, t);
-				c1->Deliver_MovingCargo(Normal, t);
-				c1->Deliver_Timers();
-			}
+			//if (t.get_Hour() % 5 == 4) {
+			//	c1->Deliver_MovingCargo(VIP, t);
+			//	c1->Deliver_MovingCargo(special, t);
+			//	c1->Deliver_MovingCargo(Normal, t);
+			//	c1->Deliver_Timers();
+			//}
+			//c1->Deliver_Timers();
 
 			done &= c1->noCargosLeft();
 
@@ -80,18 +81,20 @@ int main() {
 		while (!done) {
 			done = c1->Execute_Events(t);
 
-			if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
+			if (t.get_Hour() % 5 == 4/*t.get_Hour() >= 5 && t.get_Hour() <= 23*/) {
 				c1->Moving_WaitingCargo(VIP, t);
 				c1->Moving_WaitingCargo(special, t);
 				c1->Moving_WaitingCargo(Normal, t);
-				c1->Increase_Timers();
+				//c1->Increase_Timers();
 			}
-			if (t.get_Hour() % 5 == 4) {
-				c1->Deliver_MovingCargo(VIP, t);
-				c1->Deliver_MovingCargo(special, t);
-				c1->Deliver_MovingCargo(Normal, t);
-				c1->Deliver_Timers();
-			}
+			//if (t.get_Hour() % 5 == 4) {
+			//	c1->Deliver_MovingCargo(VIP, t);
+			//	c1->Deliver_MovingCargo(special, t);
+			//	c1->Deliver_MovingCargo(Normal, t);
+			//	c1->Deliver_Timers();
+			//}
+			//c1->Deliver_Timers();
+
 			done &= c1->noCargosLeft();
 
 			t++;
