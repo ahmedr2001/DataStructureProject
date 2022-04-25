@@ -73,7 +73,7 @@ void Company::PrintToConsole(Time t)
 		+ Cargo_specialMovingList->getSize()
 		+ Cargo_vipMovingList->getSize();
 
-	message += (to_string(movingCargosCount) + " Moving Cargos: ");
+	/*message += (to_string(movingCargosCount) + " Moving Cargos: ");
 	
 	message += "[";
 	int sizeNormalMovingCargoArr = 0;
@@ -109,7 +109,7 @@ void Company::PrintToConsole(Time t)
 	message += "} ";
 	
 	message += "\n";
-	message += "----------------------------------------------------------------------\n";
+	message += "----------------------------------------------------------------------\n";*/
 
 	int deliveredCargosCount = Cargo_DeliveredList->getSize();
 
