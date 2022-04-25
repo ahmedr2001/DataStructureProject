@@ -98,7 +98,7 @@ public:
 	void Collect_statistics();// to create output file
 	
 	bool Execute_Events(Time T);//Execute the events that should be executed at that hour
-	
+	void AutoPromote(Type t, Time MT);
 	void PrintToConsole(Time t);
 	void PrintToFile(string filename);
 

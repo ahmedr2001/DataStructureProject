@@ -369,6 +369,23 @@ void Company::Increase_Timers() {
 	}
 }
 
+void Company::AutoPromote(Type t, Time MT)
+{
+	node<Cargo>* temp = new node<Cargo>;
+	if (!Cargo_normalWaitingList->isempty()) {
+		temp->setdata(Cargo_normalWaitingList->gethead()->getdata());
+		temp->getdata()->set_Move_Time(MT);
+		temp->getdata()->setDTPhaseOne(MT);
+		temp->getdata()->set_Waiting_Time();
+		if (temp->getdata()->get_Waiting_Time().TimeToHours() > AutoP) {
+			temp->getdata()->setAutoP(true);
+			temp->getdata()->set_Type(VIP);
+			Cargo_normalWaitingList->deletenode(Cargo_normalWaitingList->gethead());
+			Cargo_vipWaitingList->enqueue(temp->getdata());
+		}
+	}
+}
+
 void Company::Moving_WaitingCargo(Type t, Time MT){
 	node<Cargo>* temp = new node<Cargo>;
 	Time avgWait;
@@ -379,12 +396,10 @@ void Company::Moving_WaitingCargo(Type t, Time MT){
 			if (/*Normal_timer.get_Hour() >= 5*/1) {
 				temp->setdata(Cargo_normalWaitingList->gethead()->getdata());
 				temp->getdata()->set_Move_Time(MT);
+				temp->getdata()->setDTPhaseOne(MT);
 				temp->getdata()->set_Waiting_Time();
 				if (temp->getdata()->get_Waiting_Time().TimeToHours() > AutoP) {
-					temp->getdata()->setAutoP(true);
-					temp->getdata()->set_Type(VIP);
-					Cargo_normalWaitingList->deletenode(Cargo_normalWaitingList->gethead());
-					Cargo_vipWaitingList->enqueue(temp->getdata());
+					AutoPromote(Normal, MT);
 					return Moving_WaitingCargo(VIP, MT);
 				}
 				Cargo_DeliveredList->enqueue(temp->getdata());
@@ -399,6 +414,7 @@ void Company::Moving_WaitingCargo(Type t, Time MT){
 			if (/*Special_timer.get_Hour() >= 5*/1) {
 				temp->setdata(Cargo_specialWaitingList->peek()->getdata());
 				temp->getdata()->set_Move_Time(MT);
+				temp->getdata()->setDTPhaseOne(MT);
 				temp->getdata()->set_Waiting_Time();
 				Cargo_DeliveredList->enqueue(temp->getdata());
 				Cargo_specialWaitingList->dequeue();
@@ -412,6 +428,7 @@ void Company::Moving_WaitingCargo(Type t, Time MT){
 			if (/*Vip_timer.get_Hour() >= 5*/1) {
 				temp->setdata(Cargo_vipWaitingList->peek()->getdata());
 				temp->getdata()->set_Move_Time(MT);
+				temp->getdata()->setDTPhaseOne(MT);
 				temp->getdata()->set_Waiting_Time();
 				Cargo_DeliveredList->enqueue(temp->getdata());
 				Cargo_vipWaitingList->dequeue();
