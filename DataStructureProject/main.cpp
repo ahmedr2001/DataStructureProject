@@ -20,7 +20,7 @@ int main() {
 		while (!done) {
 			done = c1->Execute_Events(t);
 
-			if (t.get_Hour() % 5 == 4/*t.get_Hour() >= 5 && t.get_Hour() <= 23*/) {
+			if (t.get_Hour() % 5 == 4&&t.get_Hour() >= 5 && t.get_Hour() <= 23) {
 				c1->Moving_WaitingCargo(VIP, t);
 				c1->Moving_WaitingCargo(special, t);
 				c1->Moving_WaitingCargo(Normal, t);
@@ -53,7 +53,7 @@ int main() {
 
 			done = c1->Execute_Events(t);
 
-			if (t.get_Hour() % 5 == 4/*t.get_Hour() >= 5 && t.get_Hour() <= 23*/) {
+			if (t.get_Hour() % 5 == 4&&t.get_Hour() >= 5 && t.get_Hour() <= 23) {
 				c1->Moving_WaitingCargo(VIP, t);
 				c1->Moving_WaitingCargo(special, t);
 				c1->Moving_WaitingCargo(Normal, t);
@@ -81,7 +81,7 @@ int main() {
 		while (!done) {
 			done = c1->Execute_Events(t);
 
-			if (t.get_Hour() % 5 == 4/*t.get_Hour() >= 5 && t.get_Hour() <= 23*/) {
+			if (t.get_Hour() % 5 == 4&&t.get_Hour() >= 5 && t.get_Hour() <= 23) {
 				c1->Moving_WaitingCargo(VIP, t);
 				c1->Moving_WaitingCargo(special, t);
 				c1->Moving_WaitingCargo(Normal, t);
