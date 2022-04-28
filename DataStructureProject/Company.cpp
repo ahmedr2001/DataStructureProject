@@ -17,9 +17,9 @@ Company::Company()
 	Truck_normalWaitingList = new queue<Truck>;
 	Truck_specialWaitingList = new queue<Truck>;
 
-	Truck_vipMovingList = new queue<Truck>;
-	Truck_normalMovingList = new queue<Truck>;
-	Truck_specialMovingList = new queue<Truck>;
+	Truck_vipMovingList = new linkedlist<Truck>;
+	Truck_normalMovingList = new linkedlist<Truck>;
+	Truck_specialMovingList = new linkedlist<Truck>;
 }
 void Company::PrintToConsole(Time t)
 {
