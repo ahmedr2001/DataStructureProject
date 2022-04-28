@@ -69,9 +69,9 @@ protected:
 	queue<Truck>* Truck_normalWaitingList;
 	queue<Truck>* Truck_specialWaitingList;
 
-	queue<Truck>* Truck_vipMovingList;
-	queue<Truck>* Truck_normalMovingList;
-	queue<Truck>* Truck_specialMovingList;
+	linkedlist<Truck>* Truck_vipMovingList;
+	linkedlist<Truck>* Truck_normalMovingList;
+	linkedlist<Truck>* Truck_specialMovingList;
 
 	queue<Truck*> Truck_maintenanceList;
 
@@ -106,4 +106,6 @@ public:
 	void Deliver_Timers();
 
 	UI* GetUIObject();
+
+	void Simulate();
 };

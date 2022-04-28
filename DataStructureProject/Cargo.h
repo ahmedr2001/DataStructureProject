@@ -35,7 +35,7 @@ public:
 	int get_Load_Time();
 	int get_Cost();
 	int get_Distance();
-	int getPriority();
+	int getPriority(int distanceWeight, int costWeight, int prepTimeWeight);
 	int get_ID();
 	bool getAutoP();
 	Time get_Delivery_Time();

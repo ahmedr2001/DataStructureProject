@@ -2,11 +2,11 @@
 #include "Cargo.h"
 #include "stack.h"
 #include "linkedlist.h"
-
+#include"priority_queue.h"
 class Truck
 {
 private:
-	linkedlist<Cargo>* cargolist; //list of cargo pointers
+	priority_queue<Cargo>* cargolist; //list of cargo pointers
 	int Capacity; // truck capacity
 	int loaded; // cargos count
 	int check_time; //maintenance time

@@ -1,7 +1,4 @@
 #include "Cargo.h"
-#define costWeight 1
-#define distanceWeight 1
-#define prepTimeWeight -1
  
 Cargo::Cargo()
 {
@@ -96,7 +93,7 @@ Time Cargo::get_Waiting_Time() {
 void Cargo::LoadFromStreamFile(){}
 void Cargo::OutToStreamFile(){}
 
-int Cargo::getPriority()
+int Cargo::getPriority(int distanceWeight, int costWeight, int prepTimeWeight)
 {
 	priority = costWeight * Cost + distanceWeight * Distance + prepTimeWeight * Pre_Time.TimeToHours();
 	return priority;
