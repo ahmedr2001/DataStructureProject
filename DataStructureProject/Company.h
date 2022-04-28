@@ -106,4 +106,6 @@ public:
 	void Deliver_Timers();
 
 	UI* GetUIObject();
+
+	void Simulate();
 };
