@@ -23,7 +23,7 @@ public:
 	int getSize() const {
 		return size;
 	}
-	void add(T* d) { // add from the end of linked liast
+	void add(T* d) { // add from the end of linked list
 		node<T>* add = new node<T>;
 		add->setdata(d);
 		add->setnext(nullptr);
