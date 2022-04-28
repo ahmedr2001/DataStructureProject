@@ -5,7 +5,6 @@
 #include "Prepare_Event.h"
 #include "Promote_Event.h"
 #include "priority_queue.h"
-#include "UI.h"
 #include <fstream>
 #include <string>
 #include <iomanip>
@@ -59,15 +58,20 @@ protected:
 	queue<Cargo>* Cargo_specialWaitingList;
 	priority_queue<Cargo>* Cargo_vipWaitingList;
 
-	queue<Cargo>* Cargo_normalMovingList;
-	queue<Cargo>* Cargo_specialMovingList;
-	queue<Cargo>* Cargo_vipMovingList;
+	queue<Cargo>* Cargo_normalLoadingList;
+	queue<Cargo>* Cargo_specialLoadingList;
+	queue<Cargo>* Cargo_vipLoadingList;
 
 	queue<Cargo>* Cargo_DeliveredList;
 
 	queue<Truck>* Truck_vipWaitingList;
-	queue<Truck>* Truck_normalWaitingList;
 	queue<Truck>* Truck_specialWaitingList;
+	queue<Truck>* Truck_normalWaitingList;
+
+
+	queue<Truck>* Truck_vipLoadingList;
+	queue<Truck>* Truck_normalLoadingList;
+	queue<Truck>* Truck_specialLoadingList;
 
 	linkedlist<Truck>* Truck_vipMovingList;
 	linkedlist<Truck>* Truck_normalMovingList;
@@ -106,6 +110,4 @@ public:
 	void Deliver_Timers();
 
 	UI* GetUIObject();
-
-	void Simulate();
 };
