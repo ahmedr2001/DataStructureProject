@@ -40,12 +40,12 @@ public:
 		}
 		size++;
 	}
-	void addWithPriority(T* data) // place highest priorities at the front
+	void addWithPriority(T* data, int distanceWeight, int costWeight, int prepTimeWeight) // place highest priorities at the front
 	{
 		Time currentTime;
 		node<T>* newNode = new node<T>;
 		newNode->setdata(data);
-		int priority = data->getPriority();
+		int priority = data->getPriority(distanceWeight, costWeight, prepTimeWeight);
 		bool done = 0;
 		node<T>* headCopy = head;
 		if (!headCopy) {
@@ -56,7 +56,7 @@ public:
 			done = 1;
 		}
 		else if (!headCopy->getnext()) {
-			if (headCopy->getdata()->getPriority() > priority) {
+			if (headCopy->getdata()->getPriority(distanceWeight, costWeight, prepTimeWeight) > priority) {
 				newNode->setnext(nullptr);
 				newNode->setprevious(head);
 				head->setnext(newNode);
@@ -74,7 +74,7 @@ public:
 		}
 		else {
 			while (headCopy) {
-				if (headCopy->getdata()->getPriority() <= priority) {
+				if (headCopy->getdata()->getPriority(distanceWeight, costWeight, prepTimeWeight) <= priority) {
 					if (headCopy == head) {
 						newNode->setnext(head);
 						newNode->setprevious(nullptr);

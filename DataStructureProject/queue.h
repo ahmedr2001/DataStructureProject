@@ -13,7 +13,7 @@ public:
 		front = q->gethead();
 		rear = q->gettail();
 	}
-	virtual void enqueue(T* data) { // add element to end of queue
+	virtual void enqueue(T* data, int distanceWeight=0, int costWeight=0, int prepTimeWeight=0) { // add element to end of queue
 		q->add(data);
 		front = q->gethead();
 		rear = q->gettail();
