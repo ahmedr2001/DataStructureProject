@@ -5,6 +5,7 @@ Cargo::Cargo()
 }
 
 Cargo::Cargo(Time pt, int lt, int ID, Type t, int c, int d) {
+	setpriority = true;
 	set_Pre_Time(pt);
 	set_Load_Time(lt);
 	set_Cost(c);
@@ -95,7 +96,10 @@ void Cargo::OutToStreamFile(){}
 
 int Cargo::getPriority(int distanceWeight, int costWeight, int prepTimeWeight)
 {
-	priority = costWeight * Cost + distanceWeight * Distance + prepTimeWeight * Pre_Time.TimeToHours();
+	if (setpriority) {
+		priority = costWeight * Cost + distanceWeight * Distance + prepTimeWeight * Pre_Time.TimeToHours();
+		setpriority = false;
+	}
 	return priority;
 }
 
