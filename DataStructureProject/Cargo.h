@@ -13,6 +13,7 @@ protected:
 	Time deliveryTime_PhaseOne;
 	Type t;
 	int ID;
+	int TID;
 	int Cost;
 	int Distance;
 	int priority;
@@ -30,9 +31,11 @@ public:
 	void set_Waiting_Time();
 	void set_Delivery_Time(int speed);
 	void set_ID(int id);
+	void setTID(int tid);
 	void setDTPhaseOne(Time DT);
 	void setAutoP(bool ap);
 
+	int getTID();
 	int get_Load_Time();
 	int get_Cost();
 	int get_Distance();

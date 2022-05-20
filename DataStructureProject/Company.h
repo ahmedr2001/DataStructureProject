@@ -92,7 +92,7 @@ protected:
 public:
 	Company(); //Company constructor
 	
-	void add_truck(Type t);
+	void add_truck(Type t, int id);
 	void LoadTrucksAndEventsData(string filename);
 	void Add_New_Cargo(Time pt, int lt, int id, Type t, int cost, int dis);// find suitable queue to store cargo
 	void MaxWait(Type t, Time T);

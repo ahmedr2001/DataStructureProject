@@ -6,6 +6,7 @@ Cargo::Cargo()
 
 Cargo::Cargo(Time pt, int lt, int ID, Type t, int c, int d) {
 	setpriority = true;
+	TID = 0;
 	set_Pre_Time(pt);
 	set_Load_Time(lt);
 	set_Cost(c);
@@ -70,6 +71,17 @@ void Cargo::set_Distance(int d){
 void Cargo::set_Type(Type t){
 	this->t = t;
 }
+
+void Cargo::setTID(int tid)
+{
+	TID = tid;
+}
+
+int Cargo::getTID()
+{
+	return TID;
+}
+
 int Cargo::get_Cost(){
 	return Cost;
 }

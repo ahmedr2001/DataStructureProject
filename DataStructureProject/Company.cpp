@@ -177,7 +177,7 @@ void Company::PrintToConsole(Time t)
 
 	uiObject->PrintMessage(message);
 }
-void Company::add_truck(Type t)
+void Company::add_truck(Type t, int id)
 {
 	Truck *tk1;
 	Truck *tk2;
@@ -185,15 +185,15 @@ void Company::add_truck(Type t)
 	switch(t)
 	{
 	case Normal:
-		tk1 = new Truck(t, Normal_Truck_Cap, normal_check_time, Normal_Truck_Speed);
+		tk1 = new Truck(t, Normal_Truck_Cap, normal_check_time, Normal_Truck_Speed, id);
 		Truck_normalWaitingList->enqueue(tk1);
 		break;
 	case special:
-		tk2 = new Truck(t, Special_Truck_Cap, special_check_time, Special_Truck_Speed);
+		tk2 = new Truck(t, Special_Truck_Cap, special_check_time, Special_Truck_Speed, id);
 		Truck_specialWaitingList->enqueue(tk2);
 		break;
 	case VIP:
-		tk3 = new Truck(t, Vip_Truck_Cap, vip_check_time, Vip_Truck_Speed);
+		tk3 = new Truck(t, Vip_Truck_Cap, vip_check_time, Vip_Truck_Speed, id);
 		Truck_vipWaitingList->enqueue(tk3);
 		break;
 	default:
@@ -226,15 +226,15 @@ void Company::LoadTrucksAndEventsData(string filename)
 
 		for (int i = 0; i < Normal_Truck_Num; i++)
 		{
-			add_truck(Normal);
+			add_truck(Normal, i+1);
 		}
 		for (int i = 0; i < Special_Truck_Num; i++)
 		{
-			add_truck(special);
+			add_truck(special, i+1);
 		}
 		for (int i = 0; i < Vip_Truck_Num; i++)
 		{
-			add_truck(VIP);
+			add_truck(VIP, i+1);
 		}
 
 		inFile >> AutoP;
@@ -424,6 +424,7 @@ void Company::MaxWait(Type t, Time T)
 				Cargo* c = CargosToLoad->gethead()->getdata();
 				node<Cargo>* cargoNode = new node<Cargo>(c);
 				Truck_normalWaitingList->peek()->getdata()->add_Cargo(c);
+				c->setTID(Truck_normalWaitingList->peek()->getdata()->getID());
 				CargosToLoad->deletenode(cargoNode);
 				loaded = 1;
 			}
@@ -452,17 +453,18 @@ void Company::MaxWait(Type t, Time T)
 				Cargo* c = CargosToLoad->gethead()->getdata();
 				node<Cargo>* cargoNode = new node<Cargo>(c);
 				Truck_specialWaitingList->peek()->getdata()->add_Cargo(c);
+				c->setTID(Truck_specialWaitingList->peek()->getdata()->getID());
 				CargosToLoad->deletenode(cargoNode);
 				loaded = 1;
 			}
 			if (loaded) {
-				Truck* truck = Truck_specialWaitingList->peek()->getdata();
-				Truck_specialWaitingList->dequeue();
-				MovingTrucks->enqueue(truck, 0, 0, 0);
+			Truck* truck = Truck_specialWaitingList->peek()->getdata();
+			Truck_specialWaitingList->dequeue();
+			MovingTrucks->enqueue(truck, 0, 0, 0);
 			}
 		}
 		else {
-				
+
 		}
 	}
 	else if (t == special) {
@@ -485,6 +487,7 @@ void Company::MaxWait(Type t, Time T)
 				Cargo* c = CargosToLoad->gethead()->getdata();
 				node<Cargo>* cargoNode = new node<Cargo>(c);
 				Truck_specialWaitingList->peek()->getdata()->add_Cargo(c);
+				c->setTID(Truck_specialWaitingList->peek()->getdata()->getID());
 				CargosToLoad->deletenode(cargoNode);
 				loaded = 1;
 			}
@@ -503,7 +506,7 @@ void Company::MoveTrucksToCheckup(Time t)
 	node<Truck>* head = MovingTrucks->peek();
 	while (head && !done) {
 		Truck* TruckToCheck = head->getdata();
-		if (TruckToCheck->getFT() > t || TruckToCheck->getFT() == t) {
+		if (TruckToCheck->getFT() < t || TruckToCheck->getFT() == t) {
 			TruckToCheck->incrementJ();
 			int j = TruckToCheck->getJ();
 			if (j % J) {
@@ -552,7 +555,42 @@ void Company::MoveTrucksToCheckup(Time t)
 
 void Company::MoveCheckupToAvail(Time t)
 {
-
+	node<Truck>* normalTruck = Truck_normalMaintenanceList->peek();
+	while (normalTruck) {
+		Truck* normalTruckData = normalTruck->getdata();
+		if (normalTruckData->getCT() < t || normalTruckData->getCT() == t){
+			Truck_normalWaitingList->enqueue(normalTruckData);
+			Truck_normalMaintenanceList->dequeue();
+		}
+		else {
+			break;
+		}
+		normalTruck = normalTruck->getnext();
+	}
+	node<Truck>* specialTruck = Truck_specialMaintenanceList->peek();
+	while (specialTruck) {
+		Truck* specialTruckData = specialTruck->getdata();
+		if (specialTruckData->getCT() < t || specialTruckData->getCT() == t) {
+			Truck_specialWaitingList->enqueue(specialTruckData);
+			Truck_specialMaintenanceList->dequeue();
+		}
+		else {
+			break;
+		}
+		specialTruck = specialTruck->getnext();
+	}
+	node<Truck>* vipTruck = Truck_VIPMaintenanceList->peek();
+	while (vipTruck) {
+		Truck* vipTruckData = vipTruck->getdata();
+		if (vipTruckData->getCT() < t || vipTruckData->getCT() == t) {
+			Truck_vipWaitingList->enqueue(vipTruckData);
+			Truck_VIPMaintenanceList->dequeue();
+		}
+		else {
+			break;
+		}
+		vipTruck = vipTruck->getnext();
+	}
 }
 
 void Company::Moving_WaitingCargo(Type t, Time MT){
@@ -677,7 +715,7 @@ void Company::PrintToFile(string filename)
 		int scargon = 0;
 		int vcargon = 0;
 		int autoPCount = 0;
-		outFile << "CDT" << setw(5) << "CID" << setw(5) << "PT" << setw(5) << "WT" << endl;
+		outFile << "CDT" << setw(7) << "CID" << setw(8) << "PT" << setw(7) << "WT" << setw(8) << "TID" << endl;
 		while (!Cargo_DeliveredList->isempty())
 		{
 			cargon++;
@@ -706,6 +744,9 @@ void Company::PrintToFile(string filename)
 			avgWait += wt;
 			bool autoP = Cargo_DeliveredList->peek()->getdata()->getAutoP();
 			if (autoP)autoPCount++;
+			int tid = Cargo_DeliveredList->peek()->getdata()->getTID();
+			outFile << "     ";
+			outFile << tid;
 			Cargo_DeliveredList->dequeue();
 			outFile << endl;
 		}

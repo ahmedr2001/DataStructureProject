@@ -15,12 +15,13 @@ private:
 	int DI; // delivery interval
 	int active_time;
 	int utilization;
+	int ID;
 	Type trucktype; // truck type (vip-normal-special)
 	Time finishTime;
 	Time moveTime;
 	Time checkupEnd;
 public:
-	Truck(Type t,int cap,int ct,int s); // set type-capacity-check time-speed of truck
+	Truck(Type t,int cap,int ct,int s, int id); // set type-capacity-check time-speed of truck
 	void add_Cargo(Cargo* c); // add cargo to cargolist
 	void set_Capacity(int cap); // set max capacity of truck
 	void set_Type(Type t); // set type of truck (vip-normal-special)
@@ -41,6 +42,7 @@ public:
 	int get_DI(); // get delivery interval
 	Time getFT() const;
 	Time getMT() const;
+	int getID();
 	int getPriority(int a, int b, int c);
 
 	void LoadFromStreamFile(); // load from .txt file

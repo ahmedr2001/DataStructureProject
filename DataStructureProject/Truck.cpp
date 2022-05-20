@@ -1,10 +1,11 @@
 #include "Truck.h"
 
-Truck::Truck(Type t, int cap, int ct, int s)
+Truck::Truck(Type t, int cap, int ct, int s, int id)
 {
 	cargolist = new priority_queue<Cargo>;
 	loaded = 0;
 	num_of_journey = 0;
+	ID = id;
 	set_Type(t);
 	set_Capacity(cap);
 	set_Check_Time(ct);
@@ -106,6 +107,11 @@ int Truck::get_Capacity()
 Type Truck::get_Type()
 {
 	return trucktype;
+}
+
+int Truck::getID()
+{
+	return ID;
 }
 
 int Truck::get_Check_Time()
