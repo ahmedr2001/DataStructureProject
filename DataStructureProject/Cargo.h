@@ -16,6 +16,7 @@ protected:
 	int Cost;
 	int Distance;
 	int priority;
+	bool setpriority;
 	bool autoP = false;
 public:
 	Cargo();

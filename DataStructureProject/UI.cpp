@@ -1,5 +1,4 @@
 #include "UI.h"
-#include "ApplicationManager.h"
 
 template <typename T>
 void UI::GetInput(T& input)

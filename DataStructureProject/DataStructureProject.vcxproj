@@ -139,8 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Action.cpp" />
-    <ClCompile Include="ApplicationManager.cpp" />
     <ClCompile Include="Cancel_Event.cpp" />
     <ClCompile Include="Company.cpp" />
     <ClCompile Include="Event.cpp" />
@@ -153,14 +151,11 @@
     <ClCompile Include="Cargo.cpp" />
     <ClCompile Include="InteractiveMode.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="LoadAction.cpp" />
     <ClCompile Include="SilentMode.cpp" />
     <ClCompile Include="StepbystepMode.cpp" />
     <ClCompile Include="Truck.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Action.h" />
-    <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="Cancel_Event.h" />
     <ClInclude Include="Cargo.h" />
     <ClInclude Include="Company.h" />
@@ -173,7 +168,6 @@
     <ClInclude Include="Promote_Event.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="UI.h" />
-    <ClInclude Include="LoadAction.h" />
     <ClInclude Include="queue.h" />
     <ClInclude Include="SilentMode.h" />
     <ClInclude Include="stack.h" />

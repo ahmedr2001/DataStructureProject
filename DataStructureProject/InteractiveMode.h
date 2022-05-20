@@ -1,8 +1,11 @@
 #pragma once
-#include "InterfaceOutput.h"
+#include"Company.h"
+#include"Time.h"
+#include <Windows.h>
 
-class InteractiveMode :
-    public InterfaceOutput
+class InteractiveMode
 {
+public:
+    static void Simulate(Company* c1, Time t, UI* uiObject);
 };
 

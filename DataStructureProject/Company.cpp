@@ -1,5 +1,4 @@
 #include "Company.h"
-#include "Windows.h"
 
 Company::Company()
 {
@@ -11,9 +10,9 @@ Company::Company()
 
 	Cargo_DeliveredList = new queue<Cargo>;
 
-	Cargo_normalMovingList = new queue<Cargo>;
-	Cargo_specialMovingList = new queue<Cargo>;
-	Cargo_vipMovingList = new queue<Cargo>;
+	Cargo_normalLoadingList = new queue<Cargo>;
+	Cargo_specialLoadingList = new queue<Cargo>;
+	Cargo_vipLoadingList = new queue<Cargo>;
 
 	Truck_vipWaitingList = new queue<Truck>;
 	Truck_normalWaitingList = new queue<Truck>;
@@ -28,6 +27,13 @@ Company::Company()
 	Truck_normalMaintenanceList = new queue<Truck>;
 	Truck_specialMaintenanceList = new queue<Truck>;
 	Truck_VIPMaintenanceList = new queue<Truck>;
+	Truck_vipLoadingList = new queue<Truck>;
+	Truck_normalLoadingList = new queue<Truck>;
+	Truck_specialLoadingList = new queue<Truck>;
+
+	Truck_vipMovingList = new linkedlist<Truck>;
+	Truck_normalMovingList = new linkedlist<Truck>;
+	Truck_specialMovingList = new linkedlist<Truck>;
 }
 void Company::PrintToConsole(Time t)
 {
@@ -77,9 +83,9 @@ void Company::PrintToConsole(Time t)
 	message += "\n";
 	message += "----------------------------------------------------------------------\n";
 
-	int movingCargosCount = Cargo_normalMovingList->getSize()
+	/*int movingCargosCount = Cargo_normalMovingList->getSize()
 		+ Cargo_specialMovingList->getSize()
-		+ Cargo_vipMovingList->getSize();
+		+ Cargo_vipMovingList->getSize();*/
 
 	/*message += (to_string(movingCargosCount) + " Moving Cargos: ");
 	
@@ -602,58 +608,58 @@ void Company::Moving_WaitingCargo(Type t, Time MT){
 	delete temp;
 }
 
-void Company::Deliver_Timers() {
-	if (!Cargo_normalMovingList->isempty()) {
-		D_N_timer++;
-	}
-	if (!Cargo_specialMovingList->isempty()) {
-		D_S_timer++;
-	}
-	if (!Cargo_vipMovingList->isempty()) {
-		D_V_timer++;
-	}
-}
+//void Company::Deliver_Timers() {
+//	if (!Cargo_normalMovingList->isempty()) {
+//		D_N_timer++;
+//	}
+//	if (!Cargo_specialMovingList->isempty()) {
+//		D_S_timer++;
+//	}
+//	if (!Cargo_vipMovingList->isempty()) {
+//		D_V_timer++;
+//	}
+//}
 
-void Company::Deliver_MovingCargo(Type t, Time DT){
-	node<Cargo>* temp = new node<Cargo>;
-	switch (t)
-	{
-	case Normal:
-		if (!Cargo_normalMovingList->isempty()  && D_N_timer.get_Hour() == 5 ) {
-			temp->setdata(Cargo_normalMovingList->peek()->getdata());
-			temp->getdata()->setDTPhaseOne(DT);
-			Cargo_DeliveredList->enqueue(temp->getdata());
-			Cargo_normalMovingList->dequeue();
-			D_N_timer.set_Hour(0);
-			D_N_timer.set_Day(0);
-		}
-		break;
-	case special:
-		if (!Cargo_specialMovingList->isempty()  && D_S_timer.get_Hour() == 5 ) {
-			temp->setdata(Cargo_specialMovingList->peek()->getdata());
-			temp->getdata()->setDTPhaseOne(DT);
-			Cargo_DeliveredList->enqueue(temp->getdata());
-			Cargo_specialMovingList->dequeue();
-			D_S_timer.set_Hour(0);
-			D_S_timer.set_Day(0);
-		}
-		break;
-	case VIP:
-		if (!Cargo_vipMovingList->isempty() && D_S_timer.get_Hour() == 5 ) {
-			temp->setdata(Cargo_vipMovingList->peek()->getdata());
-			temp->getdata()->setDTPhaseOne(DT);
-			Cargo_DeliveredList->enqueue(temp->getdata());
-			Cargo_vipMovingList->dequeue();
-			D_V_timer.set_Hour(0);
-			D_V_timer.set_Day(0);
-		}
-		break;
-	default:
-		break;
-	}
-
-	delete temp;
-}
+//void Company::Deliver_MovingCargo(Type t, Time DT){
+//	node<Cargo>* temp = new node<Cargo>;
+//	switch (t)
+//	{
+//	case Normal:
+//		if (!Cargo_normalMovingList->isempty()  && D_N_timer.get_Hour() == 5 ) {
+//			temp->setdata(Cargo_normalMovingList->peek()->getdata());
+//			temp->getdata()->setDTPhaseOne(DT);
+//			Cargo_DeliveredList->enqueue(temp->getdata());
+//			Cargo_normalMovingList->dequeue();
+//			D_N_timer.set_Hour(0);
+//			D_N_timer.set_Day(0);
+//		}
+//		break;
+//	case special:
+//		if (!Cargo_specialMovingList->isempty()  && D_S_timer.get_Hour() == 5 ) {
+//			temp->setdata(Cargo_specialMovingList->peek()->getdata());
+//			temp->getdata()->setDTPhaseOne(DT);
+//			Cargo_DeliveredList->enqueue(temp->getdata());
+//			Cargo_specialMovingList->dequeue();
+//			D_S_timer.set_Hour(0);
+//			D_S_timer.set_Day(0);
+//		}
+//		break;
+//	case VIP:
+//		if (!Cargo_vipMovingList->isempty() && D_S_timer.get_Hour() == 5 ) {
+//			temp->setdata(Cargo_vipMovingList->peek()->getdata());
+//			temp->getdata()->setDTPhaseOne(DT);
+//			Cargo_DeliveredList->enqueue(temp->getdata());
+//			Cargo_vipMovingList->dequeue();
+//			D_V_timer.set_Hour(0);
+//			D_V_timer.set_Day(0);
+//		}
+//		break;
+//	default:
+//		break;
+//	}
+//
+//	delete temp;
+//}
 
 void Company::PrintToFile(string filename)
 {
@@ -718,19 +724,19 @@ void Company::addToVIPWaiting(Cargo* myCargo)
 bool Company::noNormalCargosLeft()
 {
 	return (Cargo_normalWaitingList->isempty()
-		&& Cargo_normalMovingList->isempty());	
+		/*&& Cargo_normalMovingList->isempty()*/ );
 }
 
 bool Company::noSpecialCargosLeft()
 {
 	return (Cargo_specialWaitingList->isempty()
-		&& Cargo_specialMovingList->isempty());
+		/*&& Cargo_specialMovingList->isempty()*/ );
 }
 
 bool Company::noVIPCargosLeft()
 {
 	return (Cargo_vipWaitingList->isempty()
-		&& Cargo_vipMovingList->isempty());
+		/*&& Cargo_vipMovingList->isempty()*/ );
 }
 
 bool Company::noCargosLeft()
