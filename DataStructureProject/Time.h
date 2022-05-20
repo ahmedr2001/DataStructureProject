@@ -20,6 +20,7 @@ public:
 	//Time& operator=(Time& t);
 	int TimeToHours();
 	bool operator==(Time otherTime);
+	bool operator>(Time otherTime);
 	void operator+=(Time otherTime);
 	void operator/=(int n);
 };

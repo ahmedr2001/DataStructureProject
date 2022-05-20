@@ -26,11 +26,11 @@ protected:
 	int Special_Truck_Cap;
 	int Vip_Truck_Cap;
 
-	int Normal_journey_Num;
-	int Special_journey_Num;
-	int Vip_journey_Num;
+	int J;
+	int normal_check_time;
+	int special_check_time;
 
-	int Truck_Check_Time;
+	int vip_check_time;
 
 	int AutoP;
 	int MaxW;
@@ -69,11 +69,15 @@ protected:
 	queue<Truck>* Truck_normalWaitingList;
 	queue<Truck>* Truck_specialWaitingList;
 
-	linkedlist<Truck>* Truck_vipMovingList;
-	linkedlist<Truck>* Truck_normalMovingList;
-	linkedlist<Truck>* Truck_specialMovingList;
+	//linkedlist<Truck>* Truck_vipMovingList;
+	//linkedlist<Truck>* Truck_normalMovingList;
+	//linkedlist<Truck>* Truck_specialMovingList;
 
-	queue<Truck*> Truck_maintenanceList;
+	priority_queue<Truck>* MovingTrucks;
+
+	queue<Truck>* Truck_normalMaintenanceList;
+	queue<Truck>* Truck_specialMaintenanceList;
+	queue<Truck>* Truck_VIPMaintenanceList;
 
 	bool noNormalCargosLeft();
 	bool noSpecialCargosLeft();
@@ -87,6 +91,8 @@ public:
 	void add_truck(Type t);
 	void LoadTrucksAndEventsData(string filename);
 	void Add_New_Cargo(Time pt, int lt, int id, Type t, int cost, int dis);// find suitable queue to store cargo
+	void MaxWait(Type t, Time T);
+	void MoveTrucksToCheckup(Time t);
 	void Moving_WaitingCargo(Type t, Time MT);
 	void Deliver_MovingCargo(Type t, Time DT);
 	void Ship_Cargo(Time Company_Time);// find suitable truck to ship cargo

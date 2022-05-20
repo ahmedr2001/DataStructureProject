@@ -16,6 +16,9 @@ private:
 	int active_time;
 	int utilization;
 	Type trucktype; // truck type (vip-normal-special)
+	Time finishTime;
+	Time moveTime;
+	Time checkupEnd;
 public:
 	Truck(Type t,int cap,int ct,int s); // set type-capacity-check time-speed of truck
 	void add_Cargo(Cargo* c); // add cargo to cargolist
@@ -24,12 +27,21 @@ public:
 	void set_Check_Time(int ct); // set maintainance time
 	void set_Speed(int s); // set truck speed in km/h
 	void set_DI(); // set delivery interval
-	
+	void setFT(Time t);
+	void setMT(Time t);
+	void setCT(Time t, int i);
+	void incrementJ();
+
+	Time getCT();
+	int getJ();
 	int get_Capacity(); // get max capacity of truck
 	Type get_Type(); // get type of truck (vip-normal-special)
 	int get_Check_Time(); // get maintainance time
 	int get_Speed(); // get truck speed in km/h
 	int get_DI(); // get delivery interval
+	Time getFT() const;
+	Time getMT() const;
+	int getPriority(int a, int b, int c);
 
 	void LoadFromStreamFile(); // load from .txt file
 	void OutToStreamFile(); // output to console

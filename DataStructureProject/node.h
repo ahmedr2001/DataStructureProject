@@ -14,6 +14,12 @@ public:
 		next = nullptr;
 		previous = nullptr;
 	}
+	node(T* d)
+	{
+		next = nullptr;
+		previous = nullptr;
+		data = d;
+	}
 	void setdata(T* d) { // set data of the node
 		data = d;
 	}

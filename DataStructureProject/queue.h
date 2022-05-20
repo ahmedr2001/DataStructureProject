@@ -6,7 +6,7 @@ class queue {
 protected:
 	linkedlist<T>* q; //linked list to store data in 
 	node<T>* front; // pointer to front node
-	node<T>* rear; // pointer to end node
+	node<T>* rear;// pointer to end node
 public:
 	queue() {
 		q = new linkedlist<T>;
