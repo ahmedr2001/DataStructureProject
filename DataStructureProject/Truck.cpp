@@ -123,6 +123,16 @@ int Truck::get_DI()
 	return DI;
 }
 
+Time Truck::getFT() const
+{
+	return finishTime;
+}
+
+Time Truck::getMT() const
+{
+	return moveTime;
+}
+
 // Leave for now
 
 void Truck::LoadFromStreamFile()

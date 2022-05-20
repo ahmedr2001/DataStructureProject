@@ -6,7 +6,10 @@ void StepbystepMode::Simulate(Company* c1, Time t)
 	while (!done) {
 		done = c1->Execute_Events(t);
 
+		c1->MaxWait(Normal, t);
+		c1->MaxWait(special, t);
 		c1->AutoPromote(Normal, t);
+		c1->MoveTrucksToCheckup(t);
 		if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
 			if (t.get_Hour() % 5 == 4) {
 				c1->Moving_WaitingCargo(VIP, t);
