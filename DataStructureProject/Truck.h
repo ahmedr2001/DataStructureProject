@@ -32,7 +32,9 @@ public:
 	void setMT(Time t);
 	void setCT(Time t, int i);
 	void incrementJ();
+	void increaseActiveTime(Time t);
 
+	int getActiveTime();
 	Time getCT();
 	int getJ();
 	int get_Capacity(); // get max capacity of truck

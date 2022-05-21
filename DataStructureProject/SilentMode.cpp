@@ -1,6 +1,6 @@
 #include "SilentMode.h"
 
-void SilentMode::Simulate(Company* c1, Time t, UI* uiObject)
+void SilentMode::Simulate(Company* c1, Time& t, UI* uiObject)
 {
 	bool done = 0;
 	uiObject->PrintMessage("Silent Mode\nSimulation Starts...\n");

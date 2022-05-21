@@ -23,3 +23,5 @@ CDT    CID      PT     WT     TID
 Cargos: 19 [n: 6, S: 2, V: 11]
 Cargo Avg Wait = 0:9
 Auto-promoted Cargos: 57%
+Trucks: 8 [N: 3, S: 3, V: 2]
+Avg Active Time = 0%

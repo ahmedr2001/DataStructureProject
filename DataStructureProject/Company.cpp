@@ -27,9 +27,9 @@ Company::Company()
 	Truck_normalMaintenanceList = new queue<Truck>;
 	Truck_specialMaintenanceList = new queue<Truck>;
 	Truck_VIPMaintenanceList = new queue<Truck>;
-	Truck_vipLoadingList = new queue<Truck>;
-	Truck_normalLoadingList = new queue<Truck>;
-	Truck_specialLoadingList = new queue<Truck>;
+	//Truck_vipLoadingList = new queue<Truck>;
+	//Truck_normalLoadingList = new queue<Truck>;
+	//Truck_specialLoadingList = new queue<Truck>;
 
 	//Truck_vipMovingList = new linkedlist<Truck>;
 	//Truck_normalMovingList = new linkedlist<Truck>;
@@ -432,6 +432,7 @@ void Company::MaxWait(Type t, Time T)
 				Truck* truck = Truck_normalWaitingList->peek()->getdata();
 				Truck_normalWaitingList->dequeue();
 				MovingTrucks->enqueue(truck, 0, 0, 0);
+				truck->increaseActiveTime(T);
 			}
 		}
 		else if (!Truck_specialWaitingList->isempty()) {
@@ -458,9 +459,10 @@ void Company::MaxWait(Type t, Time T)
 				loaded = 1;
 			}
 			if (loaded) {
-			Truck* truck = Truck_specialWaitingList->peek()->getdata();
-			Truck_specialWaitingList->dequeue();
-			MovingTrucks->enqueue(truck, 0, 0, 0);
+				Truck* truck = Truck_specialWaitingList->peek()->getdata();
+				Truck_specialWaitingList->dequeue();
+				MovingTrucks->enqueue(truck, 0, 0, 0);
+				truck->increaseActiveTime(T);
 			}
 		}
 		else {
@@ -495,6 +497,7 @@ void Company::MaxWait(Type t, Time T)
 				Truck* truck = Truck_specialWaitingList->peek()->getdata();
 				Truck_specialWaitingList->dequeue();
 				MovingTrucks->enqueue(truck, 0, 0, 0);
+				truck->increaseActiveTime(T);
 			}
 		}
 	}
@@ -704,7 +707,7 @@ void Company::Moving_WaitingCargo(Type t, Time MT){
 //	delete temp;
 //}
 
-void Company::PrintToFile(string filename)
+void Company::PrintToFile(string filename, Time t)
 {
 	ofstream outFile(filename + ".txt", ios::out);
 	if (outFile.is_open())
@@ -759,6 +762,27 @@ void Company::PrintToFile(string filename)
 		int autoPPercentage = (int)round(((double)autoPCount / (ncargon + autoPCount)) * 100);
 		outFile << "Auto-promoted Cargos: ";
 		outFile << autoPPercentage << "%" << endl;
+		outFile << "Trucks: " << Normal_Truck_Num + Special_Truck_Num + Vip_Truck_Num << " [N: " << Normal_Truck_Num
+			<< ", S: " << Special_Truck_Num << ", V: " << Vip_Truck_Num << "]\n";
+		int totalActiveTime = 0;
+		while (!Truck_normalWaitingList->isempty()) {
+			Truck* truck = Truck_normalWaitingList->peek()->getdata();
+			totalActiveTime += truck->getActiveTime();
+			Truck_normalWaitingList->dequeue();
+		}
+		while (!Truck_specialWaitingList->isempty()) {
+			Truck* truck = Truck_specialWaitingList->peek()->getdata();
+			totalActiveTime += truck->getActiveTime();
+			Truck_specialWaitingList->dequeue();
+		}
+		while (!Truck_vipWaitingList->isempty()) {
+			Truck* truck = Truck_vipWaitingList->peek()->getdata();
+			totalActiveTime += truck->getActiveTime();
+			Truck_vipWaitingList->dequeue();
+		}
+		int totalTime = t.TimeToHours();
+		int avgActiveTime = (int)(round((double)totalActiveTime/((Normal_Truck_Num+Special_Truck_Num+Vip_Truck_Num)*totalTime))*100);
+		outFile << "Avg Active Time = " << avgActiveTime << "%\n";
 	}
 }
 
@@ -800,7 +824,11 @@ UI* Company::GetUIObject()
 bool Company::no_Wating_CargosLeft() {
 	return(Cargo_normalWaitingList->isempty() &&
 		Cargo_specialWaitingList->isempty() &&
-		Cargo_vipWaitingList->isempty());
+		Cargo_vipWaitingList->isempty()) &&
+		Truck_normalMaintenanceList->isempty() &&
+		Truck_specialMaintenanceList->isempty() &&
+		Truck_VIPMaintenanceList->isempty() && 
+		MovingTrucks->isempty();
 }
 
 //void Company::Simulate()

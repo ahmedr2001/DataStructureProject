@@ -6,6 +6,7 @@ Truck::Truck(Type t, int cap, int ct, int s, int id)
 	loaded = 0;
 	num_of_journey = 0;
 	ID = id;
+	active_time = 0;
 	set_Type(t);
 	set_Capacity(cap);
 	set_Check_Time(ct);
@@ -13,6 +14,23 @@ Truck::Truck(Type t, int cap, int ct, int s, int id)
 }
 
 // setters and getters
+
+void Truck::increaseActiveTime(Time t)
+{
+	setMT(t);
+	setFT(t);
+	int maxDistance = 0;
+	node<Cargo>* cargo = cargolist->peek();
+	while (cargo) {
+		maxDistance = max(maxDistance, cargo->getdata()->get_Distance());
+	}
+	active_time += (finishTime - t).TimeToHours() - (int)round((double)maxDistance / speed);
+}
+
+int Truck::getActiveTime()
+{
+	return active_time;
+}
 
 void Truck::incrementJ()
 {
@@ -76,7 +94,7 @@ void Truck::setMT(Time t)
 void Truck::setFT(Time t)
 {
 	set_DI();
-	finishTime = t + DI;
+	finishTime = moveTime + DI;
 }
 
 void Truck::setCT(Time t, int i)

@@ -18,5 +18,5 @@ void InterfaceOutput::Simulate(Company* c1,Time t)
 	else {
 		SilentMode::Simulate(c1, t, uiObject);
 	}
-	c1->PrintToFile("outtest");
+	c1->PrintToFile("outtest", t);
 }

@@ -6,6 +6,6 @@
 class SilentMode
 {
 public:
-   static void Simulate(Company* c1, Time t, UI* uiObject);
+   static void Simulate(Company* c1, Time& t, UI* uiObject);
 };
 

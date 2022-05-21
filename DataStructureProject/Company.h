@@ -69,9 +69,9 @@ protected:
 	queue<Truck>* Truck_normalWaitingList;
 
 
-	queue<Truck>* Truck_vipLoadingList;
-	queue<Truck>* Truck_normalLoadingList;
-	queue<Truck>* Truck_specialLoadingList;
+	//queue<Truck>* Truck_vipLoadingList;
+	//queue<Truck>* Truck_normalLoadingList;
+	//queue<Truck>* Truck_specialLoadingList;
 
 	//linkedlist<Truck>* Truck_vipMovingList;
 	//linkedlist<Truck>* Truck_normalMovingList;
@@ -111,7 +111,7 @@ public:
 	bool Execute_Events(Time T);//Execute the events that should be executed at that hour
 	void AutoPromote(Type t, Time MT);
 	void PrintToConsole(Time t);
-	void PrintToFile(string filename);
+	void PrintToFile(string filename, Time t);
 
 	void Increase_Timers();
 	void Deliver_Timers();

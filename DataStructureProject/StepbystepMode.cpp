@@ -1,6 +1,6 @@
 #include "StepbystepMode.h"
 
-void StepbystepMode::Simulate(Company* c1, Time t)
+void StepbystepMode::Simulate(Company* c1, Time& t)
 {
 	bool done = 0;
 	while (!done) {

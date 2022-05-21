@@ -1,6 +1,6 @@
 #include "InteractiveMode.h"
 
-void InteractiveMode::Simulate(Company* c1, Time t, UI* uiObject) {
+void InteractiveMode::Simulate(Company* c1, Time& t, UI* uiObject) {
 	char enterKeyPressed;
 	bool done = 0;
 	Time counter(0, 0);

@@ -6,6 +6,6 @@
 class StepbystepMode
 {
 public:
-    static void Simulate(Company* c1, Time t);
+    static void Simulate(Company* c1, Time& t);
 };
 
