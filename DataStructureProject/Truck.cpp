@@ -7,6 +7,7 @@ Truck::Truck(Type t, int cap, int ct, int s, int id)
 	num_of_journey = 0;
 	ID = id;
 	active_time = 0;
+	cargosDelivered = 0;
 	set_Type(t);
 	set_Capacity(cap);
 	set_Check_Time(ct);
@@ -100,6 +101,16 @@ void Truck::setFT(Time t)
 void Truck::setCT(Time t, int i)
 {
 	checkupEnd = t + i;
+}
+
+void Truck::increaseCargosDelivered(int c)
+{
+	cargosDelivered += c;
+}
+
+int Truck::getCargosDelivered()
+{
+	return cargosDelivered;
 }
 
 Time Truck::getCT()

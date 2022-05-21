@@ -16,6 +16,7 @@ private:
 	int active_time;
 	int utilization;
 	int ID;
+	int cargosDelivered;
 	Type trucktype; // truck type (vip-normal-special)
 	Time finishTime;
 	Time moveTime;
@@ -33,7 +34,9 @@ public:
 	void setCT(Time t, int i);
 	void incrementJ();
 	void increaseActiveTime(Time t);
+	void increaseCargosDelivered(int c);
 
+	int getCargosDelivered();
 	int getActiveTime();
 	Time getCT();
 	int getJ();

@@ -420,6 +420,7 @@ void Company::MaxWait(Type t, Time T)
 				else done = 1;
 			}
 			bool loaded = 0;
+			int c = CargosToLoad->getSize();
 			while (!CargosToLoad->isempty()) {
 				Cargo* c = CargosToLoad->gethead()->getdata();
 				node<Cargo>* cargoNode = new node<Cargo>(c);
@@ -433,6 +434,7 @@ void Company::MaxWait(Type t, Time T)
 				Truck_normalWaitingList->dequeue();
 				MovingTrucks->enqueue(truck, 0, 0, 0);
 				truck->increaseActiveTime(T);
+				truck->increaseCargosDelivered(c);
 			}
 		}
 		else if (!Truck_specialWaitingList->isempty()) {
@@ -450,6 +452,7 @@ void Company::MaxWait(Type t, Time T)
 				else done = 1;
 			}
 			bool loaded = 0;
+			int c = CargosToLoad->getSize();
 			while (!CargosToLoad->isempty()) {
 				Cargo* c = CargosToLoad->gethead()->getdata();
 				node<Cargo>* cargoNode = new node<Cargo>(c);
@@ -463,6 +466,7 @@ void Company::MaxWait(Type t, Time T)
 				Truck_specialWaitingList->dequeue();
 				MovingTrucks->enqueue(truck, 0, 0, 0);
 				truck->increaseActiveTime(T);
+				truck->increaseCargosDelivered(c);
 			}
 		}
 		else {
@@ -485,6 +489,7 @@ void Company::MaxWait(Type t, Time T)
 				else done = 1;
 			}
 			bool loaded = 0;
+			int c = CargosToLoad->getSize();
 			while (!CargosToLoad->isempty()) {
 				Cargo* c = CargosToLoad->gethead()->getdata();
 				node<Cargo>* cargoNode = new node<Cargo>(c);
@@ -498,6 +503,7 @@ void Company::MaxWait(Type t, Time T)
 				Truck_specialWaitingList->dequeue();
 				MovingTrucks->enqueue(truck, 0, 0, 0);
 				truck->increaseActiveTime(T);
+				truck->increaseCargosDelivered(c);
 			}
 		}
 	}
