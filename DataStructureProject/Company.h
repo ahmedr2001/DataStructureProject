@@ -77,7 +77,7 @@ protected:
 	//linkedlist<Truck>* Truck_normalMovingList;
 	//linkedlist<Truck>* Truck_specialMovingList;
 
-	priority_queue<Truck>* MovingTrucks;
+	linkedlist<Truck>* MovingTrucks;
 
 	queue<Truck>* Truck_normalMaintenanceList;
 	queue<Truck>* Truck_specialMaintenanceList;
