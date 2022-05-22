@@ -40,18 +40,10 @@ void Truck::incrementJ()
 
 void Truck::add_Cargo(Cargo* c)
 {
-	if (loaded<Capacity)
+	if (loaded < Capacity)
 	{
-		if (trucktype == Normal || trucktype == special)
-		{
-			cargolist->add(c);
-			loaded++;
-		}
-		else
-		{
-			cargolist->addWithPriority(c,1,0,0);
-			loaded++;
-		}
+		cargolist->add(c);
+		loaded++;
 	}
 }
 

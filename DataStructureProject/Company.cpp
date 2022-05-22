@@ -37,7 +37,7 @@ void Company::PrintToConsole(Time t)
 	string message = "";
 	
 	message += ("Current Time (Day:Hour):" + to_string(t.get_Day()) + ":" + to_string(t.get_Hour()) + "\n");
-	
+	//waiting cargo
 	int waitingCargosCount = Cargo_normalWaitingList->getSize()
 		+ Cargo_specialWaitingList->getSize()
 		+ Cargo_vipWaitingList->getSize();
@@ -80,6 +80,18 @@ void Company::PrintToConsole(Time t)
 	message += "\n";
 	message += "----------------------------------------------------------------------\n";
 
+
+	/*
+
+
+	//loading trucks
+	
+
+	*/
+
+	
+
+	//moving cargo
 	int s;
 	node<Truck>* trucks = MovingTrucks->GetAllNodes(s);
 	int sizeNormalMovingCargoArr =0;
@@ -138,6 +150,64 @@ void Company::PrintToConsole(Time t)
 	message += "\n";
 	message += "----------------------------------------------------------------------\n";
 
+	//in-checkup trucks
+
+	int incheckupCount = Truck_normalMaintenanceList->getSize()+ Truck_specialMaintenanceList->getSize()+ Truck_VIPMaintenanceList->getSize();
+
+	message += (to_string(incheckupCount) + " In-Checkup Trucks: ");
+
+	message += "[";
+	int sizeNormalmainArr = 0;
+	int sizeSpecialmainArr = 0;
+	int sizeVIPmainArr = 0;
+	node<Truck>* NormalmainArr = Truck_normalMaintenanceList->GetAllNodes(sizeNormalmainArr);
+	node<Truck>* SpecialmainArr = Truck_specialMaintenanceList->GetAllNodes(sizeSpecialmainArr);
+	node<Truck>* VIPmainArr = Truck_VIPMaintenanceList->GetAllNodes(sizeVIPmainArr);
+	
+	for (int i = 0; i < sizeNormalmainArr; i++) {
+		int nn=0;
+		node<Cargo>* tn=NormalmainArr[i].getdata()->getnumofcargos(nn);
+		for (int j = 0; j < nn; j++)
+		{
+			message += (to_string(tn->getdata()->get_ID()));
+			if (j != sizeNormalmainArr - 1) {
+				message += ",";
+			}
+		}
+	}
+	message += "] ";
+	
+	message += "(";
+	for (int i = 0; i < sizeSpecialmainArr; i++) {
+		int sn;
+		node<Cargo>* ts = SpecialmainArr[i].getdata()->getnumofcargos(sn);
+		for (int i = 0; i < sn; i++)
+		{
+			message += (to_string(ts->getdata()->get_ID()));
+			if (i != sizeSpecialmainArr - 1) {
+				message += ",";
+			}
+		}
+	}
+		message += ") ";
+
+	message += "{";
+	for (int i = 0; i < sizeVIPmainArr; i++) {
+		int vn;
+		node<Cargo>* tv = VIPmainArr[i].getdata()->getnumofcargos(vn);
+		for (int i = 0; i < vn; i++)
+		{
+			message += (to_string(tv->getdata()->get_ID()));
+			if (i != sizeVIPmainArr - 1) {
+				message += ",";
+			}
+		}
+	}
+		message += "} \n";
+
+	message += "------------------------------------------------------------------------\n";
+
+	//delivered cargo
 	int deliveredCargosCount = Cargo_DeliveredList->getSize();
 
 	message += (to_string(deliveredCargosCount) + " Delivered Cargos: ");
@@ -190,6 +260,7 @@ void Company::PrintToConsole(Time t)
 	
 	uiObject->PrintMessage(message);
 }
+
 void Company::add_truck(Type t, int id)
 {
 	Truck *tk1;
