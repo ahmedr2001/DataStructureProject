@@ -520,7 +520,7 @@ void Company::MaxWait(Type t, Time T)
 				MovingTrucks->add(truck);
 				truck->increaseActiveTime(T);
 				truck->increaseCargosDelivered(c);
-				MovingTrucks->enqueue(truck, 0, 0, 0);
+				MovingTrucks->add(truck);
 				Truck_normalWaitingList->dequeue();
 			}
 		}
@@ -555,7 +555,7 @@ void Company::MaxWait(Type t, Time T)
 				MovingTrucks->add(truck);
 				truck->increaseActiveTime(T);
 				truck->increaseCargosDelivered(c);
-				MovingTrucks->enqueue(truck, 0, 0, 0);
+				MovingTrucks->add(truck);
 				Truck_specialWaitingList->dequeue();
 			}
 		}
