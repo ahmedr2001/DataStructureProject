@@ -6,7 +6,7 @@
 class Truck
 {
 private:
-	priority_queue<Cargo>* cargolist; //list of cargo pointers
+	linkedlist<Cargo>* cargolist; //list of cargo pointers
 	int Capacity; // truck capacity
 	int loaded; // cargos count
 	int check_time; //maintenance time
@@ -51,6 +51,7 @@ public:
 	Time getMT() const;
 	int getID();
 	int getPriority(int a, int b, int c);
+	node<Cargo>* getnumofcargos(int& cnt);
 
 	void LoadFromStreamFile(); // load from .txt file
 	void OutToStreamFile(); // output to console

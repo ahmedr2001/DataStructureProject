@@ -2,7 +2,7 @@
 
 Truck::Truck(Type t, int cap, int ct, int s, int id)
 {
-	cargolist = new priority_queue<Cargo>;
+	cargolist = new linkedlist<Cargo>;
 	loaded = 0;
 	num_of_journey = 0;
 	ID = id;
@@ -21,7 +21,7 @@ void Truck::increaseActiveTime(Time t)
 	setMT(t);
 	setFT(t);
 	int maxDistance = 0;
-	node<Cargo>* cargo = cargolist->peek();
+	node<Cargo>* cargo = cargolist->gethead();
 	while (cargo) {
 		maxDistance = max(maxDistance, cargo->getdata()->get_Distance());
 		cargo = cargo->getnext();
@@ -41,9 +41,9 @@ void Truck::incrementJ()
 
 void Truck::add_Cargo(Cargo* c)
 {
-	if (loaded<Capacity)
+	if (loaded < Capacity)
 	{
-		cargolist->enqueue(c, 1, 0, 0);
+		cargolist->add(c);
 		loaded++;
 	}
 }
@@ -73,7 +73,7 @@ void Truck::set_DI()
 	// derive DI from equation given in the document
 	int maxDistance = 0;
 	int unloadTimes = 0;
-	node<Cargo>* cargoHead = cargolist->peek();
+	node<Cargo>* cargoHead = cargolist->gethead();
 	while (cargoHead) {
 		maxDistance = max(maxDistance, cargoHead->getdata()->get_Distance());
 		unloadTimes += cargoHead->getdata()->get_Load_Time();
@@ -85,7 +85,7 @@ void Truck::set_DI()
 void Truck::setMT(Time t)
 {
 	int unloadTimes = 0;
-	node<Cargo>* cargoHead = cargolist->peek();
+	node<Cargo>* cargoHead = cargolist->gethead();
 	while (cargoHead) {
 		unloadTimes += cargoHead->getdata()->get_Load_Time();
 		cargoHead = cargoHead->getnext();
@@ -137,6 +137,12 @@ int Truck::getJ()
 int Truck::getPriority(int a, int b, int c) 
 {
 	return -1 * finishTime.TimeToHours();
+}
+
+node<Cargo>* Truck::getnumofcargos(int & cnt)
+{
+	node<Cargo>* trav = cargolist->GetAllNodes(cnt);
+	return trav;
 }
 
 int Truck::get_Capacity()
