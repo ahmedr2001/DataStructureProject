@@ -35,7 +35,9 @@ public:
 	void incrementJ();
 	void increaseActiveTime(Time t);
 	void increaseCargosDelivered(int c);
+	void setUtil(int util);
 
+	int getUtil();
 	int getCargosDelivered();
 	int getActiveTime();
 	Time getCT();

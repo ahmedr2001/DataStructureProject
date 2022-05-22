@@ -24,6 +24,7 @@ void Truck::increaseActiveTime(Time t)
 	node<Cargo>* cargo = cargolist->peek();
 	while (cargo) {
 		maxDistance = max(maxDistance, cargo->getdata()->get_Distance());
+		cargo = cargo->getnext();
 	}
 	active_time += (finishTime - t).TimeToHours() - (int)round((double)maxDistance / speed);
 }
@@ -106,6 +107,16 @@ void Truck::setCT(Time t, int i)
 void Truck::increaseCargosDelivered(int c)
 {
 	cargosDelivered += c;
+}
+
+void Truck::setUtil(int util)
+{
+	utilization = util;
+}
+
+int Truck::getUtil()
+{
+	return utilization;
 }
 
 int Truck::getCargosDelivered()

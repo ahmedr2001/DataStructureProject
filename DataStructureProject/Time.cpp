@@ -64,8 +64,8 @@ Time Time::operator+(int intervalInHours)
 {
 	hour = (intervalInHours % 24 + hour) % 24;
 	day = intervalInHours / 24 + day;
-	if (hour == 0)day++;
-	return Time();
+	if (hour == 0 && intervalInHours)day++;
+	return *this;
 }
 
 Time& Time::operator-(Time nextTime)

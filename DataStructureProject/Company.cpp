@@ -408,9 +408,10 @@ void Company::MaxWait(Type t, Time T)
 		if (!Truck_normalWaitingList->isempty()) {
 			while (!done) {
 				if (!Cargo_normalWaitingList->isempty()) {
-					Cargo* c = Cargo_normalWaitingList->gethead()->getdata();
-					node<Cargo>* cargoNode = new node<Cargo>(c);
+					node<Cargo>* cargoNode = Cargo_normalWaitingList->gethead();
+					Cargo* c = cargoNode->getdata();
 					c->set_Move_Time(T);
+					c->set_Waiting_Time();
 					if (c->get_Waiting_Time().TimeToHours() >= MaxW) {
 						CargosToLoad->add(c);
 						Cargo_normalWaitingList->deletenode(cargoNode);
@@ -422,27 +423,28 @@ void Company::MaxWait(Type t, Time T)
 			bool loaded = 0;
 			int c = CargosToLoad->getSize();
 			while (!CargosToLoad->isempty()) {
-				Cargo* c = CargosToLoad->gethead()->getdata();
-				node<Cargo>* cargoNode = new node<Cargo>(c);
-				Truck_normalWaitingList->peek()->getdata()->add_Cargo(c);
+				node<Cargo>* cargoNode = CargosToLoad->gethead();
+				Cargo* c = cargoNode->getdata();
 				c->setTID(Truck_normalWaitingList->peek()->getdata()->getID());
+				Truck_normalWaitingList->peek()->getdata()->add_Cargo(c);
 				CargosToLoad->deletenode(cargoNode);
 				loaded = 1;
 			}
 			if (loaded) {
 				Truck* truck = Truck_normalWaitingList->peek()->getdata();
-				Truck_normalWaitingList->dequeue();
-				MovingTrucks->enqueue(truck, 0, 0, 0);
 				truck->increaseActiveTime(T);
 				truck->increaseCargosDelivered(c);
+				MovingTrucks->enqueue(truck, 0, 0, 0);
+				Truck_normalWaitingList->dequeue();
 			}
 		}
 		else if (!Truck_specialWaitingList->isempty()) {
 			while (!done) {
 				if (!Cargo_specialWaitingList->isempty()) {
-					Cargo* c = Cargo_specialWaitingList->peek()->getdata();
-					node<Cargo>* cargoNode = new node<Cargo>(c);
+					node<Cargo>* cargoNode = Cargo_specialWaitingList->peek();
+					Cargo* c = cargoNode->getdata();
 					c->set_Move_Time(T);
+					c->set_Waiting_Time();
 					if (c->get_Waiting_Time().TimeToHours() >= MaxW) {
 						CargosToLoad->add(c);
 						Cargo_specialWaitingList->dequeue();
@@ -454,19 +456,19 @@ void Company::MaxWait(Type t, Time T)
 			bool loaded = 0;
 			int c = CargosToLoad->getSize();
 			while (!CargosToLoad->isempty()) {
-				Cargo* c = CargosToLoad->gethead()->getdata();
-				node<Cargo>* cargoNode = new node<Cargo>(c);
-				Truck_specialWaitingList->peek()->getdata()->add_Cargo(c);
+				node<Cargo>* cargoNode = CargosToLoad->gethead();
+				Cargo* c = cargoNode->getdata();
 				c->setTID(Truck_specialWaitingList->peek()->getdata()->getID());
+				Truck_specialWaitingList->peek()->getdata()->add_Cargo(c);
 				CargosToLoad->deletenode(cargoNode);
 				loaded = 1;
 			}
 			if (loaded) {
 				Truck* truck = Truck_specialWaitingList->peek()->getdata();
-				Truck_specialWaitingList->dequeue();
-				MovingTrucks->enqueue(truck, 0, 0, 0);
 				truck->increaseActiveTime(T);
 				truck->increaseCargosDelivered(c);
+				MovingTrucks->enqueue(truck, 0, 0, 0);
+				Truck_specialWaitingList->dequeue();
 			}
 		}
 		else {
@@ -478,8 +480,8 @@ void Company::MaxWait(Type t, Time T)
 			while (!done) {
 				if (!Cargo_specialWaitingList->isempty()) {
 					Cargo* c = Cargo_specialWaitingList->peek()->getdata();
-					node<Cargo>* cargoNode = new node<Cargo>(c);
 					c->set_Move_Time(T);
+					c->set_Waiting_Time();
 					if (c->get_Waiting_Time().TimeToHours() >= MaxW) {
 						CargosToLoad->add(c);
 						Cargo_specialWaitingList->dequeue();
@@ -491,10 +493,10 @@ void Company::MaxWait(Type t, Time T)
 			bool loaded = 0;
 			int c = CargosToLoad->getSize();
 			while (!CargosToLoad->isempty()) {
-				Cargo* c = CargosToLoad->gethead()->getdata();
-				node<Cargo>* cargoNode = new node<Cargo>(c);
-				Truck_specialWaitingList->peek()->getdata()->add_Cargo(c);
+				node<Cargo>* cargoNode = CargosToLoad->gethead();
+				Cargo* c = cargoNode->getdata();
 				c->setTID(Truck_specialWaitingList->peek()->getdata()->getID());
+				Truck_specialWaitingList->peek()->getdata()->add_Cargo(c);
 				CargosToLoad->deletenode(cargoNode);
 				loaded = 1;
 			}
@@ -771,24 +773,57 @@ void Company::PrintToFile(string filename, Time t)
 		outFile << "Trucks: " << Normal_Truck_Num + Special_Truck_Num + Vip_Truck_Num << " [N: " << Normal_Truck_Num
 			<< ", S: " << Special_Truck_Num << ", V: " << Vip_Truck_Num << "]\n";
 		int totalActiveTime = 0;
+		int totalTime = t.TimeToHours();
+		int totalUtil = 0;
 		while (!Truck_normalWaitingList->isempty()) {
 			Truck* truck = Truck_normalWaitingList->peek()->getdata();
 			totalActiveTime += truck->getActiveTime();
+			if (truck->getJ()) {
+				int tDC = truck->getCargosDelivered();
+				int TC = truck->get_Capacity();
+				int N = truck->getJ();
+				int tAT = truck->getActiveTime();
+				int util = (int)round(((double)tDC / (TC * N)) * ((double)tAT / totalTime) * 100);
+				truck->setUtil(util);
+				totalUtil += util;
+			}
+			else truck->setUtil(0);
 			Truck_normalWaitingList->dequeue();
 		}
 		while (!Truck_specialWaitingList->isempty()) {
 			Truck* truck = Truck_specialWaitingList->peek()->getdata();
 			totalActiveTime += truck->getActiveTime();
+			if (truck->getJ()) {
+				int tDC = truck->getCargosDelivered();
+				int TC = truck->get_Capacity();
+				int N = truck->getJ();
+				int tAT = truck->getActiveTime();
+				int util = (int)round(((double)tDC / (TC * N)) * ((double)tAT / totalTime) * 100);
+				truck->setUtil(util);
+				totalUtil += util;
+			}
+			else truck->setUtil(0);
 			Truck_specialWaitingList->dequeue();
 		}
 		while (!Truck_vipWaitingList->isempty()) {
 			Truck* truck = Truck_vipWaitingList->peek()->getdata();
 			totalActiveTime += truck->getActiveTime();
+			if (truck->getJ()) {
+				int tDC = truck->getCargosDelivered();
+				int TC = truck->get_Capacity();
+				int N = truck->getJ();
+				int tAT = truck->getActiveTime();
+				int util = (int)round(((double)tDC / (TC * N)) * ((double)tAT / totalTime) * 100);
+				truck->setUtil(util);
+				totalUtil += util;
+			}
+			else truck->setUtil(0);
 			Truck_vipWaitingList->dequeue();
 		}
-		int totalTime = t.TimeToHours();
 		int avgActiveTime = (int)(round((double)totalActiveTime/((Normal_Truck_Num+Special_Truck_Num+Vip_Truck_Num)*totalTime))*100);
 		outFile << "Avg Active Time = " << avgActiveTime << "%\n";
+		int avgUtil = (int)round((double)totalUtil / (Normal_Truck_Num + Special_Truck_Num + Vip_Truck_Num));
+		outFile << "Avg utilization = " << avgUtil << "%\n";
 	}
 }
 
