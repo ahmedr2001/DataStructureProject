@@ -934,8 +934,9 @@ void Company::Truck_Loading_Moving(Time t)
 {
 	if (Truck_vipLoadingList)
 	{
-		if (/*Truck_vipLoadingList->getMT()*/1)
+		if (Truck_vipLoadingList->getMT() < t || t == Truck_vipLoadingList->getMT())
 		{
+			Truck_vipLoadingList->setFT();
 			Truck_vipMovingList->add(Truck_vipLoadingList);
 			Truck_vipLoadingList = nullptr;
 		}
@@ -944,6 +945,7 @@ void Company::Truck_Loading_Moving(Time t)
 	{
 		if (Truck_specialLoadingList->getMT() < t || t == Truck_specialLoadingList->getMT())
 		{
+			Truck_vipLoadingList->setFT();
 			Truck_specialMovingList->add(Truck_specialLoadingList);
 			Truck_specialLoadingList = nullptr;
 		}
@@ -952,6 +954,7 @@ void Company::Truck_Loading_Moving(Time t)
 	{
 		if (Truck_normalLoadingList->getMT() < t || t == Truck_normalLoadingList->getMT())
 		{
+			Truck_vipLoadingList->setFT();
 			Truck_normalMovingList->add(Truck_normalLoadingList);
 			Truck_normalLoadingList = nullptr;
 		}
@@ -1000,6 +1003,25 @@ void Company::loadcargo(Truck* tk,Time t)
 			Cargo_vipWaitingList->peek()->getdata()->set_Waiting_Time();
 			tk->add_Cargo(Cargo_vipWaitingList->peek()->getdata());
 			Cargo_vipWaitingList->dequeue();
+		}
+	}
+}
+
+void Company::Truck_Waiting_Loading(Truck* tk)
+{
+	if (tk)
+	{
+		if (tk->get_Type() == Normal)
+		{
+			Truck_normalLoadingList=tk;
+		}
+		if (tk->get_Type() == special)
+		{
+			Truck_specialLoadingList = tk;
+		}
+		if (tk->get_Type() == VIP)
+		{
+			Truck_vipLoadingList = tk;
 		}
 	}
 }

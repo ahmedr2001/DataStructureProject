@@ -19,7 +19,7 @@ Truck::Truck(Type t, int cap, int ct, int s, int id)
 void Truck::increaseActiveTime(Time t)
 {
 	setMT(t);
-	setFT(t);
+	setFT();
 	int maxDistance = 0;
 	node<Cargo>* cargo = cargolist->gethead();
 	while (cargo) {
@@ -93,7 +93,7 @@ void Truck::setMT(Time t)
 	moveTime = t + unloadTimes;
 }
 
-void Truck::setFT(Time t)
+void Truck::setFT()
 {
 	set_DI();
 	finishTime = moveTime + DI;
