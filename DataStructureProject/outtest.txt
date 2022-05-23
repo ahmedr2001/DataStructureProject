@@ -1,9 +1,12 @@
 CDT    CID      PT     WT     TID
+0:0    3     1:10     0:20     1
+0:0    4     2:22     0:1     1
+1:21    2     1:10     0:15     1
 -----------------------------------------------
 -----------------------------------------------
-Cargos: 0 [n: 0, S: 0, V: 0]
-Cargo Avg Wait = -89478485:-8
-Auto-promoted Cargos: -2147483648%
+Cargos: 3 [n: 0, S: 1, V: 2]
+Cargo Avg Wait = 0:12
+Auto-promoted Cargos: 100%
 Trucks: 8 [N: 3, S: 3, V: 2]
 Avg Active Time = 0%
 Avg utilization = 0%
