@@ -29,7 +29,7 @@ public:
 	void set_Check_Time(int ct); // set maintainance time
 	void set_Speed(int s); // set truck speed in km/h
 	void set_DI(); // set delivery interval
-	void setFT(Time t);
+	void setFT();
 	void setMT(Time t);
 	void setCT(Time t, int i);
 	void incrementJ();
