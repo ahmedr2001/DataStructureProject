@@ -957,18 +957,27 @@ void Company::Truck_Loading_Moving(Time t)
 {
 	if (Truck_vipLoadingList)
 	{
-		if (Truck_vipLoadingList->getMT()==)
+		if (Truck_vipLoadingList->getMT()==t)
 		{
-
+			Truck_vipMovingList->add(Truck_vipLoadingList);
+			Truck_vipLoadingList = nullptr;
 		}
 	}
-	if (Truck_vipLoadingList)
+	if (Truck_specialLoadingList)
 	{
-
+		if (Truck_specialLoadingList->getMT() == t)
+		{
+			Truck_specialMovingList->add(Truck_specialLoadingList);
+			Truck_specialLoadingList = nullptr;
+		}
 	}
-	if (Truck_vipLoadingList)
+	if (Truck_normalLoadingList)
 	{
-
+		if (Truck_normalLoadingList->getMT() == t)
+		{
+			Truck_normalMovingList->add(Truck_normalLoadingList);
+			Truck_normalLoadingList = nullptr;
+		}
 	}
 }
 
@@ -979,7 +988,9 @@ bool Company::no_Wating_CargosLeft() {
 		Truck_normalMaintenanceList->isempty() &&
 		Truck_specialMaintenanceList->isempty() &&
 		Truck_VIPMaintenanceList->isempty() && 
-		MovingTrucks->isempty();
+		Truck_normalMovingList->isempty()&&
+		Truck_specialMovingList->isempty()&&
+		Truck_vipMovingList->isempty();
 }
 
 //void Company::Simulate()
