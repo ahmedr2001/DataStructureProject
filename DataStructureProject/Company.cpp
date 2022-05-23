@@ -1081,7 +1081,13 @@ bool Company::noCargosLeft()
 {
 	return (noNormalCargosLeft()
 		&& noSpecialCargosLeft()
-		&& noVIPCargosLeft());
+		&& noVIPCargosLeft())&&
+		Truck_normalMaintenanceList->isempty() &&
+		Truck_specialMaintenanceList->isempty() &&
+		Truck_VIPMaintenanceList->isempty() &&
+		Truck_normalMovingList->isempty() &&
+		Truck_specialMovingList->isempty() &&
+		Truck_vipMovingList->isempty();
 }
 
 UI* Company::GetUIObject()
@@ -1207,13 +1213,7 @@ void Company::Truck_Waiting_Loading(Truck* tk)
 bool Company::no_Wating_CargosLeft() {
 	return(Cargo_normalWaitingList->isempty() &&
 		Cargo_specialWaitingList->isempty() &&
-		Cargo_vipWaitingList->isempty()) &&
-		Truck_normalMaintenanceList->isempty() &&
-		Truck_specialMaintenanceList->isempty() &&
-		Truck_VIPMaintenanceList->isempty() &&
-		Truck_normalMovingList->isempty() &&
-		Truck_specialMovingList->isempty() &&
-		Truck_vipMovingList->isempty();
+		Cargo_vipWaitingList->isempty());
 }
 
 void Company::LoadVIP(Time t)
