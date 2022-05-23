@@ -568,7 +568,18 @@ void Company::MaxWait(Type t, Time T)
 				Truck_specialLoadingList = truck;
 				truck->increaseActiveTime(T);
 				truck->increaseCargosDelivered(c);
-				MovingTrucks->add(truck);
+				if (truck->get_Type() == Normal)
+				{
+					Truck_normalLoadingList = truck;
+				}
+				else if (truck->get_Type() == special)
+				{
+					Truck_specialLoadingList = truck;
+				}
+				else if (truck->get_Type() == VIP)
+				{
+					Truck_vipLoadingList = truck;
+				}
 				Truck_specialWaitingList->dequeue();
 			}
 		}
