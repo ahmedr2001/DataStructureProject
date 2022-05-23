@@ -591,6 +591,10 @@ void Company::MaxWait(Type t, Time T)
 void Company::MoveTrucksToCheckup(Time t)
 {
 	bool done = 0;
+	bool done2 = 0;
+	bool done3 = 0;
+	node<Truck>* headSpecial = Truck_specialMovingList->gethead();
+	node<Truck>* headVIP = Truck_vipMovingList->gethead();
 	node<Truck>* head = Truck_normalMovingList->gethead();
 	while (head && !done) {
 		Truck* TruckToCheck = head->getdata();
@@ -599,14 +603,10 @@ void Company::MoveTrucksToCheckup(Time t)
 			int j = TruckToCheck->getJ();
 			if (j % J) {
 				Truck_normalWaitingList->enqueue(TruckToCheck);
-				
-				Truck_normalMovingList->deletenode(head);
 			}
 			else {
 				Truck_normalMaintenanceList->enqueue(TruckToCheck);
 				TruckToCheck->setCT(t, normal_check_time);
-				
-				Truck_normalMovingList->deletenode(head);
 			}
 		}
 		else done = 1;
@@ -614,6 +614,43 @@ void Company::MoveTrucksToCheckup(Time t)
 		node<Truck>* del = head;
 		head = head->getnext();
 		Truck_normalMovingList->deletenode(del);
+	}
+	while (headSpecial && !done2) {
+		Truck* TruckToCheck = headSpecial->getdata();
+		if (TruckToCheck->getFT() < t || TruckToCheck->getFT() == t) {
+			TruckToCheck->incrementJ();
+			int j = TruckToCheck->getJ();
+			if (j % J) {
+				Truck_specialWaitingList->enqueue(TruckToCheck);
+			}
+			else {
+				Truck_specialMaintenanceList->enqueue(TruckToCheck);
+				TruckToCheck->setCT(t, special_check_time);
+			}
+		}
+		else done2 = 1;
+
+		node<Truck>* del = headSpecial;
+		headSpecial = headSpecial->getnext();
+		Truck_specialMovingList->deletenode(del);
+	}while (headVIP && !done3) {
+		Truck* TruckToCheck = headVIP->getdata();
+		if (TruckToCheck->getFT() < t || TruckToCheck->getFT() == t) {
+			TruckToCheck->incrementJ();
+			int j = TruckToCheck->getJ();
+			if (j % J) {
+				Truck_vipWaitingList->enqueue(TruckToCheck);
+			}
+			else {
+				Truck_VIPMaintenanceList->enqueue(TruckToCheck);
+				TruckToCheck->setCT(t, vip_check_time);
+			}
+		}
+		else done3 = 1;
+
+		node<Truck>* del = headVIP;
+		headVIP = headVIP->getnext();
+		Truck_vipMovingList->deletenode(del);
 	}
 }
 
@@ -624,36 +661,36 @@ void Company::MoveCheckupToAvail(Time t)
 		Truck* normalTruckData = normalTruck->getdata();
 		if (normalTruckData->getCT() < t || normalTruckData->getCT() == t){
 			Truck_normalWaitingList->enqueue(normalTruckData);
+			normalTruck = normalTruck->getnext();
 			Truck_normalMaintenanceList->dequeue();
 		}
 		else {
 			break;
 		}
-		normalTruck = normalTruck->getnext();
 	}
 	node<Truck>* specialTruck = Truck_specialMaintenanceList->peek();
 	while (specialTruck) {
 		Truck* specialTruckData = specialTruck->getdata();
 		if (specialTruckData->getCT() < t || specialTruckData->getCT() == t) {
 			Truck_specialWaitingList->enqueue(specialTruckData);
+			specialTruck = specialTruck->getnext();
 			Truck_specialMaintenanceList->dequeue();
 		}
 		else {
 			break;
 		}
-		specialTruck = specialTruck->getnext();
 	}
 	node<Truck>* vipTruck = Truck_VIPMaintenanceList->peek();
 	while (vipTruck) {
 		Truck* vipTruckData = vipTruck->getdata();
 		if (vipTruckData->getCT() < t || vipTruckData->getCT() == t) {
 			Truck_vipWaitingList->enqueue(vipTruckData);
+			vipTruck = vipTruck->getnext();
 			Truck_VIPMaintenanceList->dequeue();
 		}
 		else {
 			break;
 		}
-		vipTruck = vipTruck->getnext();
 	}
 }
 
@@ -1082,14 +1119,17 @@ void Company::Truck_Waiting_Loading(Truck* tk)
 		if (tk->get_Type() == Normal)
 		{
 			Truck_normalLoadingList=tk;
+			Truck_normalWaitingList->dequeue();
 		}
 		if (tk->get_Type() == special)
 		{
 			Truck_specialLoadingList = tk;
+			Truck_specialWaitingList->dequeue();
 		}
 		if (tk->get_Type() == VIP)
 		{
 			Truck_vipLoadingList = tk;
+			Truck_vipWaitingList->dequeue();
 		}
 	}
 }
