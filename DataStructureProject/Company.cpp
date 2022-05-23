@@ -529,74 +529,82 @@ void Company::MaxWait(Type t, Time T)
 	linkedlist<Cargo>* CargosToLoad = new linkedlist<Cargo>;
 	if (t == Normal) {
 		if (!Truck_normalWaitingList->isempty()) {
+			node<Cargo>* headPtr = Cargo_normalWaitingList->gethead();
 			while (!done) {
-				if (!Cargo_normalWaitingList->isempty()) {
-					node<Cargo>* cargoNode = Cargo_normalWaitingList->gethead();
+				if (headPtr) {
+					node<Cargo>* cargoNode = headPtr;
 					Cargo* c = cargoNode->getdata();
 					c->set_Move_Time(T);
 					c->set_Waiting_Time();
 					if (c->get_Waiting_Time().TimeToHours() >= MaxW) {
 						CargosToLoad->add(c);
-						Cargo_normalWaitingList->deletenode(cargoNode);
+						//Cargo_normalWaitingList->deletenode(cargoNode);
+						headPtr = headPtr->getnext();
 					}
 					else done = 1;
 				}
 				else done = 1;
 			}
-			bool loaded = 0;
-			int c = CargosToLoad->getSize();
-			while (!CargosToLoad->isempty()) {
-				node<Cargo>* cargoNode = CargosToLoad->gethead();
-				Cargo* c = cargoNode->getdata();
-				c->setTID(Truck_normalWaitingList->peek()->getdata()->getID());
-				Truck_normalWaitingList->peek()->getdata()->add_Cargo(c);
-				CargosToLoad->deletenode(cargoNode);
-				loaded = 1;
-			}
-			if (loaded) {
-				Truck* truck = Truck_normalWaitingList->peek()->getdata();
-				//MovingTrucks->add(truck);
-				if (!Truck_normalLoadingList) {
+			if (!Truck_normalLoadingList) {
+				bool loaded = 0;
+				int cnt = CargosToLoad->getSize();
+				while (!CargosToLoad->isempty()) {
+					node<Cargo>* cargoNode = CargosToLoad->gethead();
+					Cargo* c = cargoNode->getdata();
+					c->setTID(Truck_normalWaitingList->peek()->getdata()->getID());
+					Truck_normalWaitingList->peek()->getdata()->add_Cargo(c);
+					CargosToLoad->deletenode(cargoNode);
+					loaded = 1;
+				}
+				if (loaded) {
+					Truck* truck = Truck_normalWaitingList->peek()->getdata();
+					//MovingTrucks->add(truck);
 					Truck_normalLoadingList = truck;
 					truck->increaseActiveTime(T);
-					truck->increaseCargosDelivered(c);
-					Truck_normalWaitingList->dequeue();
+					truck->increaseCargosDelivered(cnt);
+					Truck_normalWaitingList->dequeue();	
+					for (int i = 0; i < cnt; i++) {
+						Cargo_normalWaitingList->deletenode(Cargo_normalWaitingList->gethead());
+					}
 				}
 			}
 		}
 		else if (!Truck_specialWaitingList->isempty()) {
+			node<Cargo>* headPtr = Cargo_normalWaitingList->gethead();
 			while (!done) {
-				if (!Cargo_specialWaitingList->isempty()) {
-					node<Cargo>* cargoNode = Cargo_specialWaitingList->peek();
+				if (headPtr) {
+					node<Cargo>* cargoNode = headPtr;
 					Cargo* c = cargoNode->getdata();
 					c->set_Move_Time(T);
 					c->set_Waiting_Time();
 					if (c->get_Waiting_Time().TimeToHours() >= MaxW) {
 						CargosToLoad->add(c);
-						Cargo_specialWaitingList->dequeue();
+						headPtr = headPtr->getnext();
 					}
 					else done = 1;
 				}
 				else done = 1;
 			}
-			bool loaded = 0;
-			int c = CargosToLoad->getSize();
-			while (!CargosToLoad->isempty()) {
-				node<Cargo>* cargoNode = CargosToLoad->gethead();
-				Cargo* c = cargoNode->getdata();
-				c->setTID(Truck_specialWaitingList->peek()->getdata()->getID());
-				Truck_specialWaitingList->peek()->getdata()->add_Cargo(c);
-				CargosToLoad->deletenode(cargoNode);
-				loaded = 1;
-			}
-			if (loaded) {
-				Truck* truck = Truck_specialWaitingList->peek()->getdata();
-				//MovingTrucks->add(truck);
-				if (!Truck_specialLoadingList) {
+			if (!Truck_specialLoadingList) {
+				bool loaded = 0;
+				int cnt = CargosToLoad->getSize();
+				while (!CargosToLoad->isempty()) {
+					node<Cargo>* cargoNode = CargosToLoad->gethead();
+					Cargo* c = cargoNode->getdata();
+					c->setTID(Truck_specialWaitingList->peek()->getdata()->getID());
+					Truck_specialWaitingList->peek()->getdata()->add_Cargo(c);
+					CargosToLoad->deletenode(cargoNode);
+					loaded = 1;
+				}
+				if (loaded) {
+					Truck* truck = Truck_specialWaitingList->peek()->getdata();
 					Truck_specialLoadingList = truck;
 					truck->increaseActiveTime(T);
-					truck->increaseCargosDelivered(c);
+					truck->increaseCargosDelivered(cnt);
 					Truck_specialWaitingList->dequeue();
+					for (int i = 0; i < cnt; i++) {
+						Cargo_normalWaitingList->deletenode(Cargo_normalWaitingList->gethead());
+					}
 				}
 			}
 		}
@@ -606,36 +614,40 @@ void Company::MaxWait(Type t, Time T)
 	}
 	else if (t == special) {
 		if (!Truck_specialWaitingList->isempty()) {
+			node<Cargo>* headPtr = Cargo_specialWaitingList->peek();
 			while (!done) {
-				if (!Cargo_specialWaitingList->isempty()) {
-					Cargo* c = Cargo_specialWaitingList->peek()->getdata();
+				if (headPtr) {
+					Cargo* c = headPtr->getdata();
 					c->set_Move_Time(T);
 					c->set_Waiting_Time();
 					if (c->get_Waiting_Time().TimeToHours() >= MaxW) {
 						CargosToLoad->add(c);
-						Cargo_specialWaitingList->dequeue();
+						headPtr = headPtr->getnext();
 					}
 					else done = 1;
 				}
 				else done = 1;
 			}
-			bool loaded = 0;
-			int c = CargosToLoad->getSize();
-			while (!CargosToLoad->isempty()) {
-				node<Cargo>* cargoNode = CargosToLoad->gethead();
-				Cargo* c = cargoNode->getdata();
-				c->setTID(Truck_specialWaitingList->peek()->getdata()->getID());
-				Truck_specialWaitingList->peek()->getdata()->add_Cargo(c);
-				CargosToLoad->deletenode(cargoNode);
-				loaded = 1;
-			}
-			if (loaded) {
-				Truck* truck = Truck_specialWaitingList->peek()->getdata();
-				if (!Truck_specialLoadingList) {
+			if (!Truck_specialLoadingList) {
+				bool loaded = 0;
+				int cnt = CargosToLoad->getSize();
+				while (!CargosToLoad->isempty()) {
+					node<Cargo>* cargoNode = CargosToLoad->gethead();
+					Cargo* c = cargoNode->getdata();
+					c->setTID(Truck_specialWaitingList->peek()->getdata()->getID());
+					Truck_specialWaitingList->peek()->getdata()->add_Cargo(c);
+					CargosToLoad->deletenode(cargoNode);
+					loaded = 1;
+				}
+				if (loaded) {
+					Truck* truck = Truck_specialWaitingList->peek()->getdata();
 					Truck_specialLoadingList = truck;
 					truck->increaseActiveTime(T);
-					truck->increaseCargosDelivered(c);
+					truck->increaseCargosDelivered(cnt);
 					Truck_specialWaitingList->dequeue();
+					for (int i = 0; i < cnt; i++) {
+						Cargo_specialWaitingList->dequeue();
+					}
 				}
 			}
 		}
