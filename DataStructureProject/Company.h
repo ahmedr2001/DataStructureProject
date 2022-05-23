@@ -117,8 +117,14 @@ public:
 	void Deliver_Timers();
 
 	UI* GetUIObject();
-	void OpenCompany();
-	void CloseCompany();
+
+	void LoadVIP(Time t);
+	void LoadSpecial(Time t);
+	void LoadNormal(Time t);
+
 	void Truck_Loading_Moving(Time t);
-	void LoadCargoToTruck(Truck *myTruck);
+
+	void loadcargo(Truck* tk,Time t);
+	void Load(Time t);
+	void Truck_Waiting_Loading(Truck* tk);
 };
