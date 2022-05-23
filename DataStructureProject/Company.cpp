@@ -18,11 +18,11 @@ Company::Company()
 	Truck_normalWaitingList = new queue<Truck>;
 	Truck_specialWaitingList = new queue<Truck>;
 
-	//Truck_vipMovingList = new linkedlist<Truck>;
-	//Truck_normalMovingList = new linkedlist<Truck>;
-	//Truck_specialMovingList = new linkedlist<Truck>;
+	Truck_vipMovingList = new linkedlist<Truck>;
+	Truck_normalMovingList = new linkedlist<Truck>;
+	Truck_specialMovingList = new linkedlist<Truck>;
 
-	MovingTrucks = new linkedlist<Truck>;
+	//MovingTrucks = new linkedlist<Truck>;
 
 	Truck_normalMaintenanceList = new queue<Truck>;
 	Truck_specialMaintenanceList = new queue<Truck>;
@@ -518,11 +518,22 @@ void Company::MaxWait(Type t, Time T)
 			if (loaded) {
 				Truck* truck = Truck_normalWaitingList->peek()->getdata();
 				Truck_normalWaitingList->dequeue();
+				if (truck->get_Type()==Normal)
+				{
+					Truck_normalLoadingList=truck;
+				}
+				else if (truck->get_Type() == special)
+				{
+					Truck_specialLoadingList=truck;
+				}
+				else if (truck->get_Type() == VIP)
+				{
+					Truck_vipLoadingList=truck;
+				}
 				//MovingTrucks->add(truck);
 				Truck_normalLoadingList = truck;
 				truck->increaseActiveTime(T);
 				truck->increaseCargosDelivered(c);
-				MovingTrucks->add(truck);
 				Truck_normalWaitingList->dequeue();
 			}
 		}
@@ -558,7 +569,18 @@ void Company::MaxWait(Type t, Time T)
 				Truck_specialLoadingList = truck;
 				truck->increaseActiveTime(T);
 				truck->increaseCargosDelivered(c);
-				MovingTrucks->add(truck);
+				if (truck->get_Type() == Normal)
+				{
+					Truck_normalLoadingList = truck;
+				}
+				else if (truck->get_Type() == special)
+				{
+					Truck_specialLoadingList = truck;
+				}
+				else if (truck->get_Type() == VIP)
+				{
+					Truck_vipLoadingList = truck;
+				}
 				Truck_specialWaitingList->dequeue();
 			}
 		}
@@ -958,18 +980,27 @@ void Company::Truck_Loading_Moving(Time t)
 {
 	if (Truck_vipLoadingList)
 	{
-		if (Truck_vipLoadingList->getMT()==)
+		if (Truck_vipLoadingList->getMT() < t || t == Truck_vipLoadingList->getMT())
 		{
-
+			Truck_vipMovingList->add(Truck_vipLoadingList);
+			Truck_vipLoadingList = nullptr;
 		}
 	}
-	if (Truck_vipLoadingList)
+	if (Truck_specialLoadingList)
 	{
-
+		if (Truck_specialLoadingList->getMT() < t || t == Truck_specialLoadingList->getMT())
+		{
+			Truck_specialMovingList->add(Truck_specialLoadingList);
+			Truck_specialLoadingList = nullptr;
+		}
 	}
-	if (Truck_vipLoadingList)
+	if (Truck_normalLoadingList)
 	{
-
+		if (Truck_normalLoadingList->getMT() < t || t == Truck_normalLoadingList->getMT())
+		{
+			Truck_normalMovingList->add(Truck_normalLoadingList);
+			Truck_normalLoadingList = nullptr;
+		}
 	}
 }
 
@@ -980,7 +1011,9 @@ bool Company::no_Wating_CargosLeft() {
 		Truck_normalMaintenanceList->isempty() &&
 		Truck_specialMaintenanceList->isempty() &&
 		Truck_VIPMaintenanceList->isempty() && 
-		MovingTrucks->isempty();
+		Truck_normalMovingList->isempty()&&
+		Truck_specialMovingList->isempty()&&
+		Truck_vipMovingList->isempty();
 }
 
 //void Company::Simulate()
