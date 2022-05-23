@@ -9,6 +9,7 @@ void InteractiveMode::Simulate(Company* c1, Time& t, UI* uiObject) {
 		uiObject->PrintMessage("Press Enter to Continue...\n");
 		uiObject->getLine(&enterKeyPressed, 1);
 
+
 		done = c1->Execute_Events(t);
 
 		c1->MaxWait(Normal, t);
@@ -16,10 +17,9 @@ void InteractiveMode::Simulate(Company* c1, Time& t, UI* uiObject) {
 		c1->AutoPromote(Normal, t);
 		c1->MoveTrucksToCheckup(t);
 		c1->MoveCheckupToAvail(t);
-		if (t.get_Hour() % 5 == 4 && t.get_Hour() >= 5 && t.get_Hour() <= 23) {
-			c1->Moving_WaitingCargo(VIP, t);
-			c1->Moving_WaitingCargo(special, t);
-			c1->Moving_WaitingCargo(Normal, t);
+		if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
+			c1->Load(t);
+			c1->Truck_Loading_Moving(t);
 			//c1->Increase_Timers();
 		}
 		//if (t.get_Hour() % 5 == 4) {
