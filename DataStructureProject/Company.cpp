@@ -516,24 +516,13 @@ void Company::MaxWait(Type t, Time T)
 			}
 			if (loaded) {
 				Truck* truck = Truck_normalWaitingList->peek()->getdata();
-				Truck_normalWaitingList->dequeue();
-				if (truck->get_Type()==Normal)
-				{
-					Truck_normalLoadingList=truck;
-				}
-				else if (truck->get_Type() == special)
-				{
-					Truck_specialLoadingList=truck;
-				}
-				else if (truck->get_Type() == VIP)
-				{
-					Truck_vipLoadingList=truck;
-				}
 				//MovingTrucks->add(truck);
-				Truck_normalLoadingList = truck;
-				truck->increaseActiveTime(T);
-				truck->increaseCargosDelivered(c);
-				Truck_normalWaitingList->dequeue();
+				if (!Truck_normalLoadingList) {
+					Truck_normalLoadingList = truck;
+					truck->increaseActiveTime(T);
+					truck->increaseCargosDelivered(c);
+					Truck_normalWaitingList->dequeue();
+				}
 			}
 		}
 		else if (!Truck_specialWaitingList->isempty()) {
@@ -563,24 +552,13 @@ void Company::MaxWait(Type t, Time T)
 			}
 			if (loaded) {
 				Truck* truck = Truck_specialWaitingList->peek()->getdata();
-				Truck_specialWaitingList->dequeue();
 				//MovingTrucks->add(truck);
-				Truck_specialLoadingList = truck;
-				truck->increaseActiveTime(T);
-				truck->increaseCargosDelivered(c);
-				if (truck->get_Type() == Normal)
-				{
-					Truck_normalLoadingList = truck;
-				}
-				else if (truck->get_Type() == special)
-				{
+				if (!Truck_specialLoadingList) {
 					Truck_specialLoadingList = truck;
+					truck->increaseActiveTime(T);
+					truck->increaseCargosDelivered(c);
+					Truck_specialWaitingList->dequeue();
 				}
-				else if (truck->get_Type() == VIP)
-				{
-					Truck_vipLoadingList = truck;
-				}
-				Truck_specialWaitingList->dequeue();
 			}
 		}
 		else {
@@ -614,11 +592,12 @@ void Company::MaxWait(Type t, Time T)
 			}
 			if (loaded) {
 				Truck* truck = Truck_specialWaitingList->peek()->getdata();
-				Truck_specialWaitingList->dequeue();
-				//MovingTrucks->add(truck);
-				Truck_specialLoadingList = truck;
-				truck->increaseActiveTime(T);
-				truck->increaseCargosDelivered(c);
+				if (!Truck_specialLoadingList) {
+					Truck_specialLoadingList = truck;
+					truck->increaseActiveTime(T);
+					truck->increaseCargosDelivered(c);
+					Truck_specialWaitingList->dequeue();
+				}
 			}
 		}
 	}
@@ -627,53 +606,29 @@ void Company::MaxWait(Type t, Time T)
 void Company::MoveTrucksToCheckup(Time t)
 {
 	bool done = 0;
-	node<Truck>* head = MovingTrucks->gethead();
+	node<Truck>* head = Truck_normalMovingList->gethead();
 	while (head && !done) {
 		Truck* TruckToCheck = head->getdata();
 		if (TruckToCheck->getFT() < t || TruckToCheck->getFT() == t) {
 			TruckToCheck->incrementJ();
 			int j = TruckToCheck->getJ();
 			if (j % J) {
-				Type truckType = TruckToCheck->get_Type();
-				switch (truckType) {
-				case Normal:
-					Truck_normalWaitingList->enqueue(TruckToCheck);
-					break;
-				case special:
-					Truck_specialWaitingList->enqueue(TruckToCheck);
-					break;
-				case VIP:
-					Truck_vipWaitingList->enqueue(TruckToCheck);
-					break;
-				default:
-					break;
-				}
-				MovingTrucks->deletenode(MovingTrucks->gethead());
+				Truck_normalWaitingList->enqueue(TruckToCheck);
+				
+				Truck_normalMovingList->deletenode(head);
 			}
 			else {
-				Type truckType = TruckToCheck->get_Type();
-				switch (truckType) {
-				case Normal:
-					Truck_normalMaintenanceList->enqueue(TruckToCheck);
-					TruckToCheck->setCT(t, normal_check_time);
-					break;
-				case special:
-					Truck_specialMaintenanceList->enqueue(TruckToCheck);
-					TruckToCheck->setCT(t, special_check_time);
-					break;
-				case VIP:
-					Truck_VIPMaintenanceList->enqueue(TruckToCheck);
-					TruckToCheck->setCT(t, vip_check_time);
-					break;
-				default:
-					break;
-				}
-				MovingTrucks->deletenode(MovingTrucks->gethead());
+				Truck_normalMaintenanceList->enqueue(TruckToCheck);
+				TruckToCheck->setCT(t, normal_check_time);
+				
+				Truck_normalMovingList->deletenode(head);
 			}
 		}
 		else done = 1;
 
+		node<Truck>* del = head;
 		head = head->getnext();
+		Truck_normalMovingList->deletenode(del);
 	}
 }
 
@@ -979,7 +934,7 @@ void Company::Truck_Loading_Moving(Time t)
 {
 	if (Truck_vipLoadingList)
 	{
-		if (Truck_vipLoadingList->getMT() < t || t == Truck_vipLoadingList->getMT())
+		if (/*Truck_vipLoadingList->getMT()*/1)
 		{
 			Truck_vipMovingList->add(Truck_vipLoadingList);
 			Truck_vipLoadingList = nullptr;
@@ -1055,8 +1010,8 @@ bool Company::no_Wating_CargosLeft() {
 		Cargo_vipWaitingList->isempty()) &&
 		Truck_normalMaintenanceList->isempty() &&
 		Truck_specialMaintenanceList->isempty() &&
-		Truck_VIPMaintenanceList->isempty() && 
-		Truck_normalMovingList->isempty()&&
-		Truck_specialMovingList->isempty()&&
+		Truck_VIPMaintenanceList->isempty() &&
+		Truck_normalMovingList->isempty() &&
+		Truck_specialMovingList->isempty() &&
 		Truck_vipMovingList->isempty();
 }
