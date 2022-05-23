@@ -969,3 +969,43 @@ bool Company::no_Wating_CargosLeft() {
 		Truck_specialMovingList->isempty() &&
 		Truck_vipMovingList->isempty();
 }
+
+void Company::LoadVIP(Time t)
+{
+	node<Truck>* vipHead = Truck_vipWaitingList->peek();
+	node<Truck>* normalHead = Truck_normalWaitingList->peek();
+	node<Truck>* specialHead = Truck_specialWaitingList->peek();
+	if (vipHead) {
+		if (Cargo_vipWaitingList->getSize() >= vipHead->getdata()->get_Capacity()) {
+			//Loadvipcargos()
+		}
+	}
+	else if (normalHead) {
+		if (Cargo_vipWaitingList->getSize() >= vipHead->getdata()->get_Capacity()) {
+
+		}
+	}
+	else if (specialHead) {
+
+	}
+}
+
+void Company::LoadSpecial(Time t)
+{
+	node<Truck>* specialHead = Truck_specialWaitingList->peek();
+	if (specialHead) {
+
+	}
+}
+
+void Company::LoadNormal(Time t)
+{
+	node<Truck>* normalHead = Truck_normalWaitingList->peek();
+	node<Truck>* specialHead = Truck_specialWaitingList->peek();
+	if (normalHead) {
+
+	}
+	else if (specialHead) {
+
+	}
+}
