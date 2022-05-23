@@ -30,6 +30,7 @@ Company::Company()
 	Truck_vipLoadingList = nullptr;
 	Truck_normalLoadingList = nullptr;
 	Truck_specialLoadingList = nullptr;
+	companyIsOpen = true;
 
 }
 void Company::PrintToConsole(Time t)
@@ -1096,3 +1097,14 @@ bool Company::no_Wating_CargosLeft() {
 //	c1->PrintToFile("outtest");
 //
 //}
+void Company::OpenCompany() {
+	companyIsOpen = true;
+}
+void Company::CloseCompany(){
+	companyIsOpen = false;
+}
+void Company::LoadCargoToTruck(Truck* myTruck) {
+	if (companyIsOpen) {
+
+	}
+}

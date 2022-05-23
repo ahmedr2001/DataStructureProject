@@ -86,7 +86,7 @@ protected:
 	bool noNormalCargosLeft();
 	bool noSpecialCargosLeft();
 	bool noVIPCargosLeft();
-
+	bool companyIsOpen;
 	UI* uiObject;
 	
 public:
@@ -117,6 +117,8 @@ public:
 	void Deliver_Timers();
 
 	UI* GetUIObject();
-
+	void OpenCompany();
+	void CloseCompany();
 	void Truck_Loading_Moving(Time t);
+	void LoadCargoToTruck(Truck *myTruck);
 };
