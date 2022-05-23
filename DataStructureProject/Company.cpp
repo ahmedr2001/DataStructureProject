@@ -945,7 +945,7 @@ void Company::Truck_Loading_Moving(Time t)
 	{
 		if (Truck_specialLoadingList->getMT() < t || t == Truck_specialLoadingList->getMT())
 		{
-			Truck_vipLoadingList->setFT();
+			Truck_specialLoadingList->setFT();
 			Truck_specialMovingList->add(Truck_specialLoadingList);
 			Truck_specialLoadingList = nullptr;
 		}
@@ -954,7 +954,7 @@ void Company::Truck_Loading_Moving(Time t)
 	{
 		if (Truck_normalLoadingList->getMT() < t || t == Truck_normalLoadingList->getMT())
 		{
-			Truck_vipLoadingList->setFT();
+			Truck_normalLoadingList->setFT();
 			Truck_normalMovingList->add(Truck_normalLoadingList);
 			Truck_normalLoadingList = nullptr;
 		}
@@ -1048,22 +1048,24 @@ void Company::LoadVIP(Time t)
 		if (vipHead) {
 			if (Cargo_vipWaitingList->getSize() >= vipHead->getdata()->get_Capacity()) {
 				loadcargo(vipHead->getdata(), t);
+				Truck_Waiting_Loading(vipHead->getdata());
 				loaded = 1;
 			}
 		}
 		else if (!loaded && normalHead) {
 			if (Cargo_normalWaitingList->getSize() >= normalHead->getdata()->get_Capacity()) {
 				loadcargo(normalHead->getdata(), t);
+				Truck_Waiting_Loading(normalHead->getdata());
 				loaded = 1;
 			}
 		}
 		else if (!loaded && specialHead) {
 			if (Cargo_specialWaitingList->getSize() >= specialHead->getdata()->get_Capacity()) {
 				loadcargo(specialHead->getdata(), t);
+				Truck_Waiting_Loading(specialHead->getdata());
 				loaded = 1;
 			}
 		}
-		//truck_waiting_loading()
 	}
 }
 
@@ -1074,9 +1076,9 @@ void Company::LoadSpecial(Time t)
 		if (specialHead) {
 			if (Cargo_specialWaitingList->getSize() >= specialHead->getdata()->get_Capacity()) {
 				loadcargo(specialHead->getdata(), t);
+				Truck_Waiting_Loading(specialHead->getdata());
 			}
 		}
-		//truck_waiting_loading()
 	}
 }
 
@@ -1089,15 +1091,23 @@ void Company::LoadNormal(Time t)
 		if (normalHead) {
 			if (Cargo_normalWaitingList->getSize() >= normalHead->getdata()->get_Capacity()) {
 				loadcargo(normalHead->getdata(), t);
+				Truck_Waiting_Loading(normalHead->getdata());
 				loaded = 1;
 			}
 		}
 		else if (!loaded && specialHead) {
 			if (Cargo_specialWaitingList->getSize() >= specialHead->getdata()->get_Capacity()) {
 				loadcargo(specialHead->getdata(), t);
+				Truck_Waiting_Loading(specialHead->getdata());
 				loaded = 1;
 			}
 		}
-		//truck_waiting_loading()
 	}
+}
+
+void Company::Load(Time t)
+{
+	LoadVIP(t);
+	LoadSpecial(t);
+	LoadNormal(t);
 }
