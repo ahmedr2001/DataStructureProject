@@ -27,9 +27,9 @@ Company::Company()
 	Truck_normalMaintenanceList = new queue<Truck>;
 	Truck_specialMaintenanceList = new queue<Truck>;
 	Truck_VIPMaintenanceList = new queue<Truck>;
-	//Truck_vipLoadingList = new queue<Truck>;
-	//Truck_normalLoadingList = new queue<Truck>;
-	//Truck_specialLoadingList = new queue<Truck>;
+	Truck_vipLoadingList = nullptr;
+	Truck_normalLoadingList = nullptr;
+	Truck_specialLoadingList = nullptr;
 
 }
 void Company::PrintToConsole(Time t)
@@ -517,7 +517,8 @@ void Company::MaxWait(Type t, Time T)
 			if (loaded) {
 				Truck* truck = Truck_normalWaitingList->peek()->getdata();
 				Truck_normalWaitingList->dequeue();
-				MovingTrucks->add(truck);
+				//MovingTrucks->add(truck);
+				Truck_normalLoadingList = truck;
 				truck->increaseActiveTime(T);
 				truck->increaseCargosDelivered(c);
 				MovingTrucks->add(truck);
@@ -552,7 +553,8 @@ void Company::MaxWait(Type t, Time T)
 			if (loaded) {
 				Truck* truck = Truck_specialWaitingList->peek()->getdata();
 				Truck_specialWaitingList->dequeue();
-				MovingTrucks->add(truck);
+				//MovingTrucks->add(truck);
+				Truck_specialLoadingList = truck;
 				truck->increaseActiveTime(T);
 				truck->increaseCargosDelivered(c);
 				MovingTrucks->add(truck);
@@ -591,7 +593,8 @@ void Company::MaxWait(Type t, Time T)
 			if (loaded) {
 				Truck* truck = Truck_specialWaitingList->peek()->getdata();
 				Truck_specialWaitingList->dequeue();
-				MovingTrucks->add(truck);
+				//MovingTrucks->add(truck);
+				Truck_specialLoadingList = truck;
 				truck->increaseActiveTime(T);
 				truck->increaseCargosDelivered(c);
 			}
