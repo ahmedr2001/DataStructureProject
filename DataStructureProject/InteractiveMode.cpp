@@ -9,6 +9,7 @@ void InteractiveMode::Simulate(Company* c1, Time& t, UI* uiObject) {
 		uiObject->PrintMessage("Press Enter to Continue...\n");
 		uiObject->getLine(&enterKeyPressed, 1);
 
+
 		done = c1->Execute_Events(t);
 
 		c1->MaxWait(Normal, t);
