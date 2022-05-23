@@ -1122,19 +1122,33 @@ void Company::Truck_Loading_Moving(Time t)
 
 void Company::loadcargo(Truck* tk,Time t)
 {
-	if (tk->get_Type()==Normal)
+	node<Cargo>* temp = Cargo_normalWaitingList->gethead();
+	
+	int totalloadtime = 0;
+	while (temp) {
+		totalloadtime = totalloadtime + temp->getdata()->get_Load_Time();
+		temp = temp->getnext();
+	}
+	
+	if (tk->get_Type()==Normal && L_N_timer == totalloadtime)
 	{
 		for (int i = 0; i < tk->get_Capacity(); i++)
 		{
 			Cargo_normalLoadingList->enqueue(Cargo_normalWaitingList->gethead()->getdata());
 			Cargo_normalWaitingList->gethead()->getdata()->setTID(tk->getID());
-			tk->setMT(t);
+
 			Cargo_normalWaitingList->gethead()->getdata()->set_Move_Time(tk->getMT());
 			Cargo_normalWaitingList->gethead()->getdata()->set_Delivery_Time(tk->get_Speed());
 			Cargo_normalWaitingList->gethead()->getdata()->set_Waiting_Time();
 			tk->add_Cargo(Cargo_normalWaitingList->gethead()->getdata());
 			Cargo_normalWaitingList->deletenode(Cargo_normalWaitingList->gethead());
+
 		}
+		tk->setMT(t);
+		L_N_timer = 0;
+	}
+	else {
+		L_N_timer++;
 	}
 	if (tk->get_Type() == special)
 	{
@@ -1142,13 +1156,14 @@ void Company::loadcargo(Truck* tk,Time t)
 		{
 			Cargo_specialLoadingList->enqueue(Cargo_specialWaitingList->peek()->getdata());
 			Cargo_specialWaitingList->peek()->getdata()->setTID(tk->getID());
-			tk->setMT(t);
+			
 			Cargo_specialWaitingList->peek()->getdata()->set_Move_Time(tk->getMT());
 			Cargo_specialWaitingList->peek()->getdata()->set_Delivery_Time(tk->get_Speed());
 			Cargo_specialWaitingList->peek()->getdata()->set_Waiting_Time();
 			tk->add_Cargo(Cargo_specialWaitingList->peek()->getdata());
 			Cargo_specialWaitingList->dequeue();
 		}
+		tk->setMT(t);
 	}
 	if (tk->get_Type() == VIP)
 	{
@@ -1156,13 +1171,14 @@ void Company::loadcargo(Truck* tk,Time t)
 		{
 			Cargo_vipLoadingList->enqueue(Cargo_vipWaitingList->peek()->getdata());
 			Cargo_vipWaitingList->peek()->getdata()->setTID(tk->getID());
-			tk->setMT(t);
+			
 			Cargo_vipWaitingList->peek()->getdata()->set_Move_Time(tk->getMT());
 			Cargo_vipWaitingList->peek()->getdata()->set_Delivery_Time(tk->get_Speed());
 			Cargo_vipWaitingList->peek()->getdata()->set_Waiting_Time();
 			tk->add_Cargo(Cargo_vipWaitingList->peek()->getdata());
 			Cargo_vipWaitingList->dequeue();
 		}
+		tk->setMT(t);
 	}
 }
 
@@ -1266,6 +1282,7 @@ void Company::LoadNormal(Time t)
 		}
 	}
 }
+
 
 void Company::Load(Time t)
 {
