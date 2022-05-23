@@ -936,16 +936,25 @@ void Company::Truck_Loading_Moving(Time t)
 	{
 		if (/*Truck_vipLoadingList->getMT()*/1)
 		{
-
+			Truck_vipMovingList->add(Truck_vipLoadingList);
+			Truck_vipLoadingList = nullptr;
 		}
 	}
-	if (Truck_vipLoadingList)
+	if (Truck_specialLoadingList)
 	{
-
+		if (Truck_specialLoadingList->getMT() < t || t == Truck_specialLoadingList->getMT())
+		{
+			Truck_specialMovingList->add(Truck_specialLoadingList);
+			Truck_specialLoadingList = nullptr;
+		}
 	}
-	if (Truck_vipLoadingList)
+	if (Truck_normalLoadingList)
 	{
-
+		if (Truck_normalLoadingList->getMT() < t || t == Truck_normalLoadingList->getMT())
+		{
+			Truck_normalMovingList->add(Truck_normalLoadingList);
+			Truck_normalLoadingList = nullptr;
+		}
 	}
 }
 
@@ -960,118 +969,3 @@ bool Company::no_Wating_CargosLeft() {
 		Truck_specialMovingList->isempty() &&
 		Truck_vipMovingList->isempty();
 }
-
-//void Company::Simulate()
-//{
-//	Time t;
-//	Company* c1 = new Company();
-//	c1->LoadTrucksAndEventsData("megatest++");
-//	UI* uiObject = c1->GetUIObject();
-//
-//	int simMode;
-//	uiObject->PrintMessage("Which simulation mode would you like?\n");
-//	uiObject->PrintMessage("1-Interactive Mode 2-Step-By-Step Mode 3-Silent Mode\n");
-//	uiObject->GetInput(simMode);
-//	if (simMode == 2) {
-//		bool done = 0;
-//		while (!done) {
-//			done = c1->Execute_Events(t);
-//
-//			c1->MaxWait(Normal, t);
-//			c1->MaxWait(special, t);
-//			c1->AutoPromote(Normal, t);
-//			c1->MoveTrucksToCheckup(t);
-//			if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
-//				if (t.get_Hour() % 5 == 4) {
-//					c1->Moving_WaitingCargo(VIP, t);
-//					c1->Moving_WaitingCargo(special, t);
-//					c1->Moving_WaitingCargo(Normal, t);
-//					//c1->Increase_Timers();
-//				}
-//			}
-//			//if (t.get_Hour() % 5 == 4) {
-//			//	c1->Deliver_MovingCargo(VIP, t);
-//			//	c1->Deliver_MovingCargo(special, t);
-//			//	c1->Deliver_MovingCargo(Normal, t);
-//			//	c1->Deliver_Timers();
-//			//}
-//			//c1->Deliver_Timers();
-//
-//			done &= c1->noCargosLeft();
-//
-//			c1->PrintToConsole(t);
-//
-//			t++;
-//			Sleep(10);
-//		}
-//	}
-//	else if (simMode == 1) {
-//		char enterKeyPressed;
-//		bool done = 0;
-//		Time counter(0, 0);
-//		bool shipping = false;
-//		while (!done) {
-//			uiObject->PrintMessage("Press Enter to Continue...\n");
-//			uiObject->getLine(&enterKeyPressed, 1);
-//
-//			done = c1->Execute_Events(t);
-//
-//			c1->MaxWait(Normal, t);
-//			c1->MaxWait(special, t);
-//			c1->AutoPromote(Normal, t);
-//			c1->MoveTrucksToCheckup(t);
-//			if (t.get_Hour() % 5 == 4 && t.get_Hour() >= 5 && t.get_Hour() <= 23) {
-//				c1->Moving_WaitingCargo(VIP, t);
-//				c1->Moving_WaitingCargo(special, t);
-//				c1->Moving_WaitingCargo(Normal, t);
-//				//c1->Increase_Timers();
-//			}
-//			//if (t.get_Hour() % 5 == 4) {
-//			//	c1->Deliver_MovingCargo(VIP, t);
-//			//	c1->Deliver_MovingCargo(special, t);
-//			//	c1->Deliver_MovingCargo(Normal, t);
-//			//	c1->Deliver_Timers();
-//			//}
-//			//c1->Deliver_Timers();
-//
-//			done &= c1->noCargosLeft();
-//
-//			c1->PrintToConsole(t);
-//
-//			t++;
-//		}
-//	}
-//	else {
-//		bool done = 0;
-//		uiObject->PrintMessage("Silent Mode\nSimulation Starts...\n");
-//		while (!done) {
-//			done = c1->Execute_Events(t);
-//
-//			c1->MaxWait(Normal, t);
-//			c1->MaxWait(special, t);
-//			c1->AutoPromote(Normal, t);
-//			c1->MoveTrucksToCheckup(t);
-//			if (t.get_Hour() % 5 == 4 && t.get_Hour() >= 5 && t.get_Hour() <= 23) {
-//				c1->Moving_WaitingCargo(VIP, t);
-//				c1->Moving_WaitingCargo(special, t);
-//				c1->Moving_WaitingCargo(Normal, t);
-//				//c1->Increase_Timers();
-//			}
-//			//if (t.get_Hour() % 5 == 4) {
-//			//	c1->Deliver_MovingCargo(VIP, t);
-//			//	c1->Deliver_MovingCargo(special, t);
-//			//	c1->Deliver_MovingCargo(Normal, t);
-//			//	c1->Deliver_Timers();
-//			//}
-//			//c1->Deliver_Timers();
-//
-//			done &= c1->noCargosLeft();
-//
-//			t++;
-//		}
-//		cout << "Simulation ends, Output file created\n";
-//	}
-//
-//	c1->PrintToFile("outtest");
-//
-//}
