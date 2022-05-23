@@ -91,68 +91,68 @@ void Company::PrintToConsole(Time t)
 
 	
 
-	//moving cargo
-	int s;
-	node<Truck>* trucks = MovingTrucks->GetAllNodes(s);
-	int sizeNormalMovingCargoArr =0;
-	int sizeSpecialMovingCargoArr =0;
-	int sizeVIPMovingCargoArr =0;
-	node<Cargo>* normalMovingCargoArr = nullptr;
-	node<Cargo>* specialMovingCargoArr = nullptr;
-	node<Cargo>* VIPMovingCargoArr=nullptr;
+	////moving cargo
+	//int s;
+	//node<Truck>* trucks = MovingTrucks->GetAllNodes(s);
+	//int sizeNormalMovingCargoArr =0;
+	//int sizeSpecialMovingCargoArr =0;
+	//int sizeVIPMovingCargoArr =0;
+	//node<Cargo>* normalMovingCargoArr = nullptr;
+	//node<Cargo>* specialMovingCargoArr = nullptr;
+	//node<Cargo>* VIPMovingCargoArr=nullptr;
 
-	for (int i = 0; i < s; i++)
-	{
-		if (trucks[i].getdata()->get_Type()==Normal)
-		{
-			normalMovingCargoArr = trucks[i].getdata()->getnumofcargos(sizeNormalMovingCargoArr);
-		}
-		if (trucks[i].getdata()->get_Type() == special)
-		{
-			specialMovingCargoArr = trucks[i].getdata()->getnumofcargos(sizeSpecialMovingCargoArr);
+	//for (int i = 0; i < s; i++)
+	//{
+	//	if (trucks[i].getdata()->get_Type()==Normal)
+	//	{
+	//		normalMovingCargoArr = trucks[i].getdata()->getnumofcargos(sizeNormalMovingCargoArr);
+	//	}
+	//	if (trucks[i].getdata()->get_Type() == special)
+	//	{
+	//		specialMovingCargoArr = trucks[i].getdata()->getnumofcargos(sizeSpecialMovingCargoArr);
 
-		}
-		if (trucks[i].getdata()->get_Type() == VIP)
-		{
-			VIPMovingCargoArr = trucks[i].getdata()->getnumofcargos(sizeVIPMovingCargoArr);
-		}
-	}
+	//	}
+	//	if (trucks[i].getdata()->get_Type() == VIP)
+	//	{
+	//		VIPMovingCargoArr = trucks[i].getdata()->getnumofcargos(sizeVIPMovingCargoArr);
+	//	}
+	//}
 
-	message += (to_string(sizeNormalMovingCargoArr+ sizeSpecialMovingCargoArr +sizeVIPMovingCargoArr) + " Moving Cargos: ");
-	
-	message += "[";
-	for (int i = 0; i < sizeNormalMovingCargoArr; i++) {
-		message += (to_string(normalMovingCargoArr[i].getdata()->get_ID()));
-		if (i != sizeNormalMovingCargoArr - 1) {
-			message += ",";
-		}
-	}
-	message += "] ";
-	
-	message += "(";
-	for (int i = 0; i < sizeSpecialMovingCargoArr; i++) {
-		message += (to_string(specialMovingCargoArr[i].getdata()->get_ID()));
-		if (i != sizeSpecialMovingCargoArr - 1) {
-			message += ",";
-		}
-	}
-	message += ") ";
+	//message += (to_string(sizeNormalMovingCargoArr+ sizeSpecialMovingCargoArr +sizeVIPMovingCargoArr) + " Moving Cargos: ");
+	//
+	//message += "[";
+	//for (int i = 0; i < sizeNormalMovingCargoArr; i++) {
+	//	message += (to_string(normalMovingCargoArr[i].getdata()->get_ID()));
+	//	if (i != sizeNormalMovingCargoArr - 1) {
+	//		message += ",";
+	//	}
+	//}
+	//message += "] ";
+	//
+	//message += "(";
+	//for (int i = 0; i < sizeSpecialMovingCargoArr; i++) {
+	//	message += (to_string(specialMovingCargoArr[i].getdata()->get_ID()));
+	//	if (i != sizeSpecialMovingCargoArr - 1) {
+	//		message += ",";
+	//	}
+	//}
+	//message += ") ";
 
-	message += "{";
-	for (int i = 0; i < sizeVIPMovingCargoArr; i++) {
-		message += (to_string(VIPMovingCargoArr[i].getdata()->get_ID()));
-		if (i != sizeVIPMovingCargoArr - 1) {
-			message += ",";
-		}
-	}
-	message += "} ";
-	
-	message += "\n";
-	message += "----------------------------------------------------------------------\n";
+	//message += "{";
+	//for (int i = 0; i < sizeVIPMovingCargoArr; i++) {
+	//	message += (to_string(VIPMovingCargoArr[i].getdata()->get_ID()));
+	//	if (i != sizeVIPMovingCargoArr - 1) {
+	//		message += ",";
+	//	}
+	//}
+	//message += "} ";
+	//
+	//message += "\n";
+	//message += "----------------------------------------------------------------------\n";
 
 	//in-checkup trucks
 
-	int incheckupCount = Truck_normalMaintenanceList->getSize()+ Truck_specialMaintenanceList->getSize()+ Truck_VIPMaintenanceList->getSize();
+	/*int incheckupCount = Truck_normalMaintenanceList->getSize()+ Truck_specialMaintenanceList->getSize()+ Truck_VIPMaintenanceList->getSize();
 
 	message += (to_string(incheckupCount) + " In-Checkup Trucks: ");
 
@@ -205,7 +205,7 @@ void Company::PrintToConsole(Time t)
 	}
 		message += "} \n";
 
-	message += "------------------------------------------------------------------------\n";
+	message += "------------------------------------------------------------------------\n";*/
 
 	//delivered cargo
 	int deliveredCargosCount = Cargo_DeliveredList->getSize();
