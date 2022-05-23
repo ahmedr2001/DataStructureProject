@@ -118,6 +118,10 @@ public:
 
 	UI* GetUIObject();
 
+	void LoadVIP(Time t);
+	void LoadSpecial(Time t);
+	void LoadNormal(Time t);
+
 	void Truck_Loading_Moving(Time t);
 
 	void loadcargo(Truck* tk,Time t);
