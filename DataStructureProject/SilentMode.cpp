@@ -7,7 +7,7 @@ void SilentMode::Simulate(Company* c1, Time& t, UI* uiObject)
 	while (!done) {
 		done = c1->Execute_Events(t);
 
-		c1->AutoPromote(Normal, t);
+		//c1->AutoPromote(Normal, t);
 		c1->MaxWait(Normal, t);
 		c1->MaxWait(special, t);
 		c1->Load(t);
