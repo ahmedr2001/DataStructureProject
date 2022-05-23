@@ -1081,7 +1081,13 @@ bool Company::noCargosLeft()
 {
 	return (noNormalCargosLeft()
 		&& noSpecialCargosLeft()
-		&& noVIPCargosLeft());
+		&& noVIPCargosLeft())&&
+		Truck_normalMaintenanceList->isempty() &&
+		Truck_specialMaintenanceList->isempty() &&
+		Truck_VIPMaintenanceList->isempty() &&
+		Truck_normalMovingList->isempty() &&
+		Truck_specialMovingList->isempty() &&
+		Truck_vipMovingList->isempty();
 }
 
 UI* Company::GetUIObject()
@@ -1122,7 +1128,15 @@ void Company::Truck_Loading_Moving(Time t)
 
 void Company::loadcargo(Truck* tk,Time& t)
 {
-	if (tk->get_Type()==Normal)
+	node<Cargo>* temp = Cargo_normalWaitingList->gethead();
+	
+	int totalloadtime = 0;
+	while (temp) {
+		totalloadtime = totalloadtime + temp->getdata()->get_Load_Time();
+		temp = temp->getnext();
+	}
+	
+	if (tk->get_Type()==Normal && L_N_timer == totalloadtime)
 	{
 		for (int i = 0; i < tk->get_Capacity(); i++)
 		{
@@ -1151,6 +1165,7 @@ void Company::loadcargo(Truck* tk,Time& t)
 			tk->add_Cargo(Cargo_specialLoadingList->peek()->getdata());
 			Cargo_specialLoadingList->dequeue();
 		}
+		tk->setMT(t);
 	}
 	if (tk->get_Type() == VIP)
 	{
@@ -1166,6 +1181,7 @@ void Company::loadcargo(Truck* tk,Time& t)
 			tk->add_Cargo(Cargo_vipLoadingList->peek()->getdata());
 			Cargo_vipLoadingList->dequeue();
 		}
+		tk->setMT(t);
 	}
 }
 
@@ -1194,13 +1210,7 @@ void Company::Truck_Waiting_Loading(Truck* tk)
 bool Company::no_Wating_CargosLeft() {
 	return(Cargo_normalWaitingList->isempty() &&
 		Cargo_specialWaitingList->isempty() &&
-		Cargo_vipWaitingList->isempty()) &&
-		Truck_normalMaintenanceList->isempty() &&
-		Truck_specialMaintenanceList->isempty() &&
-		Truck_VIPMaintenanceList->isempty() &&
-		Truck_normalMovingList->isempty() &&
-		Truck_specialMovingList->isempty() &&
-		Truck_vipMovingList->isempty();
+		Cargo_vipWaitingList->isempty());
 }
 
 void Company::LoadVIP(Time t)
@@ -1269,6 +1279,7 @@ void Company::LoadNormal(Time t)
 		}
 	}
 }
+
 
 void Company::Load(Time t)
 {

@@ -48,9 +48,9 @@ protected:
 	Time Special_timer;//for loading
 	Time Vip_timer;//for loading
 
-	Time D_N_timer;//Load Time resets when a new cargo comes & old cargo delivered
-	Time D_S_timer;//for loading
-	Time D_V_timer;//for loading
+	int L_N_timer;//Load Time resets when a new cargo comes & old cargo delivered
+	int L_S_timer;//for loading
+	int L_V_timer;//for loading
 
 	queue<Event>* eventList;
 
