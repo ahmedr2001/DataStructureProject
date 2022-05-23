@@ -73,11 +73,11 @@ protected:
 	Truck* Truck_normalLoadingList;
 	Truck* Truck_specialLoadingList;
 
-	//linkedlist<Truck>* Truck_vipMovingList;
-	//linkedlist<Truck>* Truck_normalMovingList;
-	//linkedlist<Truck>* Truck_specialMovingList;
+	linkedlist<Truck>* Truck_vipMovingList;
+	linkedlist<Truck>* Truck_normalMovingList;
+	linkedlist<Truck>* Truck_specialMovingList;
 
-	linkedlist<Truck>* MovingTrucks;
+	/*linkedlist<Truck>* MovingTrucks;*/
 
 	queue<Truck>* Truck_normalMaintenanceList;
 	queue<Truck>* Truck_specialMaintenanceList;
