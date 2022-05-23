@@ -81,13 +81,67 @@ void Company::PrintToConsole(Time t)
 	message += "----------------------------------------------------------------------\n";
 
 
-	/*
-
-
+	
 	//loading trucks
 	
+	int loadingCount = Truck_vipLoadingList?1:0+ Truck_specialLoadingList ? 1 : 0 + Truck_normalLoadingList ? 1 : 0;
 
-	*/
+	message += (to_string(loadingCount) + " Loading Trucks: ");
+
+	
+	int sizeNormalloadArr = 0;
+	int sizeSpecialloadArr = 0;
+	int sizeVIPloadArr = 0;
+	node<Cargo>* NormalloadArr =nullptr;
+	node<Cargo>* SpecialloadArr = nullptr;
+	node<Cargo>* VIPloadArr = nullptr;
+
+	message += to_string(Truck_normalLoadingList?Truck_normalLoadingList->getID():0);
+	message += "[";
+	if (Truck_normalLoadingList)
+	{
+		NormalloadArr = Truck_normalLoadingList->getnumofcargos(sizeNormalloadArr);
+	}
+
+	for (int i = 0; i < sizeNormalloadArr; i++) {
+			message += (to_string(NormalloadArr[i].getdata()->get_ID()));
+			if (i != sizeNormalloadArr - 1) {
+				message += ",";
+			}
+	}
+	message += "] ";
+
+	message += to_string(Truck_specialLoadingList ? Truck_specialLoadingList->getID() : 0);
+	message += "(";
+	if (Truck_specialLoadingList)
+	{
+		SpecialloadArr = Truck_specialLoadingList->getnumofcargos(sizeSpecialloadArr);
+	}
+	for (int i = 0; i < sizeSpecialloadArr; i++) {
+		message += (to_string(SpecialloadArr[i].getdata()->get_ID()));
+		if (i != sizeSpecialloadArr - 1) {
+			message += ",";
+		}
+	}
+	message += ") ";
+
+	message += to_string(Truck_vipLoadingList ? Truck_vipLoadingList->getID() : 0);
+	message += "{";
+	if (Truck_vipLoadingList)
+	{
+		VIPloadArr = Truck_vipLoadingList->getnumofcargos(sizeVIPloadArr);
+	}
+	for (int i = 0; i < sizeVIPloadArr; i++) {
+		message += (to_string(VIPloadArr[i].getdata()->get_ID()));
+		if (i != sizeVIPloadArr - 1) {
+			message += ",";
+		}
+	}
+	message += "} \n";
+
+	message += "------------------------------------------------------------------------\n";
+
+	
 
 	
 
