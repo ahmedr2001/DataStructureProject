@@ -86,7 +86,7 @@ protected:
 	bool noNormalCargosLeft();
 	bool noSpecialCargosLeft();
 	bool noVIPCargosLeft();
-	bool companyIsOpen;
+	
 	UI* uiObject;
 	
 public:

@@ -30,7 +30,6 @@ Company::Company()
 	Truck_vipLoadingList = nullptr;
 	Truck_normalLoadingList = nullptr;
 	Truck_specialLoadingList = nullptr;
-	companyIsOpen = true;
 
 }
 void Company::PrintToConsole(Time t)
@@ -725,7 +724,7 @@ void Company::Moving_WaitingCargo(Type t, Time MT){
 	{
 	case Normal:
 		if (!Cargo_normalWaitingList->isempty()) {
-			if (/*Normal_timer.get_Hour() >= 5*/1) {
+			if (1) {
 				temp->setdata(Cargo_normalWaitingList->gethead()->getdata());
 				temp->getdata()->set_Move_Time(MT);
 				temp->getdata()->setDTPhaseOne(MT);
@@ -743,7 +742,7 @@ void Company::Moving_WaitingCargo(Type t, Time MT){
 		break;
 	case special:
 		if (!Cargo_specialWaitingList->isempty()) {
-			if (/*Special_timer.get_Hour() >= 5*/1) {
+			if (1) {
 				temp->setdata(Cargo_specialWaitingList->peek()->getdata());
 				temp->getdata()->set_Move_Time(MT);
 				temp->getdata()->setDTPhaseOne(MT);
@@ -829,6 +828,89 @@ void Company::Moving_WaitingCargo(Type t, Time MT){
 //	delete temp;
 //}
 
+void Company::Deliver_MovingCargo(Type t, Time DT){
+	node<Cargo>* temp;
+	node<Truck>* ptr;
+	int num = 0;
+	switch (t)
+	{
+	case Normal:
+		num = Truck_normalMovingList->getSize();
+		ptr = Truck_normalMovingList->gethead();
+		for (int i = 0; i < num;i++) {
+
+			if (!ptr->getdata()->Truckisempty()) {
+				linkedlist<Cargo>* tempoCargo = ptr->getdata()->getCargolist();
+				int num2 = tempoCargo->getSize();
+				node<Cargo>* tcargo = tempoCargo->gethead();
+				for (int j = 0; i < num2; i++) {
+					if (tcargo->getdata()->get_Delivery_Time() < DT || tcargo->getdata()->get_Delivery_Time() == DT) {
+						temp = new node<Cargo>;
+						temp->setdata(tcargo->getdata());
+						Cargo_DeliveredList->enqueue(temp->getdata());
+						tempoCargo->deletenode(tcargo);
+					}
+					tcargo = tcargo->getnext();
+				}
+
+			}
+			
+			ptr = ptr->getnext();
+		}
+		break;
+	case special:
+		num = Truck_specialMovingList->getSize();
+		ptr = Truck_specialMovingList->gethead();
+		for (int i = 0; i < num; i++) {
+
+			if (!ptr->getdata()->Truckisempty()) {
+				linkedlist<Cargo>* tempoCargo = ptr->getdata()->getCargolist();
+				int num2 = tempoCargo->getSize();
+				node<Cargo>* tcargo = tempoCargo->gethead();
+				for (int j = 0; i < num2; i++) {
+					if (tcargo->getdata()->get_Delivery_Time() < DT || tcargo->getdata()->get_Delivery_Time() == DT) {
+						temp = new node<Cargo>;
+						temp->setdata(tcargo->getdata());
+						Cargo_DeliveredList->enqueue(temp->getdata());
+						tempoCargo->deletenode(tcargo);
+					}
+					tcargo = tcargo->getnext();
+				}
+
+			}
+
+			ptr = ptr->getnext();
+		}
+		break;
+	case VIP:
+		num = Truck_vipMovingList->getSize();
+		ptr = Truck_vipMovingList->gethead();
+		for (int i = 0; i < num; i++) {
+
+			if (!ptr->getdata()->Truckisempty()) {
+				linkedlist<Cargo>* tempoCargo = ptr->getdata()->getCargolist();
+				int num2 = tempoCargo->getSize();
+				node<Cargo>* tcargo = tempoCargo->gethead();
+				for (int j = 0; i < num2; i++) {
+					if (tcargo->getdata()->get_Delivery_Time() < DT || tcargo->getdata()->get_Delivery_Time() == DT) {
+						temp = new node<Cargo>;
+						temp->setdata(tcargo->getdata());
+						Cargo_DeliveredList->enqueue(temp->getdata());
+						tempoCargo->deletenode(tcargo);
+					}
+					tcargo = tcargo->getnext();
+				}
+
+			}
+
+			ptr = ptr->getnext();
+		}
+		break;
+	default:
+		break;
+	}
+
+}
 void Company::PrintToFile(string filename, Time t)
 {
 	ofstream outFile(filename + ".txt", ios::out);
@@ -1130,14 +1212,3 @@ bool Company::no_Wating_CargosLeft() {
 //	c1->PrintToFile("outtest");
 //
 //}
-void Company::OpenCompany() {
-	companyIsOpen = true;
-}
-void Company::CloseCompany(){
-	companyIsOpen = false;
-}
-void Company::LoadCargoToTruck(Truck* myTruck) {
-	if (companyIsOpen) {
-
-	}
-}

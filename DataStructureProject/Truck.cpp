@@ -184,7 +184,26 @@ Time Truck::getMT() const
 {
 	return moveTime;
 }
+Time Truck::getDeliverTimeOfAllCargos() {
+	//for loop for hima
 
+	return DeliverTime;
+}
+
+bool Truck::Truckisempty() {
+	return cargolist->isempty();
+}
+
+node<Cargo>* Truck::HeadCargo() {
+	return cargolist->gethead();
+}
+
+void Truck::removeHeadCargo() {
+	cargolist->deletenode(cargolist->gethead());
+}
+linkedlist<Cargo>* Truck::getCargolist() {
+	return cargolist;
+}
 // Leave for now
 
 void Truck::LoadFromStreamFile()
