@@ -953,6 +953,25 @@ UI* Company::GetUIObject()
 	return uiObject;
 }
 
+void Company::Truck_Loading_Moving(Time t)
+{
+	if (Truck_vipLoadingList)
+	{
+		if (Truck_vipLoadingList->getMT()==)
+		{
+
+		}
+	}
+	if (Truck_vipLoadingList)
+	{
+
+	}
+	if (Truck_vipLoadingList)
+	{
+
+	}
+}
+
 bool Company::no_Wating_CargosLeft() {
 	return(Cargo_normalWaitingList->isempty() &&
 		Cargo_specialWaitingList->isempty() &&

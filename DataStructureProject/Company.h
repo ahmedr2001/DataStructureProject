@@ -77,7 +77,7 @@ protected:
 	linkedlist<Truck>* Truck_normalMovingList;
 	linkedlist<Truck>* Truck_specialMovingList;
 
-	/*linkedlist<Truck>* MovingTrucks;*/
+	linkedlist<Truck>* MovingTrucks;
 
 	queue<Truck>* Truck_normalMaintenanceList;
 	queue<Truck>* Truck_specialMaintenanceList;
@@ -117,4 +117,6 @@ public:
 	void Deliver_Timers();
 
 	UI* GetUIObject();
+
+	void Truck_Loading_Moving(Time t);
 };
