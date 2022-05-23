@@ -119,4 +119,6 @@ public:
 	UI* GetUIObject();
 
 	void Truck_Loading_Moving(Time t);
+
+	void loadcargo(Truck* tk,Time t);
 };

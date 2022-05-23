@@ -43,7 +43,7 @@ void Truck::add_Cargo(Cargo* c)
 {
 	if (loaded < Capacity)
 	{
-		cargolist->add(c);
+		cargolist->addWithPriority(c,1,0,0);
 		loaded++;
 	}
 }
