@@ -152,7 +152,7 @@ void Company::PrintToConsole(Time t)
 
 	//in-checkup trucks
 
-	/*int incheckupCount = Truck_normalMaintenanceList->getSize()+ Truck_specialMaintenanceList->getSize()+ Truck_VIPMaintenanceList->getSize();
+	int incheckupCount = Truck_normalMaintenanceList->getSize()+ Truck_specialMaintenanceList->getSize()+ Truck_VIPMaintenanceList->getSize();
 
 	message += (to_string(incheckupCount) + " In-Checkup Trucks: ");
 
@@ -165,47 +165,32 @@ void Company::PrintToConsole(Time t)
 	node<Truck>* VIPmainArr = Truck_VIPMaintenanceList->GetAllNodes(sizeVIPmainArr);
 	
 	for (int i = 0; i < sizeNormalmainArr; i++) {
-		int nn=0;
-		node<Cargo>* tn=NormalmainArr[i].getdata()->getnumofcargos(nn);
-		for (int j = 0; j < nn; j++)
-		{
-			message += (to_string(tn->getdata()->get_ID()));
-			if (j != sizeNormalmainArr - 1) {
+			message += (to_string(NormalmainArr[i].getdata()->getID()));
+			if (i != sizeNormalmainArr - 1) {
 				message += ",";
 			}
-		}
 	}
 	message += "] ";
 	
 	message += "(";
 	for (int i = 0; i < sizeSpecialmainArr; i++) {
-		int sn;
-		node<Cargo>* ts = SpecialmainArr[i].getdata()->getnumofcargos(sn);
-		for (int i = 0; i < sn; i++)
-		{
-			message += (to_string(ts->getdata()->get_ID()));
-			if (i != sizeSpecialmainArr - 1) {
-				message += ",";
-			}
+		message += (to_string(SpecialmainArr[i].getdata()->getID()));
+		if (i != sizeSpecialmainArr - 1) {
+			message += ",";
 		}
 	}
-		message += ") ";
+	message += ") ";
 
 	message += "{";
 	for (int i = 0; i < sizeVIPmainArr; i++) {
-		int vn;
-		node<Cargo>* tv = VIPmainArr[i].getdata()->getnumofcargos(vn);
-		for (int i = 0; i < vn; i++)
-		{
-			message += (to_string(tv->getdata()->get_ID()));
-			if (i != sizeVIPmainArr - 1) {
-				message += ",";
-			}
+		message += (to_string(VIPmainArr[i].getdata()->getID()));
+		if (i != sizeVIPmainArr - 1) {
+			message += ",";
 		}
 	}
-		message += "} \n";
+	message += "} \n";
 
-	message += "------------------------------------------------------------------------\n";*/
+	message += "------------------------------------------------------------------------\n";
 
 	//delivered cargo
 	int deliveredCargosCount = Cargo_DeliveredList->getSize();
