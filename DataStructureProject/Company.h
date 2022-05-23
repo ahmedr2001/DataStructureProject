@@ -86,7 +86,7 @@ protected:
 	bool noNormalCargosLeft();
 	bool noSpecialCargosLeft();
 	bool noVIPCargosLeft();
-
+	
 	UI* uiObject;
 	
 public:
@@ -125,6 +125,6 @@ public:
 	void Truck_Loading_Moving(Time t);
 
 	void loadcargo(Truck* tk,Time t);
-
+	void Load(Time t);
 	void Truck_Waiting_Loading(Truck* tk);
 };

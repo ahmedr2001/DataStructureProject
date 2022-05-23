@@ -17,6 +17,7 @@ private:
 	int utilization;
 	int ID;
 	int cargosDelivered;
+	Time DeliverTime;
 	Type trucktype; // truck type (vip-normal-special)
 	Time finishTime;
 	Time moveTime;
@@ -37,6 +38,7 @@ public:
 	void increaseCargosDelivered(int c);
 	void setUtil(int util);
 
+	node<Cargo>* HeadCargo();
 	int getUtil();
 	int getCargosDelivered();
 	int getActiveTime();
@@ -51,8 +53,11 @@ public:
 	Time getMT() const;
 	int getID();
 	int getPriority(int a, int b, int c);
+	Time getDeliverTimeOfAllCargos();
 	node<Cargo>* getnumofcargos(int& cnt);
-
+	void removeHeadCargo();
+	bool Truckisempty();
+	linkedlist<Cargo>* getCargolist();
 	void LoadFromStreamFile(); // load from .txt file
 	void OutToStreamFile(); // output to console
 };
