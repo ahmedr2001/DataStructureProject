@@ -123,4 +123,6 @@ public:
 	void LoadNormal(Time t);
 
 	void Truck_Loading_Moving(Time t);
+
+	void loadcargo(Truck* tk,Time t);
 };
