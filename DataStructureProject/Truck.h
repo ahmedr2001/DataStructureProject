@@ -60,4 +60,7 @@ public:
 	linkedlist<Cargo>* getCargolist();
 	void LoadFromStreamFile(); // load from .txt file
 	void OutToStreamFile(); // output to console
+
+
+	void LoadAuxiliary();
 };

@@ -62,23 +62,25 @@ int Time::get_Hour()
 
 Time Time::operator+(int intervalInHours)
 {
-	hour = (intervalInHours % 24 + hour) % 24;
-	day = intervalInHours / 24 + day;
-	if (hour == 0 && intervalInHours)day++;
-	return *this;
+	Time t;
+	t.set_Hour((intervalInHours % 24 + hour) % 24);
+	t.set_Day(intervalInHours / 24 + day);
+	if (t.get_Hour() <= hour && intervalInHours)t.set_Day(t.get_Day() + 1);
+	return t;
 }
 
-Time& Time::operator-(Time nextTime)
+Time Time::operator-(Time nextTime)
 {
+	Time t;
 	if (nextTime.get_Hour() > hour) {
-		day = day - nextTime.get_Day() - 1;
-		hour = hour - nextTime.get_Hour() + 24;
+		t.set_Day(day - nextTime.get_Day() - 1);
+		t.set_Hour(hour - nextTime.get_Hour() + 24);
 	}
-	else { day = day - nextTime.get_Day(); 
-	hour = hour - nextTime.get_Hour();
+	else { t.set_Day(day - nextTime.get_Day()); 
+	t.set_Hour(hour - nextTime.get_Hour());
 	}
 
-	return *this;
+	return t;
 }
 
 void Time::operator++(int)

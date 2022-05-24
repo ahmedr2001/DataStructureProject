@@ -219,3 +219,14 @@ void Truck::LoadFromStreamFile()
 void Truck::OutToStreamFile()
 {
 }
+
+void Truck::LoadAuxiliary()
+{
+	node<Cargo>* cgo = cargolist->gethead();
+	while (cgo) {
+		cgo->getdata()->set_Move_Time(moveTime);
+		cgo->getdata()->set_Delivery_Time(speed);
+		cgo->getdata()->set_Waiting_Time();
+		cgo = cgo->getnext();
+	}
+}
