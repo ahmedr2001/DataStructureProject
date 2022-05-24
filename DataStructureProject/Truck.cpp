@@ -8,6 +8,12 @@ Truck::Truck(Type t, int cap, int ct, int s, int id)
 	ID = id;
 	active_time = 0;
 	cargosDelivered = 0;
+	DI = 0;
+	utilization = 0;
+	DeliverTime = Time();
+	finishTime = Time();
+	moveTime = Time();
+	checkupEnd = Time();
 	set_Type(t);
 	set_Capacity(cap);
 	set_Check_Time(ct);
@@ -212,4 +218,15 @@ void Truck::LoadFromStreamFile()
 
 void Truck::OutToStreamFile()
 {
+}
+
+void Truck::LoadAuxiliary()
+{
+	node<Cargo>* cgo = cargolist->gethead();
+	while (cgo) {
+		cgo->getdata()->set_Move_Time(moveTime);
+		cgo->getdata()->set_Delivery_Time(speed);
+		cgo->getdata()->set_Waiting_Time();
+		cgo = cgo->getnext();
+	}
 }

@@ -7,6 +7,10 @@ Cargo::Cargo()
 Cargo::Cargo(Time pt, int lt, int ID, Type t, int c, int d) {
 	setpriority = true;
 	TID = 0;
+	Move_Time = Time();
+	Waiting_Time = Time();
+	Delivery_Time = Time();
+	deliveryTime_PhaseOne = Time();
 	set_Pre_Time(pt);
 	set_Load_Time(lt);
 	set_Cost(c);

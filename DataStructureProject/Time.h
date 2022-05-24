@@ -15,7 +15,7 @@ public:
 	int get_Day();
 	int get_Hour();
 	Time operator+(int intervalInHours);
-	Time& operator-(Time nextTime);
+	Time operator-(Time nextTime);
 	void operator++(int);
 	//Time& operator=(Time& t);
 	int TimeToHours();
