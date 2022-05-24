@@ -141,68 +141,81 @@ void Company::PrintToConsole(Time t)
 
 	message += "------------------------------------------------------------------------\n";
 
-	
-
-	
-
 	////moving cargo
-	//int s;
-	//node<Truck>* trucks = MovingTrucks->GetAllNodes(s);
-	//int sizeNormalMovingCargoArr =0;
-	//int sizeSpecialMovingCargoArr =0;
-	//int sizeVIPMovingCargoArr =0;
-	//node<Cargo>* normalMovingCargoArr = nullptr;
-	//node<Cargo>* specialMovingCargoArr = nullptr;
-	//node<Cargo>* VIPMovingCargoArr=nullptr;
+	
+	int sizeNormalmoveArr = 0;
+	int sizeSpecialmoveArr = 0;
+	int sizeVIPmoveArr = 0;
+	node<Truck>* NormalmoveArr = nullptr;
+	node<Truck>* SpecialmoveArr = nullptr;
+	node<Truck>* VIPmoveArr = nullptr;
+	int n=0;
 
-	//for (int i = 0; i < s; i++)
-	//{
-	//	if (trucks[i].getdata()->get_Type()==Normal)
-	//	{
-	//		normalMovingCargoArr = trucks[i].getdata()->getnumofcargos(sizeNormalMovingCargoArr);
-	//	}
-	//	if (trucks[i].getdata()->get_Type() == special)
-	//	{
-	//		specialMovingCargoArr = trucks[i].getdata()->getnumofcargos(sizeSpecialMovingCargoArr);
+	if (Truck_normalMovingList)
+	{
+		NormalmoveArr = Truck_normalMovingList->GetAllNodes(sizeNormalmoveArr);
+		n += sizeNormalmoveArr;
+	}
+	if (Truck_specialMovingList)
+	{
+		SpecialmoveArr = Truck_specialMovingList->GetAllNodes(sizeSpecialmoveArr);
+		n += sizeSpecialmoveArr;
+	}
+	if (Truck_vipMovingList)
+	{
+		VIPmoveArr = Truck_vipMovingList->GetAllNodes(sizeVIPmoveArr);
+		n += sizeVIPmoveArr;
+	}
+	message += (to_string(n) + " Moving Cargos: ");
+	for (int i = 0; i < sizeNormalmoveArr; i++)
+	{
+		int csizeNormalmoveArr = 0;
+		node<Cargo>* cNormalmoveArr= NormalmoveArr[i].getdata()->getnumofcargos(csizeNormalmoveArr);
+		message += to_string(NormalmoveArr[i].getdata()->getID());
+		message += "[";
+		for (size_t i = 0; i < csizeNormalmoveArr; i++)
+		{
+			message += to_string(cNormalmoveArr[i].getdata()->get_ID());
+			if (i != csizeNormalmoveArr - 1) {
+				message += ",";
+			}
+		}
+		message += "] ";
+	}
+	
+	for (int i = 0; i < sizeSpecialmoveArr; i++)
+	{
+		int csizeSpecialmoveArr = 0;
+		node<Cargo>* cSpecialmoveArr = SpecialmoveArr[i].getdata()->getnumofcargos(csizeSpecialmoveArr);
+		message += to_string(SpecialmoveArr[i].getdata()->getID());
+		message += "(";
+		for (size_t i = 0; i < csizeSpecialmoveArr; i++)
+		{
+			message += to_string(cSpecialmoveArr[i].getdata()->get_ID());
+			if (i != csizeSpecialmoveArr - 1) {
+				message += ",";
+			}
+		}
+		message += ") ";
+	}
 
-	//	}
-	//	if (trucks[i].getdata()->get_Type() == VIP)
-	//	{
-	//		VIPMovingCargoArr = trucks[i].getdata()->getnumofcargos(sizeVIPMovingCargoArr);
-	//	}
-	//}
-
-	//message += (to_string(sizeNormalMovingCargoArr+ sizeSpecialMovingCargoArr +sizeVIPMovingCargoArr) + " Moving Cargos: ");
-	//
-	//message += "[";
-	//for (int i = 0; i < sizeNormalMovingCargoArr; i++) {
-	//	message += (to_string(normalMovingCargoArr[i].getdata()->get_ID()));
-	//	if (i != sizeNormalMovingCargoArr - 1) {
-	//		message += ",";
-	//	}
-	//}
-	//message += "] ";
-	//
-	//message += "(";
-	//for (int i = 0; i < sizeSpecialMovingCargoArr; i++) {
-	//	message += (to_string(specialMovingCargoArr[i].getdata()->get_ID()));
-	//	if (i != sizeSpecialMovingCargoArr - 1) {
-	//		message += ",";
-	//	}
-	//}
-	//message += ") ";
-
-	//message += "{";
-	//for (int i = 0; i < sizeVIPMovingCargoArr; i++) {
-	//	message += (to_string(VIPMovingCargoArr[i].getdata()->get_ID()));
-	//	if (i != sizeVIPMovingCargoArr - 1) {
-	//		message += ",";
-	//	}
-	//}
-	//message += "} ";
-	//
-	//message += "\n";
-	//message += "----------------------------------------------------------------------\n";
+	for (int i = 0; i < sizeVIPmoveArr; i++)
+	{
+		int csizeVIPmoveArr = 0;
+		node<Cargo>* cVIPmoveArr = VIPmoveArr[i].getdata()->getnumofcargos(csizeVIPmoveArr);
+		message += to_string(VIPmoveArr[i].getdata()->getID());
+		message += "{";
+		for (size_t i = 0; i < csizeVIPmoveArr; i++)
+		{
+			message += to_string(cVIPmoveArr[i].getdata()->get_ID());
+			if (i != csizeVIPmoveArr - 1) {
+				message += ",";
+			}
+		}
+		message += "} ";
+	}
+	message += "\n";
+	message += "------------------------------------------------------------------------\n";
 
 	//in-checkup trucks
 
@@ -529,74 +542,82 @@ void Company::MaxWait(Type t, Time T)
 	linkedlist<Cargo>* CargosToLoad = new linkedlist<Cargo>;
 	if (t == Normal) {
 		if (!Truck_normalWaitingList->isempty()) {
+			node<Cargo>* headPtr = Cargo_normalWaitingList->gethead();
 			while (!done) {
-				if (!Cargo_normalWaitingList->isempty()) {
-					node<Cargo>* cargoNode = Cargo_normalWaitingList->gethead();
+				if (headPtr) {
+					node<Cargo>* cargoNode = headPtr;
 					Cargo* c = cargoNode->getdata();
 					c->set_Move_Time(T);
 					c->set_Waiting_Time();
 					if (c->get_Waiting_Time().TimeToHours() >= MaxW) {
 						CargosToLoad->add(c);
-						Cargo_normalWaitingList->deletenode(cargoNode);
+						//Cargo_normalWaitingList->deletenode(cargoNode);
+						headPtr = headPtr->getnext();
 					}
 					else done = 1;
 				}
 				else done = 1;
 			}
-			bool loaded = 0;
-			int c = CargosToLoad->getSize();
-			while (!CargosToLoad->isempty()) {
-				node<Cargo>* cargoNode = CargosToLoad->gethead();
-				Cargo* c = cargoNode->getdata();
-				c->setTID(Truck_normalWaitingList->peek()->getdata()->getID());
-				Truck_normalWaitingList->peek()->getdata()->add_Cargo(c);
-				CargosToLoad->deletenode(cargoNode);
-				loaded = 1;
-			}
-			if (loaded) {
-				Truck* truck = Truck_normalWaitingList->peek()->getdata();
-				//MovingTrucks->add(truck);
-				if (!Truck_normalLoadingList) {
+			if (!Truck_normalLoadingList) {
+				bool loaded = 0;
+				int cnt = CargosToLoad->getSize();
+				while (!CargosToLoad->isempty()) {
+					node<Cargo>* cargoNode = CargosToLoad->gethead();
+					Cargo* c = cargoNode->getdata();
+					c->setTID(Truck_normalWaitingList->peek()->getdata()->getID());
+					Truck_normalWaitingList->peek()->getdata()->add_Cargo(c);
+					CargosToLoad->deletenode(cargoNode);
+					loaded = 1;
+				}
+				if (loaded) {
+					Truck* truck = Truck_normalWaitingList->peek()->getdata();
+					//MovingTrucks->add(truck);
 					Truck_normalLoadingList = truck;
 					truck->increaseActiveTime(T);
-					truck->increaseCargosDelivered(c);
+					truck->increaseCargosDelivered(cnt);
 					Truck_normalWaitingList->dequeue();
+					for (int i = 0; i < cnt; i++) {
+						Cargo_normalWaitingList->deletenode(Cargo_normalWaitingList->gethead());
+					}
 				}
 			}
 		}
 		else if (!Truck_specialWaitingList->isempty()) {
+			node<Cargo>* headPtr = Cargo_normalWaitingList->gethead();
 			while (!done) {
-				if (!Cargo_specialWaitingList->isempty()) {
-					node<Cargo>* cargoNode = Cargo_specialWaitingList->peek();
+				if (headPtr) {
+					node<Cargo>* cargoNode = headPtr;
 					Cargo* c = cargoNode->getdata();
 					c->set_Move_Time(T);
 					c->set_Waiting_Time();
 					if (c->get_Waiting_Time().TimeToHours() >= MaxW) {
 						CargosToLoad->add(c);
-						Cargo_specialWaitingList->dequeue();
+						headPtr = headPtr->getnext();
 					}
 					else done = 1;
 				}
 				else done = 1;
 			}
-			bool loaded = 0;
-			int c = CargosToLoad->getSize();
-			while (!CargosToLoad->isempty()) {
-				node<Cargo>* cargoNode = CargosToLoad->gethead();
-				Cargo* c = cargoNode->getdata();
-				c->setTID(Truck_specialWaitingList->peek()->getdata()->getID());
-				Truck_specialWaitingList->peek()->getdata()->add_Cargo(c);
-				CargosToLoad->deletenode(cargoNode);
-				loaded = 1;
-			}
-			if (loaded) {
-				Truck* truck = Truck_specialWaitingList->peek()->getdata();
-				//MovingTrucks->add(truck);
-				if (!Truck_specialLoadingList) {
+			if (!Truck_specialLoadingList) {
+				bool loaded = 0;
+				int cnt = CargosToLoad->getSize();
+				while (!CargosToLoad->isempty()) {
+					node<Cargo>* cargoNode = CargosToLoad->gethead();
+					Cargo* c = cargoNode->getdata();
+					c->setTID(Truck_specialWaitingList->peek()->getdata()->getID());
+					Truck_specialWaitingList->peek()->getdata()->add_Cargo(c);
+					CargosToLoad->deletenode(cargoNode);
+					loaded = 1;
+				}
+				if (loaded) {
+					Truck* truck = Truck_specialWaitingList->peek()->getdata();
 					Truck_specialLoadingList = truck;
 					truck->increaseActiveTime(T);
-					truck->increaseCargosDelivered(c);
+					truck->increaseCargosDelivered(cnt);
 					Truck_specialWaitingList->dequeue();
+					for (int i = 0; i < cnt; i++) {
+						Cargo_normalWaitingList->deletenode(Cargo_normalWaitingList->gethead());
+					}
 				}
 			}
 		}
@@ -606,36 +627,40 @@ void Company::MaxWait(Type t, Time T)
 	}
 	else if (t == special) {
 		if (!Truck_specialWaitingList->isempty()) {
+			node<Cargo>* headPtr = Cargo_specialWaitingList->peek();
 			while (!done) {
-				if (!Cargo_specialWaitingList->isempty()) {
-					Cargo* c = Cargo_specialWaitingList->peek()->getdata();
+				if (headPtr) {
+					Cargo* c = headPtr->getdata();
 					c->set_Move_Time(T);
 					c->set_Waiting_Time();
 					if (c->get_Waiting_Time().TimeToHours() >= MaxW) {
 						CargosToLoad->add(c);
-						Cargo_specialWaitingList->dequeue();
+						headPtr = headPtr->getnext();
 					}
 					else done = 1;
 				}
 				else done = 1;
 			}
-			bool loaded = 0;
-			int c = CargosToLoad->getSize();
-			while (!CargosToLoad->isempty()) {
-				node<Cargo>* cargoNode = CargosToLoad->gethead();
-				Cargo* c = cargoNode->getdata();
-				c->setTID(Truck_specialWaitingList->peek()->getdata()->getID());
-				Truck_specialWaitingList->peek()->getdata()->add_Cargo(c);
-				CargosToLoad->deletenode(cargoNode);
-				loaded = 1;
-			}
-			if (loaded) {
-				Truck* truck = Truck_specialWaitingList->peek()->getdata();
-				if (!Truck_specialLoadingList) {
+			if (!Truck_specialLoadingList) {
+				bool loaded = 0;
+				int cnt = CargosToLoad->getSize();
+				while (!CargosToLoad->isempty()) {
+					node<Cargo>* cargoNode = CargosToLoad->gethead();
+					Cargo* c = cargoNode->getdata();
+					c->setTID(Truck_specialWaitingList->peek()->getdata()->getID());
+					Truck_specialWaitingList->peek()->getdata()->add_Cargo(c);
+					CargosToLoad->deletenode(cargoNode);
+					loaded = 1;
+				}
+				if (loaded) {
+					Truck* truck = Truck_specialWaitingList->peek()->getdata();
 					Truck_specialLoadingList = truck;
 					truck->increaseActiveTime(T);
-					truck->increaseCargosDelivered(c);
+					truck->increaseCargosDelivered(cnt);
 					Truck_specialWaitingList->dequeue();
+					for (int i = 0; i < cnt; i++) {
+						Cargo_specialWaitingList->dequeue();
+					}
 				}
 			}
 		}
@@ -1128,15 +1153,7 @@ void Company::Truck_Loading_Moving(Time t)
 
 void Company::loadcargo(Truck* tk,Time& t)
 {
-	node<Cargo>* temp = Cargo_normalWaitingList->gethead();
-	
-	int totalloadtime = 0;
-	while (temp) {
-		totalloadtime = totalloadtime + temp->getdata()->get_Load_Time();
-		temp = temp->getnext();
-	}
-	
-	if (tk->get_Type()==Normal && L_N_timer == totalloadtime)
+	if (tk->get_Type()==Normal)
 	{
 		for (int i = 0; i < tk->get_Capacity(); i++)
 		{
@@ -1148,7 +1165,6 @@ void Company::loadcargo(Truck* tk,Time& t)
 			Cargo_normalLoadingList->peek()->getdata()->set_Delivery_Time(tk->get_Speed());
 			Cargo_normalLoadingList->peek()->getdata()->set_Waiting_Time();
 			tk->add_Cargo(Cargo_normalLoadingList->peek()->getdata());
-			Cargo_normalLoadingList->dequeue();
 		}
 	}
 	if (tk->get_Type() == special)
@@ -1163,7 +1179,6 @@ void Company::loadcargo(Truck* tk,Time& t)
 			Cargo_specialLoadingList->peek()->getdata()->set_Delivery_Time(tk->get_Speed());
 			Cargo_specialLoadingList->peek()->getdata()->set_Waiting_Time();
 			tk->add_Cargo(Cargo_specialLoadingList->peek()->getdata());
-			Cargo_specialLoadingList->dequeue();
 		}
 		tk->setMT(t);
 	}
@@ -1179,7 +1194,6 @@ void Company::loadcargo(Truck* tk,Time& t)
 			Cargo_vipLoadingList->peek()->getdata()->set_Delivery_Time(tk->get_Speed());
 			Cargo_vipLoadingList->peek()->getdata()->set_Waiting_Time();
 			tk->add_Cargo(Cargo_vipLoadingList->peek()->getdata());
-			Cargo_vipLoadingList->dequeue();
 		}
 		tk->setMT(t);
 	}
