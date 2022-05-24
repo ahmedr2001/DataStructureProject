@@ -82,7 +82,7 @@ void Truck::set_DI()
 		unloadTimes += cargoHead->getdata()->get_Load_Time();
 		cargoHead = cargoHead->getnext();
 	}
-	DI = 2 * int(round(double(maxDistance)) / speed) + unloadTimes;
+	DI = 2 * ceil(double(maxDistance) / speed) + unloadTimes;
 }
 
 void Truck::setMT(Time t)

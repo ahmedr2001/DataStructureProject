@@ -1055,7 +1055,7 @@ void Company::PrintToFile(string filename, Time t)
 				vcargon++;
 				break;
 			}
-			Time cdt = Cargo_DeliveredList->peek()->getdata()->getDTPhaseOne();
+			Time cdt = Cargo_DeliveredList->peek()->getdata()->get_Delivery_Time();
 			outFile << cdt ;
 			int id = Cargo_DeliveredList->peek()->getdata()->get_ID();
 			outFile << setw(5) << id ;
