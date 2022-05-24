@@ -9,6 +9,7 @@ void StepbystepMode::Simulate(Company* c1, Time& t)
 		c1->AutoPromote(Normal, t);
 		c1->MaxWait(Normal, t);
 		c1->MaxWait(special, t);
+		//c1->MaxWait(VIP, t);
 		c1->Load(t);
 		c1->Truck_Loading_Moving(t);
 

@@ -146,64 +146,80 @@ void Company::PrintToConsole(Time t)
 	
 
 	////moving cargo
-	//int s;
-	//node<Truck>* trucks = MovingTrucks->GetAllNodes(s);
-	//int sizeNormalMovingCargoArr =0;
-	//int sizeSpecialMovingCargoArr =0;
-	//int sizeVIPMovingCargoArr =0;
-	//node<Cargo>* normalMovingCargoArr = nullptr;
-	//node<Cargo>* specialMovingCargoArr = nullptr;
-	//node<Cargo>* VIPMovingCargoArr=nullptr;
 
-	//for (int i = 0; i < s; i++)
-	//{
-	//	if (trucks[i].getdata()->get_Type()==Normal)
-	//	{
-	//		normalMovingCargoArr = trucks[i].getdata()->getnumofcargos(sizeNormalMovingCargoArr);
-	//	}
-	//	if (trucks[i].getdata()->get_Type() == special)
-	//	{
-	//		specialMovingCargoArr = trucks[i].getdata()->getnumofcargos(sizeSpecialMovingCargoArr);
+	int sizeNormalmoveArr = 0;
+	int sizeSpecialmoveArr = 0;
+	int sizeVIPmoveArr = 0;
+	node<Truck>* NormalmoveArr = nullptr;
+	node<Truck>* SpecialmoveArr = nullptr;
+	node<Truck>* VIPmoveArr = nullptr;
+	int n = 0;
 
-	//	}
-	//	if (trucks[i].getdata()->get_Type() == VIP)
-	//	{
-	//		VIPMovingCargoArr = trucks[i].getdata()->getnumofcargos(sizeVIPMovingCargoArr);
-	//	}
-	//}
+	if (Truck_normalMovingList)
+	{
+		NormalmoveArr = Truck_normalMovingList->GetAllNodes(sizeNormalmoveArr);
+		n += sizeNormalmoveArr;
+	}
+	if (Truck_specialMovingList)
+	{
+		SpecialmoveArr = Truck_specialMovingList->GetAllNodes(sizeSpecialmoveArr);
+		n += sizeSpecialmoveArr;
+	}
+	if (Truck_vipMovingList)
+	{
+		VIPmoveArr = Truck_vipMovingList->GetAllNodes(sizeVIPmoveArr);
+		n += sizeVIPmoveArr;
+	}
+	message += (to_string(n) + " Moving Cargos: ");
+	for (int i = 0; i < sizeNormalmoveArr; i++)
+	{
+		int csizeNormalmoveArr = 0;
+		node<Cargo>* cNormalmoveArr = NormalmoveArr[i].getdata()->getnumofcargos(csizeNormalmoveArr);
+		message += to_string(NormalmoveArr[i].getdata()->getID());
+		message += "[";
+		for (size_t i = 0; i < csizeNormalmoveArr; i++)
+		{
+			message += to_string(cNormalmoveArr[i].getdata()->get_ID());
+			if (i != csizeNormalmoveArr - 1) {
+				message += ",";
+			}
+		}
+		message += "] ";
+	}
 
-	//message += (to_string(sizeNormalMovingCargoArr+ sizeSpecialMovingCargoArr +sizeVIPMovingCargoArr) + " Moving Cargos: ");
-	//
-	//message += "[";
-	//for (int i = 0; i < sizeNormalMovingCargoArr; i++) {
-	//	message += (to_string(normalMovingCargoArr[i].getdata()->get_ID()));
-	//	if (i != sizeNormalMovingCargoArr - 1) {
-	//		message += ",";
-	//	}
-	//}
-	//message += "] ";
-	//
-	//message += "(";
-	//for (int i = 0; i < sizeSpecialMovingCargoArr; i++) {
-	//	message += (to_string(specialMovingCargoArr[i].getdata()->get_ID()));
-	//	if (i != sizeSpecialMovingCargoArr - 1) {
-	//		message += ",";
-	//	}
-	//}
-	//message += ") ";
+	for (int i = 0; i < sizeSpecialmoveArr; i++)
+	{
+		int csizeSpecialmoveArr = 0;
+		node<Cargo>* cSpecialmoveArr = SpecialmoveArr[i].getdata()->getnumofcargos(csizeSpecialmoveArr);
+		message += to_string(SpecialmoveArr[i].getdata()->getID());
+		message += "(";
+		for (size_t i = 0; i < csizeSpecialmoveArr; i++)
+		{
+			message += to_string(cSpecialmoveArr[i].getdata()->get_ID());
+			if (i != csizeSpecialmoveArr - 1) {
+				message += ",";
+			}
+		}
+		message += ") ";
+	}
 
-	//message += "{";
-	//for (int i = 0; i < sizeVIPMovingCargoArr; i++) {
-	//	message += (to_string(VIPMovingCargoArr[i].getdata()->get_ID()));
-	//	if (i != sizeVIPMovingCargoArr - 1) {
-	//		message += ",";
-	//	}
-	//}
-	//message += "} ";
-	//
-	//message += "\n";
-	//message += "----------------------------------------------------------------------\n";
-
+	for (int i = 0; i < sizeVIPmoveArr; i++)
+	{
+		int csizeVIPmoveArr = 0;
+		node<Cargo>* cVIPmoveArr = VIPmoveArr[i].getdata()->getnumofcargos(csizeVIPmoveArr);
+		message += to_string(VIPmoveArr[i].getdata()->getID());
+		message += "{";
+		for (size_t i = 0; i < csizeVIPmoveArr; i++)
+		{
+			message += to_string(cVIPmoveArr[i].getdata()->get_ID());
+			if (i != csizeVIPmoveArr - 1) {
+				message += ",";
+			}
+		}
+		message += "} ";
+	}
+	message += "\n";
+	message += "------------------------------------------------------------------------\n";
 	//in-checkup trucks
 
 	int incheckupCount = Truck_normalMaintenanceList->getSize()+ Truck_specialMaintenanceList->getSize()+ Truck_VIPMaintenanceList->getSize();
@@ -353,11 +369,11 @@ void Company::LoadTrucksAndEventsData(string filename)
 		}
 		for (int i = 0; i < Special_Truck_Num; i++)
 		{
-			add_truck(special, i+1);
+			add_truck(special, i+1+Normal_Truck_Num);
 		}
 		for (int i = 0; i < Vip_Truck_Num; i++)
 		{
-			add_truck(VIP, i+1);
+			add_truck(VIP, i+1+Normal_Truck_Num+Special_Truck_Num);
 		}
 
 		inFile >> AutoP;
