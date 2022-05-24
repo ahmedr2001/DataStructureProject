@@ -835,63 +835,63 @@ void Company::MoveCheckupToAvail(Time t)
 	}
 }
 
-void Company::Moving_WaitingCargo(Type t, Time MT){
-	node<Cargo>* temp = new node<Cargo>;
-	Time avgWait;
-	switch (t)
-	{
-	case Normal:
-		if (!Cargo_normalWaitingList->isempty()) {
-			if (1) {
-				temp->setdata(Cargo_normalWaitingList->gethead()->getdata());
-				temp->getdata()->set_Move_Time(MT);
-				temp->getdata()->setDTPhaseOne(MT);
-				temp->getdata()->set_Waiting_Time();
-				if (temp->getdata()->get_Waiting_Time().TimeToHours() > AutoP) {
-					AutoPromote(Normal, MT);
-					return Moving_WaitingCargo(VIP, MT);
-				}
-				Cargo_DeliveredList->enqueue(temp->getdata());
-				Cargo_normalWaitingList->deletenode(Cargo_normalWaitingList->gethead());
-				Normal_timer.set_Hour(0);
-				Normal_timer.set_Day(0);
-			}
-		}
-		break;
-	case special:
-		if (!Cargo_specialWaitingList->isempty()) {
-			if (1) {
-				temp->setdata(Cargo_specialWaitingList->peek()->getdata());
-				temp->getdata()->set_Move_Time(MT);
-				temp->getdata()->setDTPhaseOne(MT);
-				temp->getdata()->set_Waiting_Time();
-				Cargo_DeliveredList->enqueue(temp->getdata());
-				Cargo_specialWaitingList->dequeue();
-				Special_timer.set_Hour(0);
-				Special_timer.set_Day(0);
-			}
-		}
-		break;
-	case VIP:
-		if (!Cargo_vipWaitingList->isempty()) {
-			if (/*Vip_timer.get_Hour() >= 5*/1) {
-				temp->setdata(Cargo_vipWaitingList->peek()->getdata());
-				temp->getdata()->set_Move_Time(MT);
-				temp->getdata()->setDTPhaseOne(MT);
-				temp->getdata()->set_Waiting_Time();
-				Cargo_DeliveredList->enqueue(temp->getdata());
-				Cargo_vipWaitingList->dequeue();
-				Vip_timer.set_Hour(0);
-				Vip_timer.set_Day(0);
-			}
-		}
-		break;
-	default:
-		break;
-	}
-
-	delete temp;
-}
+//void Company::Moving_WaitingCargo(Type t, Time MT){
+//	node<Cargo>* temp = new node<Cargo>;
+//	Time avgWait;
+//	switch (t)
+//	{
+//	case Normal:
+//		if (!Cargo_normalWaitingList->isempty()) {
+//			if (1) {
+//				temp->setdata(Cargo_normalWaitingList->gethead()->getdata());
+//				temp->getdata()->set_Move_Time(MT);
+//				temp->getdata()->setDTPhaseOne(MT);
+//				temp->getdata()->set_Waiting_Time();
+//				if (temp->getdata()->get_Waiting_Time().TimeToHours() > AutoP) {
+//					AutoPromote(Normal, MT);
+//					return Moving_WaitingCargo(VIP, MT);
+//				}
+//				Cargo_DeliveredList->enqueue(temp->getdata());
+//				Cargo_normalWaitingList->deletenode(Cargo_normalWaitingList->gethead());
+//				Normal_timer.set_Hour(0);
+//				Normal_timer.set_Day(0);
+//			}
+//		}
+//		break;
+//	case special:
+//		if (!Cargo_specialWaitingList->isempty()) {
+//			if (1) {
+//				temp->setdata(Cargo_specialWaitingList->peek()->getdata());
+//				temp->getdata()->set_Move_Time(MT);
+//				temp->getdata()->setDTPhaseOne(MT);
+//				temp->getdata()->set_Waiting_Time();
+//				Cargo_DeliveredList->enqueue(temp->getdata());
+//				Cargo_specialWaitingList->dequeue();
+//				Special_timer.set_Hour(0);
+//				Special_timer.set_Day(0);
+//			}
+//		}
+//		break;
+//	case VIP:
+//		if (!Cargo_vipWaitingList->isempty()) {
+//			if (/*Vip_timer.get_Hour() >= 5*/1) {
+//				temp->setdata(Cargo_vipWaitingList->peek()->getdata());
+//				temp->getdata()->set_Move_Time(MT);
+//				temp->getdata()->setDTPhaseOne(MT);
+//				temp->getdata()->set_Waiting_Time();
+//				Cargo_DeliveredList->enqueue(temp->getdata());
+//				Cargo_vipWaitingList->dequeue();
+//				Vip_timer.set_Hour(0);
+//				Vip_timer.set_Day(0);
+//			}
+//		}
+//		break;
+//	default:
+//		break;
+//	}
+//
+//	delete temp;
+//}
 
 //void Company::Deliver_Timers() {
 //	if (!Cargo_normalMovingList->isempty()) {
@@ -1200,7 +1200,7 @@ void Company::Truck_Loading_Moving(Time t)
 		if (Truck_vipLoadingList->getMT() < t || t == Truck_vipLoadingList->getMT())
 		{
 			Truck_vipLoadingList->setFT();
-			Truck_vipMovingList->add(Truck_vipLoadingList);
+			Truck_vipMovingList->addWithPriority(Truck_vipLoadingList,0,0,0);
 			Truck_vipLoadingList = nullptr;
 		}
 	}
@@ -1209,7 +1209,7 @@ void Company::Truck_Loading_Moving(Time t)
 		if (Truck_specialLoadingList->getMT() < t || t == Truck_specialLoadingList->getMT())
 		{
 			Truck_specialLoadingList->setFT();
-			Truck_specialMovingList->add(Truck_specialLoadingList);
+			Truck_specialMovingList->addWithPriority(Truck_specialLoadingList,0,0,0);
 			Truck_specialLoadingList = nullptr;
 		}
 	}
@@ -1218,7 +1218,7 @@ void Company::Truck_Loading_Moving(Time t)
 		if (Truck_normalLoadingList->getMT() < t || t == Truck_normalLoadingList->getMT())
 		{
 			Truck_normalLoadingList->setFT();
-			Truck_normalMovingList->add(Truck_normalLoadingList);
+			Truck_normalMovingList->addWithPriority(Truck_normalLoadingList,0,0,0);
 			Truck_normalLoadingList = nullptr;
 		}
 	}
@@ -1436,7 +1436,7 @@ void Company::LoadNormal(Time t)
 				loaded = 1;
 			}
 		}
-		if (!loaded && specialHead) {
+		if (!loaded && specialHead && !Truck_specialLoadingList) {
 			if (Cargo_normalWaitingList->getSize() >= specialHead->getdata()->get_Capacity()) {
 				loadcargo(specialHead->getdata(), t, Normal);
 				Truck_Waiting_Loading(specialHead->getdata());
