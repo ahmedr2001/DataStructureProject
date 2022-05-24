@@ -1200,7 +1200,7 @@ void Company::Truck_Loading_Moving(Time t)
 		if (Truck_vipLoadingList->getMT() < t || t == Truck_vipLoadingList->getMT())
 		{
 			Truck_vipLoadingList->setFT();
-			Truck_vipMovingList->addWithPriority(Truck_vipLoadingList,0,0,0);
+			Truck_vipMovingList->add(Truck_vipLoadingList);
 			Truck_vipLoadingList = nullptr;
 		}
 	}
@@ -1209,7 +1209,7 @@ void Company::Truck_Loading_Moving(Time t)
 		if (Truck_specialLoadingList->getMT() < t || t == Truck_specialLoadingList->getMT())
 		{
 			Truck_specialLoadingList->setFT();
-			Truck_specialMovingList->addWithPriority(Truck_specialLoadingList,0,0,0);
+			Truck_specialMovingList->add(Truck_specialLoadingList);
 			Truck_specialLoadingList = nullptr;
 		}
 	}
@@ -1218,7 +1218,7 @@ void Company::Truck_Loading_Moving(Time t)
 		if (Truck_normalLoadingList->getMT() < t || t == Truck_normalLoadingList->getMT())
 		{
 			Truck_normalLoadingList->setFT();
-			Truck_normalMovingList->addWithPriority(Truck_normalLoadingList,0,0,0);
+			Truck_normalMovingList->add(Truck_normalLoadingList);
 			Truck_normalLoadingList = nullptr;
 		}
 	}
