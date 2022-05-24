@@ -46,12 +46,9 @@ void Truck::incrementJ()
 }
 
 void Truck::add_Cargo(Cargo* c)
-{
-	if (loaded < Capacity)
-	{
-		cargolist->addWithPriority(c,1,0,0);
-		loaded++;
-	}
+{	
+	cargolist->addWithPriority(c,1,0,0);
+	loaded++;	
 }
 
 void Truck::set_Capacity(int cap)
