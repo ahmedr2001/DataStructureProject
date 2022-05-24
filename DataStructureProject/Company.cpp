@@ -956,7 +956,6 @@ void Company::Deliver_MovingCargo(Type t, Time DT) {
 		num = Truck_normalMovingList->getSize();
 		ptr = Truck_normalMovingList->gethead();
 		while (ptr) {
-
 			if (!ptr->getdata()->Truckisempty()) {
 				linkedlist<Cargo>* tempoCargo = ptr->getdata()->getCargolist();
 				int num2 = tempoCargo->getSize();
@@ -973,16 +972,13 @@ void Company::Deliver_MovingCargo(Type t, Time DT) {
 					else tcargo = tcargo->getnext();
 				}
 			}
-
-		ptr = ptr->getnext();
+			ptr = ptr->getnext();
 		}
-
 		break;
 	case special:
 		num = Truck_specialMovingList->getSize();
 		ptr = Truck_specialMovingList->gethead();
 		while (ptr) {
-
 			if (!ptr->getdata()->Truckisempty()) {
 				linkedlist<Cargo>* tempoCargo = ptr->getdata()->getCargolist();
 				int num2 = tempoCargo->getSize();
@@ -999,16 +995,13 @@ void Company::Deliver_MovingCargo(Type t, Time DT) {
 					else tcargo = tcargo->getnext();
 				}
 			}
-
-		ptr = ptr->getnext();
+			ptr = ptr->getnext();
 		}
-
 		break;
 	case VIP:
 		num = Truck_vipMovingList->getSize();
 		ptr = Truck_vipMovingList->gethead();
 		while (ptr) {
-
 			if (!ptr->getdata()->Truckisempty()) {
 				linkedlist<Cargo>* tempoCargo = ptr->getdata()->getCargolist();
 				int num2 = tempoCargo->getSize();
@@ -1025,10 +1018,8 @@ void Company::Deliver_MovingCargo(Type t, Time DT) {
 					else tcargo = tcargo->getnext();
 				}
 			}
-
-		ptr = ptr->getnext();
+			ptr = ptr->getnext();
 		}
-
 		break;
 	default:
 		break;
@@ -1200,7 +1191,7 @@ void Company::Truck_Loading_Moving(Time t)
 		if (Truck_vipLoadingList->getMT() < t || t == Truck_vipLoadingList->getMT())
 		{
 			Truck_vipLoadingList->setFT();
-			Truck_vipMovingList->add(Truck_vipLoadingList);
+			Truck_vipMovingList->addWithPriority(Truck_vipLoadingList, 0, 0, 0);
 			Truck_vipLoadingList = nullptr;
 		}
 	}
@@ -1209,7 +1200,7 @@ void Company::Truck_Loading_Moving(Time t)
 		if (Truck_specialLoadingList->getMT() < t || t == Truck_specialLoadingList->getMT())
 		{
 			Truck_specialLoadingList->setFT();
-			Truck_specialMovingList->add(Truck_specialLoadingList);
+			Truck_specialMovingList->addWithPriority(Truck_specialLoadingList,0,0,0);
 			Truck_specialLoadingList = nullptr;
 		}
 	}
@@ -1218,7 +1209,7 @@ void Company::Truck_Loading_Moving(Time t)
 		if (Truck_normalLoadingList->getMT() < t || t == Truck_normalLoadingList->getMT())
 		{
 			Truck_normalLoadingList->setFT();
-			Truck_normalMovingList->add(Truck_normalLoadingList);
+			Truck_normalMovingList->addWithPriority(Truck_normalLoadingList,0,0,0);
 			Truck_normalLoadingList = nullptr;
 		}
 	}
