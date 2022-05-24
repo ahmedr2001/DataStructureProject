@@ -7,7 +7,7 @@ void InteractiveMode::Simulate(Company* c1, Time& t, UI* uiObject) {
 	bool shipping = false;
 	while (!done) {
 		uiObject->PrintMessage("Press Enter to Continue...\n");
-		uiObject->getLine(&enterKeyPressed, 1);
+	//	uiObject->getLine(&enterKeyPressed, 1);
 
 		done = c1->Execute_Events(t);
 		if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
