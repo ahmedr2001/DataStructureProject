@@ -7,11 +7,12 @@ void SilentMode::Simulate(Company* c1, Time& t, UI* uiObject)
 	while (!done) {
 
 		done = c1->Execute_Events(t);
+		//if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
+		c1->AutoPromote(Normal, t);
+		//c1->MaxWait(VIP, t);
 		if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
-			c1->AutoPromote(Normal, t);
 			c1->MaxWait(Normal, t);
 			c1->MaxWait(special, t);
-			//c1->MaxWait(VIP, t);
 			c1->Load(t);
 		}
 		c1->Truck_Loading_Moving(t);
@@ -23,7 +24,10 @@ void SilentMode::Simulate(Company* c1, Time& t, UI* uiObject)
 
 		done &= c1->noCargosLeft();
 
+
+		
 		t++;
+		
 	}
 	cout << "Simulation ends, Output file created\n";
 }
