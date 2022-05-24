@@ -1204,7 +1204,7 @@ void Company::Truck_Loading_Moving(Time t)
 			Truck_specialLoadingList->setFT();
 			Truck_specialMovingList->addWithPriority(Truck_specialLoadingList,0,0,0);
 			Truck_specialLoadingList = nullptr;
-		}
+		} 
 	}
 	if (Truck_normalLoadingList)
 	{
