@@ -20,21 +20,6 @@ void StepbystepMode::Simulate(Company* c1, Time& t)
 		c1->Deliver_MovingCargo(Normal, t);
 		c1->MoveTrucksToCheckup(t);
 		c1->MoveCheckupToAvail(t);
-		//if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
-		//	if (t.get_Hour() % 5 == 4) {
-		//		c1->Moving_WaitingCargo(VIP, t);
-		//		c1->Moving_WaitingCargo(special, t);
-		//		c1->Moving_WaitingCargo(Normal, t);
-		//		//c1->Increase_Timers();
-		//	}
-		//}
-		//if (t.get_Hour() % 5 == 4) {
-		//	c1->Deliver_MovingCargo(VIP, t);
-		//	c1->Deliver_MovingCargo(special, t);
-		//	c1->Deliver_MovingCargo(Normal, t);
-		//	c1->Deliver_Timers();
-		//}
-		//c1->Deliver_Timers();
 
 		done &= c1->noCargosLeft();
 
