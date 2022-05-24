@@ -32,6 +32,7 @@ Company::Company()
 	Truck_specialLoadingList = nullptr;
 
 }
+
 void Company::PrintToConsole(Time t)
 {
 	string message = "";
@@ -84,7 +85,19 @@ void Company::PrintToConsole(Time t)
 	
 	//loading trucks
 	
-	int loadingCount = Truck_vipLoadingList?1:0+ Truck_specialLoadingList ? 1 : 0 + Truck_normalLoadingList ? 1 : 0;
+	int loadingCount = 0;
+	if (Truck_vipLoadingList)
+	{
+		loadingCount++;
+	}
+	if (Truck_normalLoadingList)
+	{
+		loadingCount++;
+	}
+	if (Truck_specialLoadingList)
+	{
+		loadingCount++;
+	}
 
 	message += (to_string(loadingCount) + " Loading Trucks: ");
 
@@ -142,10 +155,53 @@ void Company::PrintToConsole(Time t)
 	message += "------------------------------------------------------------------------\n";
 
 	
-
+	//Empty Trucks
 	
+	int EmptytrucksCount = Truck_vipWaitingList->getSize()
+		+ Truck_normalWaitingList->getSize()
+		+ Truck_specialWaitingList->getSize();
 
-	////moving cargo
+	message += (to_string(EmptytrucksCount) + " Empty Trucks: ");
+	message += "[";
+
+	int sizeNormalEmptyTruckArr = 0;
+	node<Truck>* normalEmptyTruckArr = Truck_normalWaitingList->GetAllNodes(sizeNormalEmptyTruckArr);
+	for (int i = 0; i < sizeNormalEmptyTruckArr; i++) {
+		message += (to_string(normalEmptyTruckArr[i].getdata()->getID()));
+		if (i != sizeNormalEmptyTruckArr - 1) {
+			message += ",";
+		}
+	}
+	message += "] ";
+
+	message += "(";
+
+	int sizeSpecialEmptyTruckArr = 0;
+	node<Truck>* SpecialEmptyTruckArr = Truck_specialWaitingList->GetAllNodes(sizeSpecialEmptyTruckArr);
+	for (int i = 0; i < sizeSpecialEmptyTruckArr; i++) {
+		message += (to_string(SpecialEmptyTruckArr[i].getdata()->getID()));
+		if (i != sizeSpecialEmptyTruckArr - 1) {
+			message += ",";
+		}
+	}
+	message += ") ";
+
+	message += "{";
+
+	int sizeVIPEmptyTruckArr = 0;
+	node<Truck>* VIPEmptyTruckArr = Truck_vipWaitingList->GetAllNodes(sizeVIPEmptyTruckArr);
+	for (int i = 0; i < sizeVIPEmptyTruckArr; i++) {
+		message += (to_string(VIPEmptyTruckArr[i].getdata()->getID()));
+		if (i != sizeVIPEmptyTruckArr - 1) {
+			message += ",";
+		}
+	}
+	message += "} ";
+
+	message += "\n";
+	message += "----------------------------------------------------------------------\n";
+
+	//moving cargo
 
 	int sizeNormalmoveArr = 0;
 	int sizeSpecialmoveArr = 0;
@@ -1144,7 +1200,7 @@ void Company::Truck_Loading_Moving(Time t)
 		if (Truck_vipLoadingList->getMT() < t || t == Truck_vipLoadingList->getMT())
 		{
 			Truck_vipLoadingList->setFT();
-			Truck_vipMovingList->addWithPriority(Truck_vipLoadingList,0,0,0);
+			Truck_vipMovingList->add(Truck_vipLoadingList);
 			Truck_vipLoadingList = nullptr;
 		}
 	}
@@ -1153,7 +1209,7 @@ void Company::Truck_Loading_Moving(Time t)
 		if (Truck_specialLoadingList->getMT() < t || t == Truck_specialLoadingList->getMT())
 		{
 			Truck_specialLoadingList->setFT();
-			Truck_specialMovingList->addWithPriority(Truck_specialLoadingList,0,0,0);
+			Truck_specialMovingList->add(Truck_specialLoadingList);
 			Truck_specialLoadingList = nullptr;
 		}
 	}
@@ -1162,7 +1218,7 @@ void Company::Truck_Loading_Moving(Time t)
 		if (Truck_normalLoadingList->getMT() < t || t == Truck_normalLoadingList->getMT())
 		{
 			Truck_normalLoadingList->setFT();
-			Truck_normalMovingList->addWithPriority(Truck_normalLoadingList,0,0,0);
+			Truck_normalMovingList->add(Truck_normalLoadingList);
 			Truck_normalLoadingList = nullptr;
 		}
 	}
