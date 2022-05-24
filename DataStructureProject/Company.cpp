@@ -1133,9 +1133,11 @@ void Company::PrintToFile(string filename, Time t)
 			else truck->setUtil(0);
 			Truck_vipWaitingList->dequeue();
 		}
-		int avgActiveTime = (int)(round((double)totalActiveTime/((Normal_Truck_Num+Special_Truck_Num+Vip_Truck_Num)*totalTime))*100);
+		double avgActiveTime = (double)totalActiveTime / (Normal_Truck_Num + Special_Truck_Num + Vip_Truck_Num);
+		avgActiveTime = (double)avgActiveTime / totalTime;
+		avgActiveTime *= 100;
 		outFile << "Avg Active Time = " << avgActiveTime << "%\n";
-		int avgUtil = (int)round((double)totalUtil / (Normal_Truck_Num + Special_Truck_Num + Vip_Truck_Num));
+		double avgUtil = (double)totalUtil / (Normal_Truck_Num + Special_Truck_Num + Vip_Truck_Num);
 		outFile << "Avg utilization = " << avgUtil << "%\n";
 	}
 }
@@ -1232,6 +1234,8 @@ void Company::loadcargo(Truck* tk, Time t,Type typ)
 				}
 			}
 			tk->setMT(t);
+			tk->increaseActiveTime(t);
+			tk->increaseCargosDelivered(tk->get_Capacity());
 			tk->LoadAuxiliary();
 		}
 		if (tk->get_Type() == special)
@@ -1248,6 +1252,8 @@ void Company::loadcargo(Truck* tk, Time t,Type typ)
 				}
 			}
 			tk->setMT(t);
+			tk->increaseActiveTime(t);
+			tk->increaseCargosDelivered(tk->get_Capacity());
 			tk->LoadAuxiliary();
 		}
 		if (tk->get_Type() == VIP)
@@ -1264,6 +1270,8 @@ void Company::loadcargo(Truck* tk, Time t,Type typ)
 				}
 			}
 			tk->setMT(t);
+			tk->increaseActiveTime(t);
+			tk->increaseCargosDelivered(tk->get_Capacity());
 			tk->LoadAuxiliary();
 		}
 	}
