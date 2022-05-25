@@ -25,7 +25,7 @@ void SilentMode::Simulate(Company* c1, Time& t, UI* uiObject)
 
 		done &= c1->noCargosLeft();
 
-		done &= c1->FixInfinityLoop();
+		//done &= c1->FixInfinityLoop();
 		
 		t++;
 		

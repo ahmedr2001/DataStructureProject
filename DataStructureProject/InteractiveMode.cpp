@@ -28,7 +28,7 @@ void InteractiveMode::Simulate(Company* c1, Time& t, UI* uiObject) {
 
 		done &= c1->noCargosLeft();
 
-		done &= c1->FixInfinityLoop();
+		//done &= c1->FixInfinityLoop();
 		c1->PrintToConsole(t);
 		t++;
 		Sleep(10);
