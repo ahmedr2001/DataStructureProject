@@ -243,7 +243,7 @@ bool Truck::failed() {
 	int chance = 90;
 	if (rand()%100 >= chance) {
 		this->fail = true;
-		cout << "truck failed to deliver";
+		cout << "truck"<< this->getID() << " failed to deliver ";
 	}
 	else {
 		this->fail = false;

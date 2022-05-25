@@ -1006,6 +1006,26 @@ void Company::MoveCheckupToAvail(Time t)
 		Truck* normalTruckData = normalTruck->getdata();
 		if (normalTruckData->getfail()) {
 			linkedlist<Cargo>* ll = normalTruckData->getCargolist();
+			node<Cargo>* amogus = ll->gethead();
+			while (amogus) {
+				switch (amogus->getdata()->get_Type())
+				{
+				case (Normal):
+					Cargo_normalWaitingList->add(amogus->getdata());
+					break;
+				case (special):
+					Cargo_specialWaitingList->enqueue(amogus->getdata());
+					break;
+				case (VIP):
+					Cargo_vipWaitingList->enqueue(amogus->getdata());
+					break;
+				default:
+					break;
+				}
+				node<Cargo>* sus = amogus;
+				ll->deletenode(amogus);
+				amogus = amogus->getnext();
+			}
 		}
 		if (normalTruckData->getCT() < t || normalTruckData->getCT() == t){
 			Truck_normalWaitingList->enqueue(normalTruckData);
@@ -1019,6 +1039,29 @@ void Company::MoveCheckupToAvail(Time t)
 	node<Truck>* specialTruck = Truck_specialMaintenanceList->peek();
 	while (specialTruck) {
 		Truck* specialTruckData = specialTruck->getdata();
+		if (specialTruckData->getfail()) {
+			linkedlist<Cargo>* ll = specialTruckData->getCargolist();
+			node<Cargo>* amogus = ll->gethead();
+			while (amogus) {
+				switch (amogus->getdata()->get_Type())
+				{
+				case (Normal):
+					Cargo_normalWaitingList->add(amogus->getdata());
+					break;
+				case (special):
+					Cargo_specialWaitingList->enqueue(amogus->getdata());
+					break;
+				case (VIP):
+					Cargo_vipWaitingList->enqueue(amogus->getdata());
+					break;
+				default:
+					break;
+				}
+				node<Cargo>* sus = amogus;
+				ll->deletenode(amogus);
+				amogus = amogus->getnext();
+			}
+		}
 		if (specialTruckData->getCT() < t || specialTruckData->getCT() == t) {
 			Truck_specialWaitingList->enqueue(specialTruckData);
 			specialTruck = specialTruck->getnext();
@@ -1031,6 +1074,29 @@ void Company::MoveCheckupToAvail(Time t)
 	node<Truck>* vipTruck = Truck_VIPMaintenanceList->peek();
 	while (vipTruck) {
 		Truck* vipTruckData = vipTruck->getdata();
+		if (vipTruckData->getfail()) {
+			linkedlist<Cargo>* ll = vipTruckData->getCargolist();
+			node<Cargo>* amogus = ll->gethead();
+			while (amogus) {
+				switch (amogus->getdata()->get_Type())
+				{
+				case (Normal):
+					Cargo_normalWaitingList->add(amogus->getdata());
+					break;
+				case (special):
+					Cargo_specialWaitingList->enqueue(amogus->getdata());
+					break;
+				case (VIP):
+					Cargo_vipWaitingList->enqueue(amogus->getdata());
+					break;
+				default:
+					break;
+				}
+				node<Cargo>* sus = amogus;
+				ll->deletenode(amogus);
+				amogus = amogus->getnext();
+			}
+		}
 		if (vipTruckData->getCT() < t || vipTruckData->getCT() == t) {
 			Truck_vipWaitingList->enqueue(vipTruckData);
 			vipTruck = vipTruck->getnext();
