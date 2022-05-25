@@ -110,8 +110,8 @@ bool Time::operator==(Time otherTime)
 
 bool Time::operator<(Time otherTime)
 {
-	return day < otherTime.get_Day();
 	if (day == otherTime.get_Day())return hour < otherTime.get_Hour();
+	return day < otherTime.get_Day();
 }
 
 void Time::operator+=(Time otherTime)

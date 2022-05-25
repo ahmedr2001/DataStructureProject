@@ -127,4 +127,6 @@ public:
 	void loadcargo(Truck* tk,Time t,Type ctype);
 	void Load(Time t);
 	void Truck_Waiting_Loading(Truck* tk);
+
+	bool FixInfinityLoop();
 };
