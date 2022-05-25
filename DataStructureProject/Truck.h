@@ -18,6 +18,7 @@ private:
 	int ID;
 	int cargosDelivered;
 	bool fail;
+	bool nightworker;
 	Time DeliverTime;
 	Type trucktype; // truck type (vip-normal-special)
 	Time finishTime;
@@ -63,5 +64,7 @@ public:
 	void OutToStreamFile(); // output to console
 	bool failed();
 	bool getfail();
+	void setNightWorker(bool value);
+	bool getNightWorker();
 	void LoadAuxiliary();
 };

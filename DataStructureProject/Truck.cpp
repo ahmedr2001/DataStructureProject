@@ -199,7 +199,6 @@ Time Truck::getMT() const
 	return moveTime;
 }
 Time Truck::getDeliverTimeOfAllCargos() {
-	//for loop for hima
 
 	return DeliverTime;
 }
@@ -217,15 +216,6 @@ void Truck::removeHeadCargo() {
 }
 linkedlist<Cargo>* Truck::getCargolist() {
 	return cargolist;
-}
-// Leave for now
-
-void Truck::LoadFromStreamFile()
-{
-}
-
-void Truck::OutToStreamFile()
-{
 }
 
 void Truck::LoadAuxiliary()
@@ -253,4 +243,10 @@ bool Truck::failed() {
 bool Truck::getfail(){
 
 	return fail;
+}
+void Truck::setNightWorker(bool value) {
+	nightworker = value;
+}
+bool Truck::getNightWorker(){
+	return nightworker;
 }

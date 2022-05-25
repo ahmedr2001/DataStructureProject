@@ -90,6 +90,10 @@ protected:
 	UI* uiObject;
 	
 	void fixTruck(Truck* truck, Time t);
+	void loadcargoAtNight(Truck* tk, Time t, Type ctype);
+	void LoadVIPAtNight(Time t);
+	void LoadSpecialAtNight(Time t);
+	void LoadNormalAtNight(Time t);
 public:
 	Company(); //Company constructor
 	
@@ -128,6 +132,6 @@ public:
 	void loadcargo(Truck* tk,Time t,Type ctype);
 	void Load(Time t);
 	void Truck_Waiting_Loading(Truck* tk);
-
+	void LoadAtNight(Time t);
 	bool FixInfinityLoop();
 };

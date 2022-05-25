@@ -18,6 +18,7 @@ void InteractiveMode::Simulate(Company* c1, Time& t, UI* uiObject) {
 			c1->MaxWait(VIP, t);
 			c1->Load(t);
 		}
+		c1->LoadAtNight(t);
 		c1->Truck_Loading_Moving(t);
 		c1->Deliver_MovingCargo(VIP, t);
 		c1->Deliver_MovingCargo(special, t);

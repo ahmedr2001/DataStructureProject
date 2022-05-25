@@ -431,6 +431,15 @@ void Company::LoadTrucksAndEventsData(string filename)
 		{
 			add_truck(VIP, i+1+Normal_Truck_Num+Special_Truck_Num);
 		}
+		if (!Truck_normalWaitingList->isempty()) {
+			Truck_normalWaitingList->peek()->getdata()->setNightWorker(true);
+		}
+		if (!Truck_specialWaitingList->isempty()) {
+			Truck_specialWaitingList->peek()->getdata()->setNightWorker(true);
+		}
+		if (!Truck_vipWaitingList->isempty()) {
+			Truck_vipWaitingList->peek()->getdata()->setNightWorker(true);
+		}
 
 		inFile >> AutoP;
 		inFile >> MaxW;
@@ -1566,6 +1575,53 @@ void Company::loadcargo(Truck* tk, Time t,Type ctype)
 			tk->increaseCargosDelivered(tk->get_Capacity());
 	}
 }
+void Company::loadcargoAtNight(Truck* tk, Time t, Type ctype)
+{
+	if (tk) {
+		if (tk->getNightWorker()) {
+			for (int i = 0; i < tk->get_Capacity(); i++)
+			{
+				switch (ctype)
+				{
+				case Normal:
+					if (!Cargo_normalWaitingList->isempty()) {
+						Cargo_normalLoadingList->enqueue(Cargo_normalWaitingList->gethead()->getdata());
+						Cargo_normalWaitingList->gethead()->getdata()->setTID(tk->getID());
+						//Cargo_normalWaitingList->gethead()->getdata()->set_Move_Time(t);
+						//Cargo_normalWaitingList->gethead()->getdata()->set_Delivery_Time(tk->get_Speed());
+						tk->add_Cargo(Cargo_normalWaitingList->gethead()->getdata());
+						Cargo_normalWaitingList->deletenode(Cargo_normalWaitingList->gethead());
+					}
+					break;
+				case special:
+					if (!Cargo_specialWaitingList->isempty()) {
+						Cargo_specialLoadingList->enqueue(Cargo_specialWaitingList->peek()->getdata());
+						Cargo_specialWaitingList->peek()->getdata()->setTID(tk->getID());
+						//Cargo_specialWaitingList->peek()->getdata()->set_Move_Time(t);
+						//Cargo_specialWaitingList->peek()->getdata()->set_Delivery_Time(tk->get_Speed());
+						tk->add_Cargo(Cargo_specialWaitingList->peek()->getdata());
+						Cargo_specialWaitingList->dequeue();
+					}
+					break;
+				case VIP:
+					if (!Cargo_vipWaitingList->isempty()) {
+						Cargo_vipLoadingList->enqueue(Cargo_vipWaitingList->peek()->getdata());
+						Cargo_vipWaitingList->peek()->getdata()->setTID(tk->getID());
+						//Cargo_vipWaitingList->peek()->getdata()->set_Move_Time(t);
+						//Cargo_vipWaitingList->peek()->getdata()->set_Delivery_Time(tk->get_Speed());
+						tk->add_Cargo(Cargo_vipWaitingList->peek()->getdata());
+						Cargo_vipWaitingList->dequeue();
+					}
+					break;
+				}
+			}
+			tk->setMT(t);
+			tk->LoadAuxiliary();
+			tk->increaseActiveTime(t);
+			tk->increaseCargosDelivered(tk->get_Capacity());
+		}
+	}
+}
 
 void Company::Truck_Waiting_Loading(Truck* tk)
 {
@@ -1666,6 +1722,81 @@ void Company::Load(Time t)
 	LoadSpecial(t);
 	LoadNormal(t);
 }
+
+
+
+void Company::LoadVIPAtNight(Time t)
+{
+
+	node<Truck>* vipHead = Truck_vipWaitingList->peek();
+	node<Truck>* normalHead = Truck_normalWaitingList->peek();
+	node<Truck>* specialHead = Truck_specialWaitingList->peek();
+	bool loaded = 0;
+	if (vipHead && !Truck_vipLoadingList) {
+		if (Cargo_vipWaitingList->getSize() >= vipHead->getdata()->get_Capacity()) {
+			loadcargoAtNight(vipHead->getdata(), t, VIP);
+			Truck_Waiting_Loading(vipHead->getdata());
+			loaded = 1;
+		}
+	}
+	if (!loaded && normalHead && !Truck_normalLoadingList) {
+		if (Cargo_vipWaitingList->getSize() >= normalHead->getdata()->get_Capacity()) {
+			loadcargoAtNight(normalHead->getdata(), t, VIP);
+			Truck_Waiting_Loading(normalHead->getdata());
+			loaded = 1;
+		}
+	}
+	if (!loaded && specialHead && !Truck_specialLoadingList) {
+		if (Cargo_vipWaitingList->getSize() >= specialHead->getdata()->get_Capacity()) {
+			loadcargoAtNight(specialHead->getdata(), t, VIP);
+			Truck_Waiting_Loading(specialHead->getdata());
+			loaded = 1;
+		}
+	}
+}
+
+void Company::LoadSpecialAtNight(Time t)
+{
+	if (!Truck_specialLoadingList) {
+		node<Truck>* specialHead = Truck_specialWaitingList->peek();
+		if (specialHead) {
+			if (Cargo_specialWaitingList->getSize() >= specialHead->getdata()->get_Capacity()) {
+				loadcargoAtNight(specialHead->getdata(), t, special);
+				Truck_Waiting_Loading(specialHead->getdata());
+			}
+		}
+	}
+}
+
+void Company::LoadNormalAtNight(Time t)
+{
+
+	node<Truck>* normalHead = Truck_normalWaitingList->peek();
+	node<Truck>* vipHead = Truck_vipWaitingList->peek();
+	bool loaded = 0;
+	if (normalHead && !Truck_normalLoadingList) {
+		if (Cargo_normalWaitingList->getSize() >= normalHead->getdata()->get_Capacity()) {
+			loadcargoAtNight(normalHead->getdata(), t, Normal);
+			Truck_Waiting_Loading(normalHead->getdata());
+			loaded = 1;
+		}
+	}
+	if (!loaded && vipHead && !Truck_vipLoadingList) {
+		if (Cargo_normalWaitingList->getSize() >= vipHead->getdata()->get_Capacity()) {
+			loadcargoAtNight(vipHead->getdata(), t, Normal);
+			Truck_Waiting_Loading(vipHead->getdata());
+			loaded = 1;
+		}
+	}
+}
+
+void Company::LoadAtNight(Time t)
+{
+	 LoadVIPAtNight(t);
+	 LoadSpecialAtNight(t);
+	 LoadNormalAtNight(t);
+}
+
 
 bool Company::FixInfinityLoop()
 {
