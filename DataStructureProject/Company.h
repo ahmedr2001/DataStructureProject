@@ -89,6 +89,7 @@ protected:
 	
 	UI* uiObject;
 	
+	void fixTruck(Truck* truck, Time t);
 public:
 	Company(); //Company constructor
 	

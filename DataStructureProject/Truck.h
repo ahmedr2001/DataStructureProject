@@ -17,6 +17,7 @@ private:
 	int utilization;
 	int ID;
 	int cargosDelivered;
+	bool fail;
 	Time DeliverTime;
 	Type trucktype; // truck type (vip-normal-special)
 	Time finishTime;
@@ -60,7 +61,7 @@ public:
 	linkedlist<Cargo>* getCargolist();
 	void LoadFromStreamFile(); // load from .txt file
 	void OutToStreamFile(); // output to console
-
-
+	bool failed();
+	bool getfail();
 	void LoadAuxiliary();
 };

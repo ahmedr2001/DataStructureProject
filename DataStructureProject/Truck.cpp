@@ -1,8 +1,9 @@
 #include "Truck.h"
-
+#include<iostream>
 Truck::Truck(Type t, int cap, int ct, int s, int id)
 {
 	cargolist = new linkedlist<Cargo>;
+	fail = false;
 	loaded = 0;
 	num_of_journey = 0;
 	ID = id;
@@ -236,4 +237,20 @@ void Truck::LoadAuxiliary()
 		cgo->getdata()->set_Waiting_Time();
 		cgo = cgo->getnext();
 	}
+}
+
+bool Truck::failed() {
+	int chance = 90;
+	if (rand()%100 >= chance) {
+		this->fail = true;
+		cout << "truck failed to deliver";
+	}
+	else {
+		this->fail = false;
+	}
+	return this->fail;
+}
+bool Truck::getfail(){
+
+	return fail;
 }

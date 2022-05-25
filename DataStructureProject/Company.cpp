@@ -943,6 +943,9 @@ void Company::MoveCheckupToAvail(Time t)
 	node<Truck>* normalTruck = Truck_normalMaintenanceList->peek();
 	while (normalTruck) {
 		Truck* normalTruckData = normalTruck->getdata();
+		if (normalTruckData->getfail()) {
+			linkedlist<Cargo>* ll = normalTruckData->getCargolist();
+		}
 		if (normalTruckData->getCT() < t || normalTruckData->getCT() == t){
 			Truck_normalWaitingList->enqueue(normalTruckData);
 			normalTruck = normalTruck->getnext();
@@ -1089,6 +1092,29 @@ void Company::MoveCheckupToAvail(Time t)
 //	delete temp;
 //}
 
+
+void Company::fixTruck(Truck* truck ,Time t)
+{
+	Truck* TruckToCheck = truck;
+	if (TruckToCheck->get_Type() == Normal) {
+			Truck_normalMaintenanceList->enqueue(TruckToCheck);
+			TruckToCheck->setCT(t, normal_check_time);
+
+	}
+	else if (TruckToCheck->get_Type() == special) {
+		Truck_specialMaintenanceList->enqueue(TruckToCheck);
+		TruckToCheck->setCT(t, special_check_time);
+
+	}
+	else if (TruckToCheck->get_Type() == VIP) {
+		Truck_VIPMaintenanceList->enqueue(TruckToCheck);
+		TruckToCheck->setCT(t, vip_check_time);
+
+	}
+	
+}
+
+
 void Company::Deliver_MovingCargo(Type t, Time DT) {
 	node<Cargo>* temp;
 	node<Truck>* ptr;
@@ -1096,17 +1122,22 @@ void Company::Deliver_MovingCargo(Type t, Time DT) {
 	switch (t)
 	{
 	case Normal:
-		num = Truck_normalMovingList->getSize();
+		//num = Truck_normalMovingList->getSize();
 		ptr = Truck_normalMovingList->gethead();
 		while (ptr) {
 			if (!ptr->getdata()->Truckisempty()) {
+				if (ptr->getdata()->failed()) {
+					fixTruck(ptr->getdata(), DT);
+					node<Truck>* temp = ptr;
+					ptr = ptr->getnext();
+					Truck_normalMovingList->deletenode(temp);
+					continue;
+				}
 				linkedlist<Cargo>* tempoCargo = ptr->getdata()->getCargolist();
 				int num2 = tempoCargo->getSize();
 				node<Cargo>* tcargo = tempoCargo->gethead();
 				while (tcargo) {
 					if (tcargo->getdata()->get_Delivery_Time() < DT || tcargo->getdata()->get_Delivery_Time() == DT) {
-						/*temp = new node<Cargo>;
-						temp->setdata(tcargo->getdata());*/
 						node<Cargo>* del = tcargo;
 						Cargo_DeliveredList->enqueue(tcargo->getdata());
 						tcargo = tcargo->getnext();

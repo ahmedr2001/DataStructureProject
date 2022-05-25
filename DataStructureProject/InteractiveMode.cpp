@@ -10,7 +10,6 @@ void InteractiveMode::Simulate(Company* c1, Time& t, UI* uiObject) {
 		uiObject->getLine(&enterKeyPressed, 1);
 
 		done = c1->Execute_Events(t);
-		//if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
 		c1->AutoPromote(Normal, t);
 		
 		if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
@@ -27,8 +26,6 @@ void InteractiveMode::Simulate(Company* c1, Time& t, UI* uiObject) {
 		c1->MoveCheckupToAvail(t);
 
 		done &= c1->noCargosLeft();
-
-		//done &= c1->FixInfinityLoop();
 		c1->PrintToConsole(t);
 		t++;
 		Sleep(10);
