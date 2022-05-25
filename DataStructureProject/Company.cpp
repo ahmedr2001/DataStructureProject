@@ -584,7 +584,7 @@ void Company::AutoPromote(Type t, Time MT)
 	if (!Cargo_normalWaitingList->isempty()) {
 		temp->setdata(Cargo_normalWaitingList->gethead()->getdata());
 		temp->getdata()->set_Move_Time(MT);
-		//temp->getdata()->setDTPhaseOne(MT);
+		temp->getdata()->setDTPhaseOne(MT);
 		temp->getdata()->set_Waiting_Time();
 		if (temp->getdata()->get_Waiting_Time().TimeToHours() > AutoP) {
 			temp->getdata()->setAutoP(true);
