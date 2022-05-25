@@ -2,7 +2,7 @@
 
 void InterfaceOutput::Simulate(Company* c1,Time t)
 {
-	c1->LoadTrucksAndEventsData("test6");
+	c1->LoadTrucksAndEventsData("test5");
 	UI* uiObject = c1->GetUIObject();
 
 	int simMode;
