@@ -241,7 +241,7 @@ void Truck::LoadAuxiliary()
 
 bool Truck::failed() {
 	int chance = 90;
-	if (rand()%100 >= chance) {
+	if (rand()%100 == chance) {
 		this->fail = true;
 		cout << "truck"<< this->getID() << " failed to deliver ";
 	}
