@@ -32,7 +32,7 @@ void Truck::increaseActiveTime(Time t)
 		maxDistance = max(maxDistance, cargo->getdata()->get_Distance());
 		cargo = cargo->getnext();
 	}
-	active_time += (finishTime - t).TimeToHours() - (int)round((double)maxDistance / speed);
+	active_time += (finishTime - t).TimeToHours() + (int)round((double)maxDistance / speed);
 }
 
 int Truck::getActiveTime()
@@ -82,7 +82,7 @@ void Truck::set_DI()
 		unloadTimes += cargoHead->getdata()->get_Load_Time();
 		cargoHead = cargoHead->getnext();
 	}
-	DI = 2 * ceil(double(maxDistance) / speed) + unloadTimes;
+	DI = ceil(double(2*maxDistance) / speed) + unloadTimes;
 }
 
 void Truck::setMT(Time t)
@@ -98,8 +98,18 @@ void Truck::setMT(Time t)
 
 void Truck::setFT()
 {
-	set_DI();
-	finishTime = moveTime + DI;
+	//set_DI();
+	//finishTime = moveTime + DI;
+	node<Cargo>* cargoHead = cargolist->gethead();
+	Time maxFT;
+	while (cargoHead) {
+		if (maxFT < cargoHead->getdata()->get_Delivery_Time()) {
+			maxFT.set_Day(cargoHead->getdata()->get_Delivery_Time().get_Day());
+			maxFT.set_Hour(cargoHead->getdata()->get_Delivery_Time().get_Hour());
+		}
+		cargoHead = cargoHead->getnext();
+	}
+	finishTime = maxFT;
 }
 
 void Truck::setCT(Time t, int i)

@@ -37,7 +37,7 @@ void Cargo::set_Move_Time(Time t)
 
 void Cargo::set_Delivery_Time(int speed)
 {
-	Delivery_Time = Move_Time + (int)round((double)Distance / speed) + Load_Time;
+	Delivery_Time = Move_Time + ceil((double)Distance / speed) + Load_Time;
 }
 
 void Cargo::setAutoP(bool ap)

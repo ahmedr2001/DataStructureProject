@@ -634,6 +634,8 @@ void Company::MaxWait(Type t, Time T)
 					Truck* truck = Truck_normalWaitingList->peek()->getdata();
 					//MovingTrucks->add(truck);
 					Truck_normalLoadingList = truck;
+					truck->setMT(T);
+					truck->LoadAuxiliary();
 					truck->increaseActiveTime(T);
 					truck->increaseCargosDelivered(cnt);
 					Truck_normalWaitingList->dequeue();	
@@ -676,6 +678,8 @@ void Company::MaxWait(Type t, Time T)
 				if (loaded2) {
 					Truck* truck = Truck_specialWaitingList->peek()->getdata();
 					Truck_specialLoadingList = truck;
+					truck->setMT(T);
+					truck->LoadAuxiliary();
 					truck->increaseActiveTime(T);
 					truck->increaseCargosDelivered(cnt);
 					Truck_specialWaitingList->dequeue();
@@ -719,6 +723,8 @@ void Company::MaxWait(Type t, Time T)
 				if (loaded) {
 					Truck* truck = Truck_specialWaitingList->peek()->getdata();
 					Truck_specialLoadingList = truck;
+					truck->setMT(T);
+					truck->LoadAuxiliary();
 					truck->increaseActiveTime(T);
 					truck->increaseCargosDelivered(cnt);
 					Truck_specialWaitingList->dequeue();
@@ -729,48 +735,48 @@ void Company::MaxWait(Type t, Time T)
 			}
 		}
 	}
-	else if (t == VIP) {
-	//-----------------------------------------------------------
-		if (!Truck_vipWaitingList->isempty()) {
-			node<Cargo>* headPtr = Cargo_vipWaitingList->peek();
-			while (!done) {
-				if (headPtr) {
-					Cargo* c = headPtr->getdata();
-					c->set_Move_Time(T);
-					c->set_Waiting_Time();
-					if (c->get_Waiting_Time().TimeToHours() >= MaxW) {
-						CargosToLoad->add(c);
-						headPtr = headPtr->getnext();
-					}
-					else done = 1;
-				}
-				else done = 1;
-			}
-			if (!Truck_vipLoadingList) {
-				bool loaded = 0;
-				int cnt = CargosToLoad->getSize();
-				while (!CargosToLoad->isempty()) {
-					node<Cargo>* cargoNode = CargosToLoad->gethead();
-					Cargo* c = cargoNode->getdata();
-					c->setTID(Truck_vipWaitingList->peek()->getdata()->getID());
-					Truck_vipWaitingList->peek()->getdata()->add_Cargo(c);
-					CargosToLoad->deletenode(cargoNode);
-					loaded = 1;
-				}
-				if (loaded) {
-					Truck* truck = Truck_vipWaitingList->peek()->getdata();
-					Truck_vipLoadingList = truck;
-					truck->increaseActiveTime(T);
-					truck->increaseCargosDelivered(cnt);
-					Truck_vipWaitingList->dequeue();
-					for (int i = 0; i < cnt; i++) {
-						Cargo_vipWaitingList->dequeue();
-					}
-				}
-			}
-		}
-		//-----------------------------------------------------------
-	}
+	//else if (t == VIP) {
+	////-----------------------------------------------------------
+	//	if (!Truck_vipWaitingList->isempty()) {
+	//		node<Cargo>* headPtr = Cargo_vipWaitingList->peek();
+	//		while (!done) {
+	//			if (headPtr) {
+	//				Cargo* c = headPtr->getdata();
+	//				c->set_Move_Time(T);
+	//				c->set_Waiting_Time();
+	//				if (c->get_Waiting_Time().TimeToHours() >= MaxW) {
+	//					CargosToLoad->add(c);
+	//					headPtr = headPtr->getnext();
+	//				}
+	//				else done = 1;
+	//			}
+	//			else done = 1;
+	//		}
+	//		if (!Truck_vipLoadingList) {
+	//			bool loaded = 0;
+	//			int cnt = CargosToLoad->getSize();
+	//			while (!CargosToLoad->isempty()) {
+	//				node<Cargo>* cargoNode = CargosToLoad->gethead();
+	//				Cargo* c = cargoNode->getdata();
+	//				c->setTID(Truck_vipWaitingList->peek()->getdata()->getID());
+	//				Truck_vipWaitingList->peek()->getdata()->add_Cargo(c);
+	//				CargosToLoad->deletenode(cargoNode);
+	//				loaded = 1;
+	//			}
+	//			if (loaded) {
+	//				Truck* truck = Truck_vipWaitingList->peek()->getdata();
+	//				Truck_vipLoadingList = truck;
+	//				truck->increaseActiveTime(T);
+	//				truck->increaseCargosDelivered(cnt);
+	//				Truck_vipWaitingList->dequeue();
+	//				for (int i = 0; i < cnt; i++) {
+	//					Cargo_vipWaitingList->dequeue();
+	//				}
+	//			}
+	//		}
+	//	}
+	//	//-----------------------------------------------------------
+	//}
 }
 
 void Company::MoveTrucksToCheckup(Time t)
@@ -1211,7 +1217,7 @@ bool Company::noCargosLeft()
 {
 	return (noNormalCargosLeft()
 		&& noSpecialCargosLeft()
-		&& noVIPCargosLeft())&&
+		/* && noVIPCargosLeft())*/ &&
 		Truck_normalMaintenanceList->isempty() &&
 		Truck_specialMaintenanceList->isempty() &&
 		Truck_VIPMaintenanceList->isempty() &&
@@ -1220,7 +1226,7 @@ bool Company::noCargosLeft()
 		Truck_vipMovingList->isempty() &&
 		!Truck_normalLoadingList &&
 		!Truck_specialLoadingList &&
-		!Truck_vipLoadingList;
+		!Truck_vipLoadingList);
 }
 
 UI* Company::GetUIObject()
@@ -1269,8 +1275,8 @@ void Company::loadcargo(Truck* tk, Time t,Type ctype)
 					if (!Cargo_normalWaitingList->isempty()) {
 						Cargo_normalLoadingList->enqueue(Cargo_normalWaitingList->gethead()->getdata());
 						Cargo_normalWaitingList->gethead()->getdata()->setTID(tk->getID());
-						Cargo_normalWaitingList->gethead()->getdata()->set_Move_Time(t);
-						Cargo_normalWaitingList->gethead()->getdata()->set_Delivery_Time(tk->get_Speed());
+						//Cargo_normalWaitingList->gethead()->getdata()->set_Move_Time(t);
+						//Cargo_normalWaitingList->gethead()->getdata()->set_Delivery_Time(tk->get_Speed());
 						tk->add_Cargo(Cargo_normalWaitingList->gethead()->getdata());
 						Cargo_normalWaitingList->deletenode(Cargo_normalWaitingList->gethead());
 					}
@@ -1279,8 +1285,8 @@ void Company::loadcargo(Truck* tk, Time t,Type ctype)
 					if (!Cargo_specialWaitingList->isempty()) {
 						Cargo_specialLoadingList->enqueue(Cargo_specialWaitingList->peek()->getdata());
 						Cargo_specialWaitingList->peek()->getdata()->setTID(tk->getID());
-						Cargo_specialWaitingList->peek()->getdata()->set_Move_Time(t);
-						Cargo_specialWaitingList->peek()->getdata()->set_Delivery_Time(tk->get_Speed());
+						//Cargo_specialWaitingList->peek()->getdata()->set_Move_Time(t);
+						//Cargo_specialWaitingList->peek()->getdata()->set_Delivery_Time(tk->get_Speed());
 						tk->add_Cargo(Cargo_specialWaitingList->peek()->getdata());
 						Cargo_specialWaitingList->dequeue();
 					}
@@ -1289,8 +1295,8 @@ void Company::loadcargo(Truck* tk, Time t,Type ctype)
 					if (!Cargo_vipWaitingList->isempty()) {
 						Cargo_vipLoadingList->enqueue(Cargo_vipWaitingList->peek()->getdata());
 						Cargo_vipWaitingList->peek()->getdata()->setTID(tk->getID());
-						Cargo_vipWaitingList->peek()->getdata()->set_Move_Time(t);
-						Cargo_vipWaitingList->peek()->getdata()->set_Delivery_Time(tk->get_Speed());
+						//Cargo_vipWaitingList->peek()->getdata()->set_Move_Time(t);
+						//Cargo_vipWaitingList->peek()->getdata()->set_Delivery_Time(tk->get_Speed());
 						tk->add_Cargo(Cargo_vipWaitingList->peek()->getdata());
 						Cargo_vipWaitingList->dequeue();
 					}
@@ -1298,9 +1304,9 @@ void Company::loadcargo(Truck* tk, Time t,Type ctype)
 				}
 			}
 			tk->setMT(t);
+			tk->LoadAuxiliary();
 			tk->increaseActiveTime(t);
 			tk->increaseCargosDelivered(tk->get_Capacity());
-			tk->LoadAuxiliary();
 	}
 }
 
@@ -1402,4 +1408,9 @@ void Company::Load(Time t)
 	LoadVIP(t);
 	LoadSpecial(t);
 	LoadNormal(t);
+}
+
+bool Company::FixInfinityLoop()
+{
+	return Cargo_vipWaitingList->getSize() < Vip_Truck_Cap;
 }
