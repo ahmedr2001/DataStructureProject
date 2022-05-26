@@ -1659,21 +1659,21 @@ void Company::LoadVIP(Time t)
 	node<Truck>* specialHead = Truck_specialWaitingList->peek();
 	bool loaded = 0;
 	if (vipHead && !Truck_vipLoadingList) {
-		if (Cargo_vipWaitingList->getSize() >= vipHead->getdata()->get_Capacity()) {
+		if (Cargo_vipWaitingList->getSize() >= vipHead->getdata()->get_Capacity() && vipHead->getdata()->get_Capacity()!=0) {
 			loadcargo(vipHead->getdata(), t,VIP);
 			Truck_Waiting_Loading(vipHead->getdata());
 			loaded = 1;
 		}
 	}
 	if (!loaded && normalHead && !Truck_normalLoadingList) {
-		if (Cargo_vipWaitingList->getSize() >= normalHead->getdata()->get_Capacity()) {
+		if (Cargo_vipWaitingList->getSize() >= normalHead->getdata()->get_Capacity() && normalHead->getdata()->get_Capacity() != 0) {
 			loadcargo(normalHead->getdata(), t,VIP);
 			Truck_Waiting_Loading(normalHead->getdata());
 			loaded = 1;
 		}
 	}
 	if (!loaded && specialHead && !Truck_specialLoadingList) {
-		if (Cargo_vipWaitingList->getSize() >= specialHead->getdata()->get_Capacity()) {
+		if (Cargo_vipWaitingList->getSize() >= specialHead->getdata()->get_Capacity() && specialHead->getdata()->get_Capacity() != 0) {
 			loadcargo(specialHead->getdata(), t,VIP);
 			Truck_Waiting_Loading(specialHead->getdata());
 			loaded = 1;
@@ -1686,7 +1686,7 @@ void Company::LoadSpecial(Time t)
 	if(!Truck_specialLoadingList) {
 		node<Truck>* specialHead = Truck_specialWaitingList->peek();
 		if (specialHead) {
-			if (Cargo_specialWaitingList->getSize() >= specialHead->getdata()->get_Capacity()) {
+			if (Cargo_specialWaitingList->getSize() >= specialHead->getdata()->get_Capacity() && specialHead->getdata()->get_Capacity() != 0) {
 				loadcargo(specialHead->getdata(), t,special);
 				Truck_Waiting_Loading(specialHead->getdata());
 			}
@@ -1701,14 +1701,14 @@ void Company::LoadNormal(Time t)
 	node<Truck>* vipHead = Truck_vipWaitingList->peek();
 	bool loaded = 0;
 	if (normalHead && !Truck_normalLoadingList) {
-		if (Cargo_normalWaitingList->getSize() >= normalHead->getdata()->get_Capacity()) {
+		if (Cargo_normalWaitingList->getSize() >= normalHead->getdata()->get_Capacity() && normalHead->getdata()->get_Capacity() != 0) {
 			loadcargo(normalHead->getdata(), t,Normal);
 			Truck_Waiting_Loading(normalHead->getdata());
 			loaded = 1;
 		}
 	}
 	if (!loaded && vipHead && !Truck_vipLoadingList) {
-		if (Cargo_normalWaitingList->getSize() >= vipHead->getdata()->get_Capacity()) {
+		if (Cargo_normalWaitingList->getSize() >= vipHead->getdata()->get_Capacity() && vipHead->getdata()->get_Capacity() != 0) {
 			loadcargo(vipHead->getdata(), t,Normal);
 			Truck_Waiting_Loading(vipHead->getdata());
 			loaded = 1;
@@ -1733,21 +1733,21 @@ void Company::LoadVIPAtNight(Time t)
 	node<Truck>* specialHead = Truck_specialWaitingList->peek();
 	bool loaded = 0;
 	if (vipHead && !Truck_vipLoadingList) {
-		if (Cargo_vipWaitingList->getSize() >= vipHead->getdata()->get_Capacity()) {
+		if (Cargo_vipWaitingList->getSize() >= vipHead->getdata()->get_Capacity() && vipHead->getdata()->get_Capacity()!=0) {
 			loadcargoAtNight(vipHead->getdata(), t, VIP);
 			Truck_Waiting_Loading(vipHead->getdata());
 			loaded = 1;
 		}
 	}
 	if (!loaded && normalHead && !Truck_normalLoadingList) {
-		if (Cargo_vipWaitingList->getSize() >= normalHead->getdata()->get_Capacity()) {
+		if (Cargo_vipWaitingList->getSize() >= normalHead->getdata()->get_Capacity() && normalHead->getdata()->get_Capacity() != 0) {
 			loadcargoAtNight(normalHead->getdata(), t, VIP);
 			Truck_Waiting_Loading(normalHead->getdata());
 			loaded = 1;
 		}
 	}
 	if (!loaded && specialHead && !Truck_specialLoadingList) {
-		if (Cargo_vipWaitingList->getSize() >= specialHead->getdata()->get_Capacity()) {
+		if (Cargo_vipWaitingList->getSize() >= specialHead->getdata()->get_Capacity() && specialHead->getdata()->get_Capacity() != 0) {
 			loadcargoAtNight(specialHead->getdata(), t, VIP);
 			Truck_Waiting_Loading(specialHead->getdata());
 			loaded = 1;
@@ -1760,7 +1760,7 @@ void Company::LoadSpecialAtNight(Time t)
 	if (!Truck_specialLoadingList) {
 		node<Truck>* specialHead = Truck_specialWaitingList->peek();
 		if (specialHead) {
-			if (Cargo_specialWaitingList->getSize() >= specialHead->getdata()->get_Capacity()) {
+			if (Cargo_specialWaitingList->getSize() >= specialHead->getdata()->get_Capacity() && specialHead->getdata()->get_Capacity() != 0) {
 				loadcargoAtNight(specialHead->getdata(), t, special);
 				Truck_Waiting_Loading(specialHead->getdata());
 			}
@@ -1775,14 +1775,14 @@ void Company::LoadNormalAtNight(Time t)
 	node<Truck>* vipHead = Truck_vipWaitingList->peek();
 	bool loaded = 0;
 	if (normalHead && !Truck_normalLoadingList) {
-		if (Cargo_normalWaitingList->getSize() >= normalHead->getdata()->get_Capacity()) {
+		if (Cargo_normalWaitingList->getSize() >= normalHead->getdata()->get_Capacity() && normalHead->getdata()->get_Capacity() != 0) {
 			loadcargoAtNight(normalHead->getdata(), t, Normal);
 			Truck_Waiting_Loading(normalHead->getdata());
 			loaded = 1;
 		}
 	}
 	if (!loaded && vipHead && !Truck_vipLoadingList) {
-		if (Cargo_normalWaitingList->getSize() >= vipHead->getdata()->get_Capacity()) {
+		if (Cargo_normalWaitingList->getSize() >= vipHead->getdata()->get_Capacity() && vipHead->getdata()->get_Capacity() != 0) {
 			loadcargoAtNight(vipHead->getdata(), t, Normal);
 			Truck_Waiting_Loading(vipHead->getdata());
 			loaded = 1;
