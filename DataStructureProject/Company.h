@@ -48,10 +48,6 @@ protected:
 	Time Special_timer;//for loading
 	Time Vip_timer;//for loading
 
-	int L_N_timer;//Load Time resets when a new cargo comes & old cargo delivered
-	int L_S_timer;//for loading
-	int L_V_timer;//for loading
-
 	queue<Event>* eventList;
 
 	linkedlist<Cargo>* Cargo_normalWaitingList;
@@ -68,7 +64,6 @@ protected:
 	queue<Truck>* Truck_specialWaitingList;
 	queue<Truck>* Truck_normalWaitingList;
 
-
 	Truck* Truck_vipLoadingList;
 	Truck* Truck_normalLoadingList;
 	Truck* Truck_specialLoadingList;
@@ -76,8 +71,6 @@ protected:
 	linkedlist<Truck>* Truck_vipMovingList;
 	linkedlist<Truck>* Truck_normalMovingList;
 	linkedlist<Truck>* Truck_specialMovingList;
-
-	//linkedlist<Truck>* MovingTrucks;
 
 	queue<Truck>* Truck_normalMaintenanceList;
 	queue<Truck>* Truck_specialMaintenanceList;
@@ -103,15 +96,11 @@ public:
 	void MaxWait(Type t, Time T);
 	void MoveTrucksToCheckup(Time t);
 	void MoveCheckupToAvail(Time t);
-	void Moving_WaitingCargo(Type t, Time MT);
 	void Deliver_MovingCargo(Type t, Time DT);
-	void Ship_Cargo(Time Company_Time);// find suitable truck to ship cargo
 	void addToVIPWaiting(Cargo* myCargo);
 	bool noCargosLeft();
 	bool no_Wating_CargosLeft();
 	Cargo* Remove_Normal_Wating_Cargo(int id);
-	
-	void Collect_statistics();// to create output file
 	
 	bool Execute_Events(Time T);//Execute the events that should be executed at that hour
 	void AutoPromote(Type t, Time MT);
@@ -119,19 +108,17 @@ public:
 	void PrintToFile(string filename, Time t);
 
 	void Increase_Timers();
-	void Deliver_Timers();
 
 	UI* GetUIObject();
 
+	void Truck_Waiting_Loading(Truck* tk);
+
+	void loadcargo(Truck* tk,Time t,Type ctype);
 	void LoadVIP(Time t);
 	void LoadSpecial(Time t);
 	void LoadNormal(Time t);
+	void Load(Time t);
 
 	void Truck_Loading_Moving(Time t);
-
-	void loadcargo(Truck* tk,Time t,Type ctype);
-	void Load(Time t);
-	void Truck_Waiting_Loading(Truck* tk);
 	void LoadAtNight(Time t);
-	bool FixInfinityLoop();
 };

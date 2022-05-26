@@ -3,12 +3,13 @@
 void StepbystepMode::Simulate(Company* c1, Time& t)
 {
 	bool done = 0;
+	Time counter(0, 0);
+	bool shipping = false;
 	while (!done) {
-		
+
 		done = c1->Execute_Events(t);
-		//if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
 		c1->AutoPromote(Normal, t);
-		
+
 		if (t.get_Hour() >= 5 && t.get_Hour() <= 23) {
 			c1->MaxWait(Normal, t);
 			c1->MaxWait(special, t);
@@ -24,10 +25,6 @@ void StepbystepMode::Simulate(Company* c1, Time& t)
 		c1->MoveCheckupToAvail(t);
 
 		done &= c1->noCargosLeft();
-
-		//done &= c1->FixInfinityLoop();
-
-
 		c1->PrintToConsole(t);
 		t++;
 		Sleep(10);

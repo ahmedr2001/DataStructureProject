@@ -54,7 +54,7 @@ void Truck::add_Cargo(Cargo* c)
 
 void Truck::set_Capacity(int cap)
 {
-	Capacity = cap;
+	Capacity = (cap <= 0) ? 1 : cap;
 }
 
 void Truck::set_Type(Type t)
@@ -99,8 +99,6 @@ void Truck::setMT(Time t)
 
 void Truck::setFT()
 {
-	//set_DI();
-	//finishTime = moveTime + DI;
 	node<Cargo>* cargoHead = cargolist->gethead();
 	Time maxFT;
 	while (cargoHead) {
@@ -233,20 +231,23 @@ bool Truck::failed() {
 	int chance = 90;
 	if (rand()%100 == chance) {
 		this->fail = true;
-		cout << "truck"<< this->getID() << " failed to deliver ";
+		cout << "Truck "<< this->getID() << " failed to deliver ";
 	}
 	else {
 		this->fail = false;
 	}
 	return this->fail;
 }
+
 bool Truck::getfail(){
 
 	return fail;
 }
+
 void Truck::setNightWorker(bool value) {
 	nightworker = value;
 }
+
 bool Truck::getNightWorker(){
 	return nightworker;
 }
