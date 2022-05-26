@@ -27,6 +27,6 @@ void StepbystepMode::Simulate(Company* c1, Time& t)
 		done &= c1->noCargosLeft();
 		c1->PrintToConsole(t);
 		t++;
-		Sleep(10);
+		Sleep(1000);
 	}
 }
