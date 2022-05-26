@@ -590,7 +590,9 @@ void Company::AutoPromote(Type t, Time MT)
 		temp->setdata(Cargo_normalWaitingList->gethead()->getdata());
 		temp->getdata()->set_Move_Time(MT);
 		temp->getdata()->set_Waiting_Time();
-		if (temp->getdata()->get_Waiting_Time().TimeToHours() > AutoP) {
+		if (temp->getdata()->get_Waiting_Time().get_Day() > AutoP 
+			|| (temp->getdata()->get_Waiting_Time().get_Hour()>0 
+			&& temp->getdata()->get_Waiting_Time().get_Day() == AutoP)) {
 			temp->getdata()->setAutoP(true);
 			temp->getdata()->set_Type(VIP);
 			Cargo_normalWaitingList->deletenode(Cargo_normalWaitingList->gethead());
@@ -1195,11 +1197,11 @@ void Company::PrintToFile(string filename, Time t)
 		outFile << "Cargos: " << cargon << " [n: " << ncargon << ", S: " << scargon << ", V: " << vcargon << "]" << endl;
 		outFile << "Cargo Avg Wait = ";
 		outFile << avgWait << endl;
-		int autoPPercentage = 0;
+		double autoPPercentage = 0;
 		if (ncargon == 0 && autoPCount == 0) {
 			autoPPercentage = 0;
 		}
-		else autoPPercentage = (int)round(((double)autoPCount / (ncargon + autoPCount)) * 100);
+		else autoPPercentage = ((double)autoPCount / (ncargon + autoPCount)) * 100;
 		outFile << "Auto-promoted Cargos: ";
 		outFile << autoPPercentage << "%" << endl;
 		outFile << "Trucks: " << Normal_Truck_Num + Special_Truck_Num + Vip_Truck_Num << " [N: " << Normal_Truck_Num
