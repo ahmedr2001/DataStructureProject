@@ -89,13 +89,6 @@ void Time::operator++(int)
 	if (hour == 0) day++;
 }
 
-// Time& Time::operator=(Time& t)
-// {
-// 	day = t.get_Day();
-// 	hour = t.get_Hour();
-// 	return *this;
-// }
-
 int Time::TimeToHours()
 {
 	int hoursElapsed;

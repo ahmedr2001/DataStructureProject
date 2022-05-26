@@ -17,7 +17,6 @@ public:
 	Time operator+(int intervalInHours);
 	Time operator-(Time nextTime);
 	void operator++(int);
-	//Time& operator=(Time& t);
 	int TimeToHours();
 	bool operator==(Time otherTime);
 	bool operator<(Time otherTime);

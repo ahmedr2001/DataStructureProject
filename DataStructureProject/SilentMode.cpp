@@ -7,7 +7,6 @@ void SilentMode::Simulate(Company* c1, Time& t, UI* uiObject)
 	Time counter(0, 0);
 	bool shipping = false;
 	while (!done) {
-
 		done = c1->Execute_Events(t);
 		c1->AutoPromote(Normal, t);
 
@@ -26,9 +25,7 @@ void SilentMode::Simulate(Company* c1, Time& t, UI* uiObject)
 		c1->MoveCheckupToAvail(t);
 
 		done &= c1->noCargosLeft();
-		//done &= c1->FixInfinityLoop();
 		t++;
-		
 	}
 	cout << "Simulation ends, Output file created\n";
 }

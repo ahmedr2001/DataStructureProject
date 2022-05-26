@@ -25,7 +25,6 @@ void StepbystepMode::Simulate(Company* c1, Time& t)
 		c1->MoveCheckupToAvail(t);
 
 		done &= c1->noCargosLeft();
-		//done &= c1->FixInfinityLoop();
 		c1->PrintToConsole(t);
 		t++;
 		Sleep(10);
